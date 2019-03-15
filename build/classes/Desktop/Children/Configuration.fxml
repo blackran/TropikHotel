@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXMasonryPane?>
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.chart.StackedBarChart?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" fx:id="CPaysClient" prefHeight="600.0" prefWidth="954.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Desktop.Children.ConfigurationController">
+   <children>
+      <AnchorPane layoutX="280.0" layoutY="3.0" prefHeight="42.0" prefWidth="880.0" style="-fx-background-color: #aaaaaa;" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="10.0">
+         <children>
+            <TextField layoutX="668.0" layoutY="8.0" promptText="Search" />
+            <ImageView fitHeight="23.0" fitWidth="23.0" layoutX="635.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/w-search.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <JFXTabPane layoutX="3.0" layoutY="59.0" prefHeight="541.0" prefWidth="940.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <tabs>
+            <Tab fx:id="utilisateur" onSelectionChanged="#clickTabUtilateur" text="utilisateur">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <JFXMasonryPane fx:id="jfxmasonrypane" layoutX="16.0" layoutY="25.0" prefHeight="220.0" prefWidth="932.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+            <Tab onSelectionChanged="#onClickBtnGenerale" text="generale">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <LineChart fx:id="lineChart" layoutX="19.0" layoutY="27.0" legendVisible="false" prefHeight="224.0" prefWidth="500.0" title="Statistique de clients" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+                          <xAxis>
+                            <CategoryAxis side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis side="LEFT" />
+                          </yAxis>
+                        </LineChart>
+                        <PieChart fx:id="piechart" layoutX="585.0" layoutY="251.0" legendVisible="false" prefHeight="250.0" prefWidth="280.0" title="Statistique de l'argent en %" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="125.0" />
+                        <StackedBarChart fx:id="stackedBarChart" layoutX="19.0" layoutY="231.0" legendVisible="false" prefHeight="253.0" prefWidth="500.0" title="Statistique de l'argent" AnchorPane.bottomAnchor="0.0">
+                          <xAxis>
+                            <CategoryAxis side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis side="LEFT" />
+                          </yAxis>
+                        </StackedBarChart>
+                     </children></AnchorPane>
+              </content>
+            </Tab>
+         </tabs>
+      </JFXTabPane>
+   </children>
+</AnchorPane>

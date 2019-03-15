@@ -1,0 +1,271 @@
+#aTop{
+    -fx-background-color:  #4b4943;
+}
+#aTop, .root{
+    -fx-border-radius: 5 5 0 0;
+    -fx-background-radius: 5 5 0 0;
+}
+
+#aNavigator{
+    -fx-background-color:  #08330b;
+    -fx-effect: dropshadow(gaussian, #202020 , 10, 0, 0, 0);
+    -fx-border-width: 0 0 2 0;
+    -fx-border-color: #041105;
+
+}
+#aNotif{
+    -fx-background-color:  #202020;
+}
+#pNotif{
+    -fx-background-image: url("images/082-bell.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+#lbNumNotif{
+    -fx-background-color: red;
+    -fx-border-radius: 15 15 15 15;
+    -fx-background-radius: 15 15 15 15;
+    -fx-text-alignment: center;
+}
+#todolist{
+    -fx-font: 13px Lato;
+}
+#pSearch{
+    -fx-background-image: url("images/135-search.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+#pUser:hover, #pNotif:hover, #pSearch:hover, #pToDo:hover, #pConfig:hover, #pExit:hover{
+    -fx-background-color: #0b6623;
+}
+
+#pNotif:hover{
+    -fx-background-image: url("images/082-bell1.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+#pSearch:hover{
+    -fx-background-image: url("images/135-search1.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+#pToDo:hover{
+    -fx-background-image: url("images/185-clipboard1.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+#pExit:hover{
+    -fx-background-image: url("images/277-exit1.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+#pConfig:hover{
+    -fx-background-image: url("images/150-cogs1.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
+#pToDo{
+    -fx-background-image: url("images/185-clipboard.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+#pConfig{
+    -fx-background-image: url("images/150-cogs.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+#pExit{
+    -fx-background-image: url("images/277-exit.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
+#Notification{
+    -fx-background-color: #202020;
+    -fx-border-width: 0px 0px 0px 3px;
+    -fx-border-color: blue green yellow #0b6623;
+}
+#loginConfig{
+    -fx-background-color: #0b6623;
+}
+
+/*tab pane propriete*/
+.root {
+    -fx-font-family: "Montserrat";
+}
+
+
+#btnHide{
+    -fx-background-color: #202020;
+    -fx-border-color: #cdcdcd;
+    -fx-background-radius: 50;
+    -fx-border-radius: 50;
+    -fx-text-fill: #cdcdcd;
+}
+#btnHide:hover{
+    -fx-effect: dropshadow(gaussian, white , 10, 0, 0, 0);
+}
+
+#btnQuitLogin{
+    -fx-background-color: #0b6623;
+    -fx-border-color: #cdcdcd;
+    -fx-background-radius: 40;
+    -fx-border-radius: 40;
+    -fx-text-fill: #cdcdcd;
+}
+#btnQuitLogin:hover{
+    -fx-effect: dropshadow(gaussian, white , 10, 0, 0, 0);
+}
+
+.tab{
+    -fx-pref-width: 160;
+    -fx-pref-height: 40;
+}
+.jfx-tab-pane .tab-label {
+    -fx-text-fill: #202020;
+}
+.jfx-tab-pane .headers-region {
+    -fx-background-color: #f4f4f4;
+}
+
+.jfx-tab-pane .tab-header-background {
+    -fx-background-color: #f4f4f4;
+}
+
+
+.jfx-tab-pane .tab-header-area .jfx-rippler {
+    -jfx-rippler-fill: #f2f2f2;
+}
+
+.jfx-tab-pane .tab-header-area {
+    -fx-padding: 0 -260 0 260;
+}
+
+.tab-selected-line {
+    -fx-background-color: green;
+}
+#btnAjouClient,#btnAjouChambre,#btnDelChambre,#btnAjouReglement,#btnAjouMontantReglement,#btnEnleveMontantReglement{
+    -fx-background-color: #f4f4f4;
+    -fx-border-width: 2;
+    -fx-border-color: #202020;
+    -fx-background-radius: 2;
+    -fx-border-radius: 2;
+    -fx-text-fill: #202020;
+    -fx-font: 18px Lato;
+    -fx-opacity: 0.9;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+#btnAjouChambre:hover, #btnDelChambre:hover, #btnAjouClient:hover, #btnAjouReglement:hover,#btnAjouMontantReglement:hover,#btnEnleveMontantReglement:hover{
+    -fx-border-width: 2.3;
+    -fx-border-color: #101010;
+}
+#btnAjouClient{
+    -fx-background-image: url("images/116-user-plus.png");
+}
+#btnAjouReglement{
+    -fx-background-image: url("images/addReglements.png");
+}
+#btnAjouChambre{
+    -fx-background-image: url("images/addChambre.png");
+}
+#btnDelChambre{
+    -fx-background-image: url("images/removeChambre.png");
+}
+#btnAjouMontantReglement{
+    -fx-background-image: url("images/267-plus.png");
+}
+#btnEnleveMontantReglement{
+    -fx-background-image: url("images/268-minus32.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
+
+#ajoutResponsable{
+    -fx-background-image: url("images/267-plus64x64.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-color: #cdcdcd;
+}
+
+
+#imageModResp{
+    -fx-background-size: 16 16;
+}
+
+#imgResponsableAll{
+    -fx-background-size: 150 150;
+}
+
+/*paneau de configuration propriete*/
+
+#paneEdit1, #paneEdit2, #paneEdit3{
+    -fx-background-color: white;
+    -fx-border-color:  rgba(0,0,0,0.6);
+    -fx-border-width: 3;
+    -fx-border-radius: 5;
+    -fx-background-position: 550 355;
+}
+
+#btnSup1, #btnEnr1, #btnMod1, #btnRes1,
+#btnSup2, #btnEnr2, #btnMod2, #btnRes2,
+#btnSup3, #btnEnr3, #btnMod3, #btnRes3,
+#btnCliRepas{
+    -fx-background-color: #cdcdcd;
+    -fx-border-width: 3;
+    -fx-border-color: #202020;
+    -fx-background-radius: 50;
+    -fx-border-radius: 50;
+    -fx-text-fill: #202020;
+    -fx-font: 20px Lato;
+}
+
+#btnEnr1, #btnEnr2, #btnEnr3{
+    -fx-background-image: url("images/267-plus.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+#btnSup1, #btnSup2, #btnSup3{
+    -fx-background-image: url("images/173-bin.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+#btnMod1, #btnMod2, #btnMod3{
+    -fx-background-image: url("images/006-pencil_1.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+#btnRes1, #btnRes2, #btnRes3{
+    -fx-background-image: url("images/133-spinner11.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
+#btnSup1:hover, #btnEnr1:hover, #btnMod1:hover, #btnRes1:hover,
+#btnSup2:hover, #btnEnr2:hover, #btnMod2:hover,  #btnRes2:hover,
+#btnSup3:hover, #btnEnr3:hover, #btnMod3:hover,  #btnRes3:hover, 
+#btnCliRepas:hover{
+    -fx-background-color: #ffffff;
+}
+#btnSup1:disabled, #btnEnr1:disabled, #btnMod1:disabled,  #btnRes1:disabled,
+#btnSup2:disabled, #btnEnr2:disabled, #btnMod2:disabled,  #btnRes2:disabled,
+#btnSup3:disabled, #btnEnr3:disabled, #btnMod3:disabled,  #btnRes3:disabled{
+    background-image: url("images/null.png");
+    background-color: red;
+}
+#hours{
+    -fx-font: 18px Lato;
+}
+#mois{
+    -fx-font: 8px Lato;
+}
+#annee{
+    -fx-font: 8px Lato;
+}
+#btnImprission{
+    -fx-background-image:  url("images/print.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}

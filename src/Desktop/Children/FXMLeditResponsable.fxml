@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" fx:id="principaleResp" prefHeight="550.0" prefWidth="650.0" style="-fx-border-color: #aaaaaa; -fx-effect: dropshadow(gaussian, black, 10, 0, 0, 0);" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Desktop.Children.FXMLeditResponsableController">
+      <JFXTextField fx:id="txtNomDetail" labelFloat="true" layoutX="250.0" layoutY="100.0" prefHeight="26.0" prefWidth="277.0" promptText="Nom" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="100.0" />
+      <JFXTextField fx:id="txtPrenomDetail" labelFloat="true" layoutX="250.0" layoutY="150.0" prefHeight="26.0" prefWidth="277.0" promptText="Prenom" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="150.0" />
+      <JFXTextField fx:id="txtPseudoDetail" labelFloat="true" layoutX="250.0" layoutY="200.0" prefHeight="26.0" prefWidth="277.0" promptText="Pseudo" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="200.0" />
+      <JFXTextField fx:id="txtPassDetail" labelFloat="true" layoutX="250.0" layoutY="250.0" prefHeight="26.0" prefWidth="277.0" promptText="Mot de passe" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="250.0" />
+      <JFXTextField fx:id="txtAddressDetail" labelFloat="true" layoutX="250.0" layoutY="300.0" prefHeight="26.0" prefWidth="277.0" promptText="Address" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="350.0" />
+      <JFXTextField fx:id="txtTelDetail" labelFloat="true" layoutX="250.0" layoutY="350.0" prefHeight="26.0" prefWidth="277.0" promptText="Telephone" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="400.0" />
+   <ImageView fx:id="imageText" fitHeight="200.0" fitWidth="200.0" layoutX="14.0" layoutY="110.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: dropshadow(gaussian, #202020, 10, 0, 0, 0);" AnchorPane.bottomAnchor="250.0" AnchorPane.leftAnchor="30.0">
+      <image>
+         <Image url="@../images/Me.jpg" />
+      </image>
+   </ImageView>
+   <Button layoutX="465.0" layoutY="449.0" mnemonicParsing="false" onAction="#ajouterResponsable" text="enregistrer" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="480.0" />
+      <Label layoutX="276.0" layoutY="28.0" text="personel N°" AnchorPane.leftAnchor="190.0" AnchorPane.topAnchor="20.0">
+      <font>
+         <Font name="FreeSerif" size="40.0" />
+      </font>
+   </Label>
+      <Label fx:id="dtNumResponsable" layoutX="465.0" layoutY="38.0" AnchorPane.leftAnchor="377.0" AnchorPane.topAnchor="35.0">
+      <font>
+         <Font size="20.0" />
+      </font>
+   </Label>
+   <Pane layoutX="14.0" layoutY="73.0" prefHeight="3.0" prefWidth="200.0" style="-fx-background-color: #aaaaaa;" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+   <Button layoutX="389.0" layoutY="449.0" mnemonicParsing="false" onAction="#onClickQuit" text="annuler" AnchorPane.rightAnchor="160.0" AnchorPane.topAnchor="480.0" />
+   <ComboBox fx:id="cbUserResponsables" layoutX="392.0" layoutY="313.0" prefWidth="150.0" promptText="USER" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="310.0" />
+   <JFXButton layoutX="14.0" layoutY="313.0" onAction="#filesSources" text="Modifier" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="300.0" />
+   <Label layoutX="263.0" layoutY="315.0" text="Droit d'utilisateur:" AnchorPane.rightAnchor="219.0" />
+   <Label fx:id="lbImgUrlDetail" layoutX="38.0" layoutY="356.0" text="/Desktop/images/DefaultUser.png" />
+   <Pane fx:id="movePane" layoutX="2.0" layoutY="2.0" onMouseDragged="#OnMouseDragged" onMousePressed="#OnMousePressed" prefHeight="72.0" prefWidth="648.0" AnchorPane.bottomAnchor="476.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+   <Button layoutX="571.0" layoutY="8.0" mnemonicParsing="false" onAction="#onClickQuit" text="X" AnchorPane.rightAnchor="10.0" /> 
+</AnchorPane>

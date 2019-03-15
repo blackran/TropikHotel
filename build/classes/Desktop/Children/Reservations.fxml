@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXListView?>
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXToggleButton?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" fx:id="CPaysClient" prefHeight="600.0" prefWidth="954.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Desktop.Children.ControlerReservations">
+   <children>
+      <AnchorPane layoutX="280.0" layoutY="3.0" prefHeight="42.0" prefWidth="880.0" style="-fx-background-color: #aaaaaa;" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="10.0">
+         <children>
+            <TextField layoutX="668.0" layoutY="8.0" promptText="Search" />
+            <ImageView fitHeight="23.0" fitWidth="23.0" layoutX="635.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/w-search.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <JFXTabPane layoutX="3.0" layoutY="59.0" prefHeight="541.0" prefWidth="940.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <tabs>
+            <Tab onSelectionChanged="#OnScrolleReservation" text="Reservation">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="619.0" prefWidth="1112.0">
+                     <children>
+                        <TitledPane fx:id="panesEdit" animated="false" collapsible="false" layoutX="35.0" layoutY="14.0" prefHeight="482.0" prefWidth="400.0" text="Details" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="10.0">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="346.0" prefWidth="400.0">
+                                 <children>
+                                    <Label layoutX="25.0" layoutY="9.0" text="N°" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="0.0" />
+                                    <Label fx:id="lbNumReservation" layoutX="57.0" layoutY="9.0" AnchorPane.leftAnchor="57.0" AnchorPane.topAnchor="0.0" />
+                                    <JFXDatePicker fx:id="txtDateDebutReservation" layoutX="40.4" layoutY="40.4" prefHeight="26.0" prefWidth="340.0" promptText="Date Debut" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="40.0" />
+                                    <JFXDatePicker fx:id="txtDateFinReservation" layoutX="28.0" layoutY="76.0" onAction="#autoCompletionReservationNb" prefHeight="26.0" prefWidth="340.0" promptText="Date Fin" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="80.0" />
+                                    <JFXTextField fx:id="txtNbJourReservation" labelFloat="true" layoutX="27.0" layoutY="156.0" onKeyReleased="#autoCompletionReservationDt" prefHeight="26.0" prefWidth="340.0" promptText="Nombre jour" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="120.0" />
+                                    <JFXComboBox fx:id="txtChambreReservation" labelFloat="true" layoutX="50.4" layoutY="280.4" prefHeight="26.0" prefWidth="210.0" promptText="Nom Chambres" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="270.0" />
+                                    <JFXListView fx:id="listChambreReservations" layoutX="50.4" layoutY="320.4" onMouseClicked="#onMouseClickedListViewReservation" prefHeight="131.0" prefWidth="210.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="300.0" />
+                                    <Button fx:id="btnAjouChambre" layoutX="180.0" layoutY="320.0" mnemonicParsing="false" onAction="#addChambreReservation" prefHeight="40.0" prefWidth="40.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="260.0" />
+                                    <JFXTextField fx:id="txtNomClientReservation" labelFloat="true" layoutX="105.4" layoutY="180.4" prefHeight="26.0" prefWidth="200.0" promptText="Nom Client" AnchorPane.leftAnchor="95.0" AnchorPane.topAnchor="170.0" />
+                                    <Button fx:id="btnAjouClient" layoutX="256.0" layoutY="187.0" mnemonicParsing="false" onAction="#ajouterClient" prefHeight="40.0" prefWidth="40.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="160.0" />
+                                    <JFXTextField fx:id="txtReglementReservation" labelFloat="true" layoutX="51.0" layoutY="210.4" onKeyReleased="#aideReglement" prefHeight="26.0" prefWidth="150.0" promptText="Reglements" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="220.0" />
+                                    <Button fx:id="btnAjouReglement" layoutX="266.0" layoutY="197.0" mnemonicParsing="false" onAction="#ajouterReglement" prefHeight="40.0" prefWidth="40.0" AnchorPane.leftAnchor="190.0" AnchorPane.topAnchor="210.0" />
+                                    <JFXToggleButton fx:id="tgBtReglement" layoutX="245.0" layoutY="-12.0" text="." AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="-23.0" />
+                                    <JFXTextField fx:id="txtNumClientReservation" labelFloat="true" layoutX="17.0" layoutY="176.0" onKeyReleased="#autoCompletionReservationClient" prefHeight="26.0" prefWidth="50.0" promptText="N°" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="170.0" />
+                                    <Label layoutX="367.4" layoutY="453.4" prefHeight="0.0" prefWidth="17.0" text="N°" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="318.0" />
+                                    <Label fx:id="lbResponsableReservation" layoutX="354.0" layoutY="3.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="337.0" />
+                                    <Button fx:id="btnDelChambre" layoutX="280.0" layoutY="269.0" mnemonicParsing="false" onAction="#rmChambreReservation" prefHeight="40.0" prefWidth="40.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="260.0" />
+                                    <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="308.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="1.0">
+                                       <image>
+                                          <Image url="@../images/119-user-tie_1.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Label layoutX="163.0" layoutY="10.0" text="Regler" AnchorPane.leftAnchor="215.0" AnchorPane.topAnchor="0.0" />
+                                    <Label fx:id="verReglement" cache="true" layoutX="270.0" layoutY="232.0" textFill="RED" />
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                        </TitledPane>
+                        <TableView fx:id="tableReservation" layoutX="461.0" layoutY="30.0" onMouseClicked="#onMouseClickedTableauReservation" prefHeight="327.0" prefWidth="455.0" style="-fx-border-radius: 50px;" AnchorPane.topAnchor="10.0">
+                           <columns>
+                              <TableColumn fx:id="CNumReservation" prefWidth="42.0" text="N°" />
+                              <TableColumn fx:id="CDateDebutReservation" prefWidth="182.0" text="Debut" />
+                              <TableColumn fx:id="CDateFinReservation" prefWidth="128.0" text="Fin" />
+                              <TableColumn fx:id="CClientReservation" prefWidth="102.0" text="Client" />
+                           </columns>
+                        </TableView>
+                        <Label fx:id="stock" layoutX="444.0" layoutY="373.0" text="Label" />
+                        <Label fx:id="stock1" layoutX="445.0" layoutY="398.0" text="Label" />
+                        <Label fx:id="stockNumResponsable" layoutX="447.0" layoutY="425.0" text="NumResp" />
+                        <Pane fx:id="paneEdit1" layoutX="550.0" layoutY="355.0" prefHeight="115.0" prefWidth="300.0">
+                           <children>
+                              <Button fx:id="btnSup1" layoutX="90.0" layoutY="90.0" mnemonicParsing="false" onAction="#activeSupReservation" onMouseClicked="#affChambreReservation" prefHeight="50.0" prefWidth="50.0">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="btnEnr1" layoutX="20.0" layoutY="90.0" mnemonicParsing="false" onAction="#activeEnrReservation" prefHeight="50.0" prefWidth="50.0">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="btnRes1" layoutX="230.0" layoutY="90.0" mnemonicParsing="false" onAction="#resetReservation" prefHeight="50.0" prefWidth="50.0">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="btnMod1" layoutX="160.0" layoutY="90.0" mnemonicParsing="false" onAction="#activeModReservation" prefHeight="50.0" prefWidth="50.0">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="btnValider1" layoutX="20.0" layoutY="30.0" mnemonicParsing="false" onAction="#verification" prefHeight="40.0" prefWidth="120.0" text="valider" />
+                              <Button fx:id="btnAnnuler1" layoutX="160.0" layoutY="30.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="annuler" />
+                           </children>
+                        </Pane>
+                     </children></AnchorPane>
+              </content>
+            </Tab>
+            <Tab onSelectionChanged="#OnScrolleReglement" text="Reglements">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="tableReglement" layoutX="473.0" layoutY="9.0" onMouseClicked="#onMouseClickedTableauReglement" prefHeight="417.0" prefWidth="455.0" style="-fx-border-radius: 50px;" AnchorPane.bottomAnchor="174.0" AnchorPane.leftAnchor="473.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="9.0">
+                          <columns>
+                            <TableColumn fx:id="CNumReglement" prefWidth="58.0" text="N°" />
+                              <TableColumn fx:id="CEtatReglement" prefWidth="202.0" text="Etats" />
+                              <TableColumn fx:id="CMontantReglement" prefWidth="207.0" text="Montat recu" />
+                          </columns>
+                        </TableView>
+                        <TitledPane animated="false" layoutX="24.0" layoutY="8.0" prefHeight="478.0" prefWidth="400.0" text="untitled">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <Label layoutX="37.0" layoutY="45.0" text="N°" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="40.0" />
+                                    <Label fx:id="lbNumReglement" layoutX="87.0" layoutY="47.0" text="1" AnchorPane.topAnchor="40.0" />
+                                    <JFXTextField fx:id="MontantAjouter" labelFloat="true" layoutX="37.0" layoutY="215.0" prefHeight="26.0" prefWidth="187.0" promptText="Montant" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="215.0" />
+                                    <Button fx:id="btnAjouMontantReglement" layoutX="239.0" layoutY="209.0" mnemonicParsing="false" onAction="#updatePayment" prefHeight="40.0" prefWidth="40.0" AnchorPane.topAnchor="210.0" />
+                                    <Label layoutX="40.0" layoutY="116.0" text="Etats " AnchorPane.topAnchor="100.0" />
+                                    <JFXToggleButton fx:id="tgBtReglements" layoutX="74.0" layoutY="96.0" text="." AnchorPane.topAnchor="77.0" />
+                                    <JFXTextField fx:id="MontantRedevableReglement" labelFloat="true" layoutX="104.0" layoutY="163.0" promptText="Argent redevable" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="150.0" />
+                                    <JFXTextField fx:id="txtMontantRecuReglements" labelFloat="true" layoutX="150.0" layoutY="298.0" promptText="Prix regler" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="300.0" />
+                                    <Label fx:id="stockReglement" layoutX="60.0" layoutY="407.0" text="Label" />
+                                    <Button fx:id="btnEnleveMontantReglement" layoutX="293.0" layoutY="220.0" mnemonicParsing="false" onAction="#updatePaymentMinus" prefHeight="40.0" prefWidth="40.0" />
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                        </TitledPane>
+                        <Pane fx:id="paneEdit2" layoutX="550.0" layoutY="355.0" prefHeight="115.0" prefWidth="300.0">
+                           <children>
+                              <Button fx:id="btnSup2" layoutX="90.0" layoutY="90.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="btnEnr2" layoutX="20.0" layoutY="90.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="btnRes2" layoutX="230.0" layoutY="90.0" mnemonicParsing="false" onAction="#resetAllReservation" prefHeight="50.0" prefWidth="50.0">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="btnMod2" layoutX="160.0" layoutY="90.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="btnValider2" layoutX="20.0" layoutY="30.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="valider" />
+                              <Button fx:id="btnAnnuler2" layoutX="160.0" layoutY="30.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="annuler" />
+                           </children>
+                        </Pane>
+                        <Button fx:id="btnImprission" layoutX="879.0" layoutY="429.0" mnemonicParsing="false" onAction="#onMouseClickBtnFacture" prefHeight="50.0" prefWidth="50.0" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="Disponible">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <JFXDatePicker fx:id="txtDateDebutDisponible" layoutX="45.0" layoutY="115.0" onAction="#onChangeDtDebutDisponible" promptText="Date debut" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="750.0" AnchorPane.topAnchor="60.0" />
+                        <JFXDatePicker fx:id="txtDateFinDisponible" layoutX="45.0" layoutY="142.0" promptText="Date fin" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="750.0" AnchorPane.topAnchor="120.0" />
+                        <TableView fx:id="tableChambres" layoutX="282.0" layoutY="24.0" prefHeight="444.0" prefWidth="508.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="240.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+                          <columns>
+                            <TableColumn fx:id="CNomChambre" prefWidth="97.0" text="Nom" />
+                            <TableColumn fx:id="CTelChambre" prefWidth="112.0" text="Tel" />
+                              <TableColumn fx:id="CEtageChambre" prefWidth="60.0" text="Etage" />
+                              <TableColumn fx:id="CChauffeauChambre" prefWidth="131.0" text="Chauffeau" />
+                              <TableColumn fx:id="CPrixChambre" prefWidth="125.0" text="Prix" />
+                              <TableColumn fx:id="CNumCategorie" prefWidth="87.0" text="Categorie" />
+                              <TableColumn fx:id="CNumType" text="Type" />
+                          </columns>
+                        </TableView>
+                        <JFXComboBox fx:id="txtNumCategorie" labelFloat="true" layoutX="45.0" layoutY="219.0" prefHeight="26.0" prefWidth="171.0" promptText="Categorie" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="750.0" AnchorPane.topAnchor="240.0" />
+                        <JFXComboBox fx:id="txtNumType" labelFloat="true" layoutX="45.0" layoutY="312.0" prefHeight="26.0" prefWidth="171.0" promptText="Types" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="750.0" AnchorPane.topAnchor="300.0" />
+                        <Button layoutX="45.0" layoutY="381.0" mnemonicParsing="false" onAction="#onClickSeach" text="Chercher" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="750.0" AnchorPane.topAnchor="420.0">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+         </tabs>
+      </JFXTabPane>
+   </children>
+</AnchorPane>

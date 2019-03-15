@@ -1,0 +1,62 @@
+#vBox{
+   -fx-effect: dropshadow(gaussian, green, 5, 0, 0, 0);
+   -fx-background-radius: 5.0;
+   -fx-border:none;
+}
+@font-face {
+    font-family: 'isa';
+    src: url('fonts/isadoraCyr.ttf');
+}
+#titleLogin{
+    -fx-text-fill: white;
+    -fx-font: 30px "Serif";
+}
+#BtnLogin{
+    -fx-background-color: #0b6623;
+    -fx-border-width: 3;
+    -fx-border-color: #0b6623;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-text-fill: derive(green, 100%);
+    -fx-font: 20px Lato;
+    -fx-opacity: 0.9;
+}
+#BtnLogin:hover{
+    -fx-background-color: #e2e2e2;
+    -fx-text-fill: #0b6623;
+}
+#BtnCancel{
+    -fx-background-color: e2e2e2;
+    -fx-border-width: 3;
+    -fx-border-color: #0b6623;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-text-fill: #0b6623;
+    -fx-font: 20px Lato;
+    -fx-opacity: 0.9;
+}
+#BtnCancel:hover{
+    -fx-background-color: #0b6623;
+    -fx-text-fill: derive(green, 100%);
+}
+#principal{
+    -fx-background-image: url("images/24666_870_photo7.jpg");
+    -fx-background-repeat: no-repeat;
+    -fx-background-repeat: stretch;   
+    -fx-background-size: 870 600;
+    -fx-background-position: center center;
+}
+#title{
+    -fx-background-image: url("images/title.png");
+    -fx-background-repeat: no-repeat;
+}
+#body{
+    -fx-background-color: e2e2e2;
+    -fx-background-size: 300 200;
+}
+#PseudoLogin{
+    -fx-prompt-text-fill: #2e8b57;
+}
+#PasswordLogin{
+    -fx-prompt-text-fill: #2e8b57;
+}

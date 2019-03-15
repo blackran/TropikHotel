@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" fx:id="ReadNotif" prefHeight="598.0" prefWidth="220.0" style="-fx-background-color: #202020; -fx-border-color: blue green yellow #0b6623; -fx-border-width: 0px 0px 0px 3px;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Desktop.Notification.NotificationController">
+   <children>
+      <Label layoutX="10.0" layoutY="113.0" text="NOTIFICATIONS" textFill="WHITE" AnchorPane.leftAnchor="24.0" AnchorPane.topAnchor="50.0">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnNo" layoutX="67.0" layoutY="172.0" mnemonicParsing="false" text="Suprimer" />
+      <Button fx:id="btnHide" layoutX="58.0" layoutY="37.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="26.0" text="X" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="6.0" />
+      <Label layoutX="24.0" layoutY="83.0" prefHeight="73.0" prefWidth="180.0" text="le jour de client N° 1 est depasse" textFill="WHITE" wrapText="true" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" />
+      <Label layoutX="20.0" layoutY="213.0" prefHeight="73.0" prefWidth="180.0" text="le travail prevu à 14h n'est pas encore aceveu" textFill="WHITE" wrapText="true" />
+      <Button fx:id="btnNo1" layoutX="67.0" layoutY="299.0" mnemonicParsing="false" text="Suprimer" />
+      <Label fx:id="lbCopyrigth" layoutX="32.0" layoutY="523.0" text="©" textFill="WHITE" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="30.0">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

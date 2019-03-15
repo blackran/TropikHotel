@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXRadioButton?>
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" fx:id="CPaysClient" prefHeight="600.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Desktop.Children.ControlerChambres">
+   <children>
+      <AnchorPane layoutX="280.0" layoutY="3.0" prefHeight="42.0" prefWidth="880.0" style="-fx-background-color: #aaaaaa;" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="10.0">
+         <children>
+            <TextField layoutX="668.0" layoutY="8.0" promptText="Search" />
+            <ImageView fitHeight="23.0" fitWidth="23.0" layoutX="635.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/w-search.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <JFXTabPane layoutX="3.0" layoutY="59.0" prefHeight="541.0" prefWidth="940.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <tabs>
+            <Tab text="Chambres">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TitledPane animated="false" layoutX="16.0" layoutY="13.0" prefHeight="472.0" prefWidth="411.0" text="Details" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="10.0">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="469.0" prefWidth="409.0">
+                                       <padding>
+                                          <Insets left="5.0" />
+                                       </padding>
+                                       <children>
+                                          <JFXTextField fx:id="txtNomChambre" labelFloat="true" layoutX="31.0" layoutY="58.0" prefHeight="26.0" prefWidth="277.0" promptText="Nom" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="50.0" />
+                                          <JFXTextField fx:id="txtTelChambre" labelFloat="true" layoutX="29.0" layoutY="126.0" prefHeight="26.0" prefWidth="277.0" promptText="Telephone" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="100.0" />
+                                          <JFXComboBox fx:id="txtEtageChambre" labelFloat="true" layoutX="35.0" layoutY="168.0" prefHeight="26.0" prefWidth="276.0" promptText="Etages" AnchorPane.topAnchor="150.0" />
+                                          <JFXRadioButton fx:id="rbOui" layoutX="102.0" layoutY="212.0" text="Oui" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="215.0">
+                                             <toggleGroup>
+                                                <ToggleGroup fx:id="occuper" />
+                                             </toggleGroup></JFXRadioButton>
+                                          <JFXRadioButton fx:id="rbNon" layoutX="182.0" layoutY="209.0" text="Non" toggleGroup="$occuper" AnchorPane.topAnchor="215.0" />
+                                          <Label layoutX="34.0" layoutY="210.0" style="-fx-font-size: 11;" text="Ocuper:" textFill="#4d4d4d" AnchorPane.topAnchor="194.0" />
+                                          <JFXComboBox fx:id="txtNumType" labelFloat="true" layoutX="32.0" layoutY="309.0" prefHeight="26.0" prefWidth="276.0" promptText="Types" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="400.0" />
+                                          <JFXComboBox fx:id="txtNumCategorie" labelFloat="true" layoutX="34.0" layoutY="260.0" prefHeight="26.0" prefWidth="276.0" promptText="Categorie" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="350.0" />
+                                          <Label fx:id="stockChambre" layoutX="31.0" layoutY="427.0" text="Label" />
+                                          <JFXTextField fx:id="txtPrixChambre" labelFloat="true" layoutX="39.0" layoutY="136.0" prefHeight="26.0" prefWidth="277.0" promptText="Prix Chambre" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="250.0" />
+                                          <JFXComboBox fx:id="txtChauffeauChambre" labelFloat="true" layoutX="32.0" layoutY="303.0" prefHeight="26.0" prefWidth="275.0" promptText="Chauffeau" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="300.0" />
+                                       </children>
+                                    </AnchorPane>
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                        </TitledPane>
+                        <TableView fx:id="tableChambres" layoutX="462.0" layoutY="11.0" onMouseClicked="#onMouseClickedTableauChambre" prefHeight="325.0" prefWidth="453.0" style="-fx-border-radius: 50px;" AnchorPane.rightAnchor="30.0">
+                           <columns>
+                              <TableColumn fx:id="CNomChambre" prefWidth="161.0" text="Nom" />
+                              <TableColumn fx:id="CNumCategorie" prefWidth="141.0" text="Categories" />
+                              <TableColumn fx:id="CNumType" prefWidth="152.0" text="Types" />
+                           </columns>
+                        </TableView>
+                        <Pane fx:id="paneEdit1" layoutX="550.0" layoutY="355.0" prefHeight="115.0" prefWidth="300.0">
+                           <children>
+                              <Button fx:id="btnSup1" layoutX="90.0" layoutY="90.0" mnemonicParsing="false" onAction="#activeSupChambre" prefHeight="50.0" prefWidth="50.0">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="btnEnr1" layoutX="20.0" layoutY="90.0" mnemonicParsing="false" onAction="#activeEnrChambre" prefHeight="50.0" prefWidth="50.0">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="btnRes1" layoutX="230.0" layoutY="90.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="btnMod1" layoutX="160.0" layoutY="90.0" mnemonicParsing="false" onAction="#activeModChambre" prefHeight="50.0" prefWidth="50.0">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="btnValider1" layoutX="20.0" layoutY="30.0" mnemonicParsing="false" onAction="#verification" prefHeight="40.0" prefWidth="120.0" text="valider" />
+                              <Button fx:id="btnAnnuler1" layoutX="160.0" layoutY="30.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="annuler" />
+                           </children>
+                        </Pane>
+                     </children></AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="Categories">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="866.0">
+                     <children>
+                        <TitledPane animated="false" layoutX="28.0" layoutY="14.0" prefHeight="412.0" prefWidth="411.0" text="Details">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="361.0" prefWidth="407.0">
+                                       <padding>
+                                          <Insets left="5.0" />
+                                       </padding>
+                                       <children>
+                                          <Label layoutX="31.0" layoutY="23.0" text="N°" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="10.0" />
+                                          <Label fx:id="txtNumCategorie1" layoutX="81.0" layoutY="24.0" text="1" AnchorPane.topAnchor="10.0" />
+                                          <TextArea fx:id="txtDescriptionCategorie" layoutX="26.0" layoutY="75.0" prefHeight="174.0" prefWidth="358.0" />
+                                          <Label layoutX="25.0" layoutY="49.0" text="Description:" />
+                                          <Label fx:id="stockCategorie" layoutX="34.0" layoutY="328.0" text="Label" />
+                                       </children>
+                                    </AnchorPane>
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </TitledPane>
+                        <TableView fx:id="tableCategorie" layoutX="473.0" layoutY="14.0" onMouseClicked="#onMouseClickedTableauCategorie" prefHeight="263.0" prefWidth="455.0" style="-fx-border-radius: 50px;">
+                           <columns>
+                              <TableColumn fx:id="CNumCategorie1" prefWidth="90.0" text="N°" />
+                              <TableColumn fx:id="CDescriptionCategorie" prefWidth="364.0" text="Description" />
+                           </columns>
+                        </TableView>
+                        <Pane fx:id="paneEdit2" layoutX="550.0" layoutY="355.0" prefHeight="115.0" prefWidth="300.0">
+                           <children>
+                              <Button fx:id="btnSup2" layoutX="90.0" layoutY="90.0" mnemonicParsing="false" onAction="#activeSupCategorie" prefHeight="50.0" prefWidth="50.0">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="btnEnr2" layoutX="20.0" layoutY="90.0" mnemonicParsing="false" onAction="#activeEnrCategorie" prefHeight="50.0" prefWidth="50.0">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="btnRes2" layoutX="230.0" layoutY="90.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="btnMod2" layoutX="160.0" layoutY="90.0" mnemonicParsing="false" onAction="#activeModCategorie" prefHeight="50.0" prefWidth="50.0">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="btnValider2" layoutX="20.0" layoutY="30.0" mnemonicParsing="false" onAction="#verification" prefHeight="40.0" prefWidth="120.0" text="valider" />
+                              <Button fx:id="btnAnnuler2" layoutX="160.0" layoutY="30.0" mnemonicParsing="false" onAction="#verification" prefHeight="40.0" prefWidth="120.0" text="annuler" />
+                           </children>
+                        </Pane>
+                     </children></AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="Types">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="tableType" layoutX="473.0" layoutY="9.0" onMouseClicked="#onMouseClickedTableauType" prefHeight="417.0" prefWidth="455.0" style="-fx-border-radius: 50px;" AnchorPane.bottomAnchor="174.0" AnchorPane.leftAnchor="473.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="9.0">
+                          <columns>
+                            <TableColumn fx:id="CNumType1" prefWidth="66.0" text="N°" />
+                              <TableColumn fx:id="CNomType" prefWidth="388.0" text="Nom" />
+                          </columns>
+                        </TableView>
+                      <AnchorPane layoutX="38.0" layoutY="36.0" minHeight="0.0" minWidth="0.0" prefHeight="295.0" prefWidth="409.0">
+                           <padding>
+                              <Insets left="5.0" />
+                           </padding>
+                        </AnchorPane>
+                        <TitledPane animated="false" layoutX="38.0" layoutY="11.0" prefHeight="456.0" prefWidth="411.0" text="Details">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="297.0" prefWidth="407.0">
+                                       <padding>
+                                          <Insets left="5.0" />
+                                       </padding>
+                                       <children>
+                                          <Label layoutX="31.0" layoutY="23.0" text="N°" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="10.0" />
+                                          <Label fx:id="lbNumType" layoutX="81.0" layoutY="24.0" text="1" AnchorPane.topAnchor="10.0" />
+                                          <JFXTextField fx:id="txtNomType" labelFloat="true" layoutX="34.0" layoutY="56.0" prefHeight="26.0" prefWidth="277.0" promptText="Nom" AnchorPane.leftAnchor="34.0" AnchorPane.topAnchor="56.0" />
+                                          <Label fx:id="stockType" layoutX="34.0" layoutY="252.0" text="Label" />
+                                          <TextArea fx:id="txtDescriptionType" layoutX="-67.0" layoutY="156.0" prefHeight="174.0" prefWidth="358.0" AnchorPane.leftAnchor="30.0" />
+                                          <Label layoutX="-68.0" layoutY="130.0" text="Description:" AnchorPane.leftAnchor="30.0" />
+                                       </children>
+                                    </AnchorPane>
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </TitledPane>
+                        <Pane fx:id="paneEdit3" layoutX="550.0" layoutY="355.0" prefHeight="115.0" prefWidth="300.0">
+                           <children>
+                              <Button fx:id="btnSup3" layoutX="90.0" layoutY="90.0" mnemonicParsing="false" onAction="#activeSupTypes" prefHeight="50.0" prefWidth="50.0">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="btnEnr3" layoutX="20.0" layoutY="90.0" mnemonicParsing="false" onAction="#activeEnrTypes" prefHeight="50.0" prefWidth="50.0">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="btnRes3" layoutX="230.0" layoutY="90.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="btnMod3" layoutX="160.0" layoutY="90.0" mnemonicParsing="false" onAction="#activeModTypes" prefHeight="50.0" prefWidth="50.0">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="btnValider3" layoutX="20.0" layoutY="30.0" mnemonicParsing="false" onAction="#verification" prefHeight="40.0" prefWidth="120.0" text="valider" />
+                              <Button fx:id="btnAnnuler3" layoutX="160.0" layoutY="30.0" mnemonicParsing="false" onAction="#verification" prefHeight="40.0" prefWidth="120.0" text="annuler" />
+                           </children>
+                        </Pane>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+         </tabs>
+      </JFXTabPane>
+   </children>
+</AnchorPane>

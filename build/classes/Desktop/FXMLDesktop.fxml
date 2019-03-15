@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="principal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Desktop.ControlerDesktop">
+   <children>
+      <VBox fx:id="VBoxBlur" layoutY="1.0" prefHeight="700.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <AnchorPane fx:id="aNavigator" onMouseClicked="#onClickNotif" prefHeight="80.0" prefWidth="1000.0">
+               <children>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="15.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="915.0" AnchorPane.topAnchor="10.0">
+                     <image>
+                        <Image url="@images/tropikIcon.jpg" />
+                     </image>
+                  </ImageView>
+                  <HBox layoutX="313.0" layoutY="-5.0" onMouseClicked="#onClicFocus" prefHeight="80.0" prefWidth="483.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="350.0" AnchorPane.rightAnchor="167.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <AnchorPane fx:id="pReservation" prefHeight="100.0" prefWidth="120.0">
+                           <children>
+                              <ImageView fx:id="imgReservations" fitHeight="38.0" fitWidth="38.0" layoutX="56.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="10.0">
+                                 <image>
+                                    <Image url="@images/084-calendar.png" />
+                                 </image>
+                              </ImageView>
+                              <Label fx:id="lbReservation" layoutX="16.0" layoutY="64.0" text="Reservations" textFill="WHITE" AnchorPane.leftAnchor="8.0" AnchorPane.topAnchor="50.0">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </AnchorPane>
+                        <AnchorPane fx:id="pChambre" prefHeight="100.0" prefWidth="120.0">
+                           <children>
+                              <ImageView fx:id="imgChambres" fitHeight="40.0" fitWidth="40.0" layoutX="55.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="10.0">
+                                 <image>
+                                    <Image url="@images/001-home.png" />
+                                 </image>
+                              </ImageView>
+                              <Label fx:id="lbChambre" layoutX="29.0" layoutY="65.0" text="Chambres" textFill="WHITE" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="50.0">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </AnchorPane>
+                        <AnchorPane fx:id="pClient" prefHeight="80.0" prefWidth="120.0">
+                           <children>
+                              <ImageView fx:id="imgClients" fitHeight="40.0" fitWidth="40.0" layoutX="49.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="10.0">
+                                 <image>
+                                    <Image url="@images/115-users-d.png" />
+                                 </image>
+                              </ImageView>
+                              <Label fx:id="lbClients" layoutX="39.0" layoutY="64.0" text="Clients" textFill="#e0e0e0" AnchorPane.leftAnchor="32.0" AnchorPane.topAnchor="50.0">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </AnchorPane>
+                        <AnchorPane fx:id="pRepas" prefHeight="100.0" prefWidth="120.0">
+                           <children>
+                              <ImageView fx:id="imgRepas" fitHeight="38.0" fitWidth="38.0" layoutX="60.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="10.0">
+                                 <image>
+                                    <Image url="@images/164-spoon-knife.png" />
+                                 </image>
+                              </ImageView>
+                              <Label fx:id="lbRepas" layoutX="16.0" layoutY="64.0" text="Repas" textFill="WHITE" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="50.0">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </AnchorPane>
+                     </children>
+                  </HBox>
+                  <Label layoutX="100.0" layoutY="8.0" text="LE TROPIK" textFill="WHITE" AnchorPane.leftAnchor="70.0" AnchorPane.topAnchor="10.0">
+                     <font>
+                        <Font name="Serif Regular" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="100.0" layoutY="42.0" text="HOTEL" textFill="WHITE" AnchorPane.leftAnchor="70.0" AnchorPane.topAnchor="25.0">
+                     <font>
+                        <Font name="Waree" size="17.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="100.0" layoutY="63.0" text="RESTAURANT" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="70.0" AnchorPane.topAnchor="35.0">
+                     <font>
+                        <Font name="Laksaman" size="16.0" />
+                     </font>
+                  </Label>
+                  <AnchorPane fx:id="stockChildrenNotif" layoutX="244.0" layoutY="38.0" prefHeight="5.0" prefWidth="5.0" />
+                  <Pane layoutX="867.0" layoutY="5.0" prefHeight="60.0" prefWidth="60.0" style="-fx-background-color: #202020;" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Label fx:id="annee" layoutX="20.0" layoutY="45.0" text="0000" textFill="#aaaaaa">
+                           <padding>
+                              <Insets right="2.0" />
+                           </padding></Label>
+                        <Label fx:id="hours" layoutX="18.0" layoutY="7.0" text="00" textFill="WHITE">
+                           <padding>
+                              <Insets right="2.0" />
+                           </padding></Label>
+                        <Label fx:id="mois" layoutX="5.0" layoutY="30.0" text="mois" textFill="#aaaaaa">
+                           <padding>
+                              <Insets right="2.0" />
+                           </padding></Label>
+                     </children>
+                  </Pane>
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </AnchorPane>
+            <AnchorPane fx:id="ooooooo" onMouseClicked="#onClickNotif" prefHeight="620.0" prefWidth="1000.0">
+               <children>
+                  <AnchorPane fx:id="anch" layoutX="448.0" layoutY="334.0" onMouseClicked="#onClickNotif" prefHeight="598.0" prefWidth="950.0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <VBox fx:id="aNotif" layoutX="10.0" prefHeight="618.0" prefWidth="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="966.0" AnchorPane.topAnchor="2.0">
+                     <children>
+                        <AnchorPane fx:id="pUser" onMouseClicked="#onClickNotif" prefHeight="50.0" prefWidth="50.0">
+                           <children>
+                              <Circle fx:id="circle" fill="DODGERBLUE" layoutX="15.0" layoutY="15.0" radius="22.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="5.0" />
+                           </children>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </AnchorPane>
+                        <AnchorPane fx:id="pToDo" prefHeight="50.0" prefWidth="32.0">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </AnchorPane>
+                        <AnchorPane fx:id="pNotif" prefHeight="50.0" prefWidth="32.0">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </AnchorPane>
+                        <AnchorPane fx:id="pConfig" prefHeight="50.0" prefWidth="32.0">
+                           <VBox.margin>
+                              <Insets top="270.0" />
+                           </VBox.margin>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </AnchorPane>
+                        <AnchorPane fx:id="pExit" onMouseClicked="#onClickLogOut" prefHeight="50.0" prefWidth="32.0">
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </AnchorPane>
+                     </children>
+                  </VBox>
+                  <AnchorPane id="Notification" fx:id="Notification" layoutX="60.0" layoutY="1.0" prefHeight="600.0" prefWidth="220.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="48.0" AnchorPane.topAnchor="5.0" />
+               </children>
+            </AnchorPane>
+         </children>
+      </VBox>
+      <Label fx:id="stockNumResponsable" text="0" AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="20.0" />
+      <AnchorPane fx:id="loginConfig" layoutX="400.0" layoutY="200.0" prefHeight="250.0" prefWidth="250.0" style="-fx-effect: dropshadow(gaussian, black, 10, 0, 0, 0);">
+         <children>
+            <ComboBox fx:id="cbLoginConfig" layoutX="23.0" layoutY="18.0" prefHeight="30.0" prefWidth="150.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="110.0" />
+            <PasswordField fx:id="txtLoginConfig" layoutY="57.0" onKeyReleased="#onKeyEnter" prefHeight="30.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="150.0" />
+            <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="95.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="40.0">
+               <image>
+                  <Image url="@images/superUser.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="btnQuitLogin" layoutX="213.0" layoutY="53.0" mnemonicParsing="false" onAction="#loginConfigAnnul" prefHeight="5.0" prefWidth="5.0" text="X" textOverrun="CENTER_ELLIPSIS" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+            <JFXButton layoutX="20.0" layoutY="195.0" onAction="#loginConfigValid" prefHeight="42.0" prefWidth="210.0" style="-fx-background-color: #468246; -fx-border-color: white; -fx-border-width: 3; -fx-border-radius: 5;" text="VALIDER" textFill="WHITE" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
