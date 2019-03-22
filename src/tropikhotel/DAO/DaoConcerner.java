@@ -87,9 +87,7 @@ public class DaoConcerner
     return Con;
   }
   
-  public ArrayList findAll()
-    throws SQLException, ClassNotFoundException
-  {
+  public ArrayList findAll() throws SQLException, ClassNotFoundException {
     ArrayList<Concerner> Con = new ArrayList();
     Connection connection = this.con.conn();
     this.sql = "select * from CONCERNER";
@@ -101,9 +99,7 @@ public class DaoConcerner
     return Con;
   }
   
-  public ArrayList searchAll(String id)
-    throws SQLException, ClassNotFoundException
-  {
+  public ArrayList searchAll(String id) throws SQLException, ClassNotFoundException {
     ArrayList<Concerner> Con = new ArrayList();
     Connection connection = this.con.conn();
     String other = null;

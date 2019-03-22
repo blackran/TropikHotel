@@ -65,6 +65,43 @@ import tropikhotel.GetSet.Types;
  * @author robot
  */
 public class ControlerReservations implements Initializable {
+    
+    @FXML
+    private Button btnSup1;
+    @FXML
+    private Button btnEnr1;
+    @FXML
+    private Button btnMod1;
+    @FXML
+    private Button btnValider1;
+    @FXML
+    private Button btnAnnuler1;
+    @FXML
+    private Button btnRes1;
+    @FXML
+    private Button btnSup2;
+    @FXML
+    private Button btnEnr2;
+    @FXML
+    private Button btnMod2;
+    @FXML
+    private Button btnValider2;
+    @FXML
+    private Button btnAnnuler2;
+    @FXML
+    private Button btnRes2;
+    @FXML
+    private Button btnSup3;
+    @FXML
+    private Button btnEnr3;
+    @FXML
+    private Button btnMod3;
+    @FXML
+    private Button btnValider3;
+    @FXML
+    private Button btnAnnuler3;
+    @FXML
+    private Button btnRes3;
 
     @FXML private TitledPane panesEdit;
     @FXML private JFXTextField txtNomClientReservation, txtNbJourReservation, txtNumClientReservation, txtReglementReservation,txtMontantRecuReglements,MontantRedevableReglement,MontantAjouter;
@@ -100,24 +137,33 @@ public class ControlerReservations implements Initializable {
     private JFXComboBox txtNumCategorie;
     @FXML
     private JFXComboBox txtNumType;
+    @FXML
+    private JFXListView ReservationReglement;
    
     
     DaoReserver res = new DaoReserver();
     DaoReglements reg = new DaoReglements();
+    DaoReserver daoreserver = new DaoReserver();
     DaoConcerner daoconcerner = new DaoConcerner();
     DaoChambres daochambres = new DaoChambres();
     
     @FXML
-    private boolean isInteraction(LocalDate dateDeb1, LocalDate dateFin1, LocalDate dateDeb2, LocalDate dateFin2){
-        boolean val;
-        if(!dateFin1.toString().equals("")){
-            if(DAYS.between(dateDeb1,dateDeb2)<0){
-                val = DAYS.between(dateDeb2,dateFin1)<0;
+    private boolean isInteraction(LocalDate dateDebRech1, LocalDate dateFinRech1, LocalDate dateDeb2, LocalDate dateFin2){
+        boolean val = false;
+//        true si il y a une interaction entre le deux premier date et le deux dernier date
+        if(!dateFinRech1.equals(LocalDate.MAX)){
+//            dateFin1 != 0
+            System.out.println("Date fin de recherche different de zero");
+            if(DAYS.between(dateDebRech1,dateDeb2)>0){
+                System.out.println("dateDebRech1 < dateDeb2");
+                val = DAYS.between(dateDeb2,dateFinRech1)>=0;
             }else{
-                val = DAYS.between(dateDeb1,dateFin2)<0;
+                System.out.println("dateDeb2  < dateDebRech1");
+                val = DAYS.between(dateDebRech1,dateFin2)>=0;
             }  
         }else{
-            val = DAYS.between(dateFin2, dateDeb1)<0; 
+//            dateFin1 == 0 et dateDeb2 < dateDeb1 et dateDeb1 < dateFin2    
+            val = DAYS.between(dateDeb2, dateDebRech1)>=0 && DAYS.between(dateDebRech1, dateFin2)>=0; 
         }
         return val;
     }
@@ -136,20 +182,27 @@ public class ControlerReservations implements Initializable {
             
         }
     }
-    private ObservableList<ChambresT> getChambres(String dateDeb, String dateFin, String categorie, String type) throws ClassNotFoundException, SQLException {
+    private ObservableList<ChambresT> getChambres(String Suit, String categorie, String type) throws ClassNotFoundException, SQLException {
         Con c = new Con();
         Connection cn = c.conn();
         Statement st = cn.createStatement();
-        String sql;
+        String sql = "select * from CHAMBRES";
         if("Tous".equals(categorie) && "Tous".equals(type)){
-            sql = "select * from CHAMBRES";
+            if(!"".equals(Suit)){
+                sql+=" where "+Suit;
+            }
         }else{
             if("Tous".equals(type)){
-               sql = "select * from CHAMBRES where NumCategorie="+categorie; 
+               sql += " where NumCategorie="+categorie; 
+            }else
+            if("Tous".equals(categorie)){
+                sql += " where NumType="+type;
             }else{
-                sql = "select * from CHAMBRES where NumCategorie="+categorie+" and NumType="+type; 
+                sql += " where NumCategorie="+categorie+" and NumType="+type; 
             }
+            sql += " and " +Suit;
         }
+        
         System.out.println(sql);
         ResultSet rs = st.executeQuery(sql);
         ObservableList<ChambresT> cha = FXCollections.observableArrayList();
@@ -159,28 +212,69 @@ public class ControlerReservations implements Initializable {
         return cha;
     }
     
-    @FXML public void affichageChambre(String dateDeb, String dateFin,String categorie, String type) throws ClassNotFoundException, SQLException {
+    
+    
+    private ObservableList<Chambres> getAllChambresNonDispo(String Suit) throws ClassNotFoundException, SQLException {
+        Con c = new Con();
+        Connection cn = c.conn();
+        Statement st = cn.createStatement();
+        String sql = "select * from CHAMBRES";
+        if(!"".equals(Suit)){
+            sql+=" where "+Suit;
+        }
+        
+        System.out.println(sql);
+        ResultSet rs = st.executeQuery(sql);
+        ObservableList<Chambres> cha = FXCollections.observableArrayList();
+        while (rs.next()) {
+          cha.add(new Chambres(rs.getString("NomChambre"),rs.getString("TelChambre"),rs.getString("EtageChambre"),rs.getString("ChauffeauChambre"), rs.getInt("PrixChambre"), rs.getInt("NumCategorie"), rs.getInt("NumType")));
+        }
+        return cha;
+    }
+    
+    
+    
+    @FXML public void affichageChambre(String suit, String categorie, String type) throws ClassNotFoundException, SQLException {
         this.CNomChambre.setCellValueFactory(new PropertyValueFactory("NomChambre"));
         this.CTelChambre.setCellValueFactory(new PropertyValueFactory("TelChambre"));
         this.CEtageChambre.setCellValueFactory(new PropertyValueFactory("EtageChambre"));
-        this.CChauffeauChambre.setCellValueFactory(new PropertyValueFactory("PrixChambre"));
+        this.CChauffeauChambre.setCellValueFactory(new PropertyValueFactory("ChauffeauChambre"));
         this.CPrixChambre.setCellValueFactory(new PropertyValueFactory("PrixChambre"));
         this.CNumCategorie.setCellValueFactory(new PropertyValueFactory("NumCategorie"));
         this.CNumType.setCellValueFactory(new PropertyValueFactory("NumType"));
-          this.tableChambres.setItems(getChambres(dateDeb, dateFin, categorie, type));
+          this.tableChambres.setItems(getChambres(suit, categorie, type));
     }
     @FXML public void onClickSeach() throws ClassNotFoundException, SQLException{
         LocalDate dateDeb = txtDateDebutDisponible.getValue();
-        LocalDate dateFin = txtDateFinDisponible.getValue();
+/////// Si le date fin n'exist pas
+        LocalDate dateFin = LocalDate.MAX;
+        if(!txtDateFinDisponible.getEditor().getText().isEmpty()){
+            dateFin = txtDateFinDisponible.getValue();
+        }
+        
         String categorie = txtNumCategorie.getValue().toString();
         String type = txtNumType.getValue().toString();
-        DaoReserver daoreserver = new DaoReserver();
+                
+        String suit = "";
         ArrayList<Reserver> rese =daoreserver.findAll();
         for(int i=0; i<rese.size();i++){
-            System.out.println("Num"+rese.get(i).getNumReservation()+" "+this.isInteraction(LocalDate.parse(rese.get(i).getDateDebutReservation()),LocalDate.parse(rese.get(i).getDateFinReservation()),dateDeb,dateFin));
+            if(this.isInteraction(LocalDate.parse(rese.get(i).getDateDebutReservation()),LocalDate.parse(rese.get(i).getDateFinReservation()),dateDeb,dateFin)){
+//                si il y a une interaction entre le deux date
+                ArrayList<Concerner> Con = daoconcerner.find(rese.get(i).getNumReservation());
+                if(i!=1){
+                    suit+= " and ";
+                }
+                for(int j=0; j < Con.size();j++){
+                    Concerner Conn = Con.get(j);
+                    if(j==0){
+                        suit+= "NOT NomChambre='"+Conn.getNomChambre()+"'";
+                    }else{
+                        suit+= " and NOT NomChambre='"+Conn.getNomChambre()+"'";
+                    }
+                } 
+            }
         }
-//        System.out.println("Categorie "+txtNumCategorie.getValue().toString());
-//        System.out.println("Type "+txtNumType.getValue().toString());
+        this.affichageChambre(suit, categorie, type);
     }
    
     private ObservableList<ReservationsT> getReservations() throws ClassNotFoundException, SQLException{
@@ -235,10 +329,13 @@ public class ControlerReservations implements Initializable {
         int nbRow = tableReservation.getSelectionModel().getSelectedIndex();
         stock.setText(tableReservation.getItems().get(nbRow).getNumReservation());
         this.affTextFieldReservation(Integer.parseInt(tableReservation.getItems().get(nbRow).getNumReservation()));
+        this.btnValider1.setVisible(false);
+        this.btnAnnuler1.setVisible(false);
     }
     @FXML public void onMouseClickedListViewReservation() throws ClassNotFoundException, SQLException{
         int nbRow = listChambreReservations.getSelectionModel().getSelectedIndex();
         stock1.setText(String.valueOf(listChambreReservations.getItems().get(nbRow)));
+        txtChambreReservation.setValue(stock1.getText());
     }
     @FXML public void onMouseClickedTableauReglement() throws ClassNotFoundException, SQLException{
         int nbRow = tableReglement.getSelectionModel().getSelectedIndex();
@@ -279,27 +376,49 @@ public class ControlerReservations implements Initializable {
         tgBtReglements.setSelected("1".equals(re.getEtatReglement()));
         MontantRedevableReglement.setText(String.valueOf(this.montantRedevable()-reg.find(Integer.parseInt(lbNumReglement.getText())).getMontantReglement()));
         txtMontantRecuReglements.setText(String.valueOf(re.getMontantReglement()));
+        ArrayList<Reserver> rese = res.findReglement(Integer.parseInt(lbNumReglement.getText()));
+        ReservationReglement.getItems().clear();
+        for(int j=0 ; j<rese.size() ; j++){
+            ReservationReglement.getItems().add("Reservation N° "+rese.get(j).getNumReservation());
+        }
     }
     
     @FXML private void updatePayment() throws SQLException, ClassNotFoundException{
         int lastMotant = reg.find(Integer.parseInt(lbNumReglement.getText())).getMontantReglement();
         String eta = "";
-//        if(MontantAjouter.getText().length()!=0){
-//            if(MontantAjouter.getText().equals(MontantRedevableReglement.getText())){
-//                eta = "regler";
-//                reg.mod(Integer.parseInt(lbNumReglement.getText()), eta , Integer.parseInt(MontantAjouter.getText())+lastMotant);
-//            }else
-//            if(Integer.parseInt(MontantAjouter.getText()) > Integer.parseInt(MontantRedevableReglement.getText())){
-//                eta = "regler";
-//                reg.mod(Integer.parseInt(lbNumReglement.getText()), eta , Integer.parseInt(MontantRedevableReglement.getText())+lastMotant);
-//                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-//                alert.setHeaderText("REMARQUE");
-//                alert.setContentText("donne "+String.valueOf(Integer.parseInt(MontantAjouter.getText()) - Integer.parseInt(MontantRedevableReglement.getText()))+" au client");
-//                alert.show();
-//            }else{
-//                reg.mod(Integer.parseInt(lbNumReglement.getText()), eta , Integer.parseInt(MontantAjouter.getText())+lastMotant);
-//            }
-//        }
+        if(MontantAjouter.getText().length()!=0){
+            if(MontantAjouter.getText().equals(MontantRedevableReglement.getText())){
+                eta = "payer";
+                reg.mod(Integer.parseInt(lbNumReglement.getText()), eta , Integer.parseInt(MontantAjouter.getText())+lastMotant,String.valueOf(LocalDate.now().getYear()));
+                res.find(lastMotant);
+                ArrayList<Reserver> rese = res.findReglement(Integer.parseInt(lbNumReglement.getText()));
+                rese.forEach(e->{
+                    try {
+                        res.modEtat(e.getNumReservation(), "1");
+                    } catch (SQLException | ClassNotFoundException ex) {
+                        Logger.getLogger(ControlerReservations.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                });
+            }else
+            if(Integer.parseInt(MontantAjouter.getText()) > Integer.parseInt(MontantRedevableReglement.getText())){
+                eta = "payer";
+                reg.mod(Integer.parseInt(lbNumReglement.getText()), eta , Integer.parseInt(MontantRedevableReglement.getText())+lastMotant,String.valueOf(LocalDate.now().getYear()));
+                ArrayList<Reserver> rese = res.findReglement(Integer.parseInt(lbNumReglement.getText()));
+                rese.forEach(e->{
+                    try {
+                        res.modEtat(e.getNumReservation(), "1");
+                    } catch (SQLException | ClassNotFoundException ex) {
+                        Logger.getLogger(ControlerReservations.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                });
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setHeaderText("REMARQUE");
+                alert.setContentText("donne "+String.valueOf(Integer.parseInt(MontantAjouter.getText()) - Integer.parseInt(MontantRedevableReglement.getText()))+" au client");
+                alert.show();
+            }else{
+                reg.mod(Integer.parseInt(lbNumReglement.getText()), eta , Integer.parseInt(MontantAjouter.getText())+lastMotant,String.valueOf(LocalDate.now().getYear()));
+            }
+        }
         MontantAjouter.setText("");
         this.affTextFieldReglement(Integer.parseInt(lbNumReglement.getText()));
         this.afficheReglements();
@@ -338,11 +457,85 @@ public class ControlerReservations implements Initializable {
         txtReglementReservation.setText(String.valueOf(regl.get(regl.size()-1).getNumReglement()));
     }
     @FXML private void ajouterReservation() throws SQLException, ClassNotFoundException{
-        this.resetAllReservation();
+        String dateFin = String.valueOf(LocalDate.MAX);
         if(!listChambreReservations.getItems().isEmpty()){
-            DaoReserver daoreserver = new DaoReserver();
-            daoreserver.add(String.valueOf(txtDateDebutReservation.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))), String.valueOf(txtDateFinReservation.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))),Integer.parseInt(txtNbJourReservation.getText()),tgBtReglement.isSelected()?"1":"0", Integer.parseInt(txtNumClientReservation.getText()),Integer.parseInt(lbResponsableReservation.getText()), Integer.parseInt(txtReglementReservation.getText()));
-            this.afficheReservations();
+            if(!txtDateFinReservation.getEditor().getText().isEmpty()){
+                dateFin = String.valueOf(txtDateFinReservation.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+            }
+            
+            
+            
+            
+            
+            
+            
+            LocalDate dtDeb = txtDateDebutReservation.getValue();
+    /////// Si le date fin n'exist pas
+            LocalDate dtFin = LocalDate.MAX;
+            if(!txtDateFinReservation.getEditor().getText().isEmpty()){
+                dtFin = txtDateFinReservation.getValue();
+            }
+
+            String suit = "";
+            ArrayList<Reserver> rese =daoreserver.findAll();
+            for(int i=0; i<rese.size();i++){
+                if(this.isInteraction(LocalDate.parse(rese.get(i).getDateDebutReservation()),LocalDate.parse(rese.get(i).getDateFinReservation()),dtDeb,dtFin)){
+    //                si il y a une interaction entre le deux date
+                    ArrayList<Concerner> Con = daoconcerner.find(rese.get(i).getNumReservation());
+                    if(i!=1){
+                        suit+= " or ";
+                    }
+                    for(int j=0; j < Con.size();j++){
+                        Concerner Conn = Con.get(j);
+                        if(j==0){
+                            suit+= "NomChambre='"+Conn.getNomChambre()+"'";
+                        }else{
+                            suit+= " or NomChambre='"+Conn.getNomChambre()+"'";
+                        }
+                    } 
+                }
+            }
+            ObservableList<Chambres> cha = this.getAllChambresNonDispo(suit);
+            boolean test = true;
+            String NameChambreList = "";
+            ObservableList chambres = listChambreReservations.getItems();
+            for(int o=0;o<cha.size();o++){
+                for(int w=0;w<chambres.size();w++){
+                    if(cha.get(o).getNomChambre().equals(chambres.get(w).toString())){
+                        test = false;
+                        NameChambreList += chambres.get(w).toString()+" ";
+                    }
+                }
+            }
+                    
+        
+            if(test){
+                daoreserver.add(String.valueOf(txtDateDebutReservation.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))), dateFin ,Integer.parseInt(txtNbJourReservation.getText()),"0", Integer.parseInt(txtNumClientReservation.getText()),Integer.parseInt(lbResponsableReservation.getText()), Integer.parseInt(txtReglementReservation.getText()));
+                listChambreReservations.getItems().forEach(e->{
+                    try {
+                        daoconcerner.add(Integer.parseInt(lbNumReservation.getText()), e.toString());
+                    } catch (SQLException | ClassNotFoundException ex) {
+                        Logger.getLogger(ControlerReservations.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                });
+
+                reg.modEtats(Integer.parseInt(txtReglementReservation.getText()), "");
+                this.afficheReservations();
+                this.resetAllReservation();
+
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setHeaderText("REMARQUE");
+                alert.setContentText("action reussi");
+                alert.show();
+            }else{
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText("REMARQUE");
+                alert.setContentText(NameChambreList+"\ndeja reserver entre cette date");
+                alert.show();
+            }      
+            
+            
         }else{
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText("REMARQUE");
@@ -354,13 +547,20 @@ public class ControlerReservations implements Initializable {
         LocalDate fin = txtDateFinReservation.getValue();
         LocalDate begin = txtDateDebutReservation.getValue();
         //LocalDate begint = LocalDate.now();
-        if(!"".equals(txtDateDebutReservation.getValue().toString())){
-            if(!"".equals(txtDateFinReservation.getValue().toString())){
-                long period = DAYS.between(begin, fin);
-                txtNbJourReservation.setText(String.valueOf(period));
+        if(!txtDateDebutReservation.getEditor().getText().isEmpty()){
+            if(!txtDateFinReservation.getEditor().getText().isEmpty()){
+                txtNbJourReservation.setText(String.valueOf(DAYS.between(begin, fin)));
             }
-            if(DAYS.between(begin, fin)<0){
-                txtDateFinReservation.setValue(begin);
+            if(DAYS.between(begin, fin)<=0){
+                txtDateFinReservation.setValue(begin.plusDays(1));
+            }
+        }
+        if(!txtDateDebutReservation.getEditor().getText().isEmpty()){
+            if(DAYS.between(begin, fin)<=0){
+                txtDateFinReservation.setValue(begin.plusDays(1)); 
+            }
+            if(txtDateFinReservation.getEditor().getText().isEmpty()){
+                txtNbJourReservation.setText(String.valueOf(DAYS.between(begin, fin)));
             }
         }
     }
@@ -398,26 +598,33 @@ public class ControlerReservations implements Initializable {
     }
     //add and rm chambres
     @FXML public void addChambreReservation() throws SQLException, ClassNotFoundException{
-        if(daoconcerner.find(Integer.parseInt(lbNumReservation.getText()), txtChambreReservation.getValue().toString()).isEmpty()){
-            daoconcerner.add(Integer.parseInt(lbNumReservation.getText()), txtChambreReservation.getValue().toString());
-            this.affChambreReservation();
+        if(listChambreReservations.getItems().indexOf(txtChambreReservation.getValue())<0){
+            listChambreReservations.getItems().add(txtChambreReservation.getValue());
         }else{
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText("REMARQUE");
             alert.setContentText("chambre deja ajouter");
             alert.show();
         }
+
+//        if(daoconcerner.find(Integer.parseInt(lbNumReservation.getText()), txtChambreReservation.getValue().toString()).isEmpty()){
+//            daoconcerner.add(Integer.parseInt(lbNumReservation.getText()), txtChambreReservation.getValue().toString());
+//            this.affChambreReservation();
+//        }
     }
     @FXML public void rmChambreReservation() throws SQLException, ClassNotFoundException{
-        if(listChambreReservations.getItems().size()>1){
-            daoconcerner.remove(Integer.parseInt(lbNumReservation.getText()), stock1.getText());
-            this.affChambreReservation();
+        if(listChambreReservations.getItems().indexOf(txtChambreReservation.getValue())>=0){
+            listChambreReservations.getItems().remove(txtChambreReservation.getValue());
         }else{
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText("REMARQUE");
             alert.setContentText("action refuser");
             alert.show();
         }
+//        if(listChambreReservations.getItems().size()>1){
+//            daoconcerner.remove(Integer.parseInt(lbNumReservation.getText()), stock1.getText());
+//            this.affChambreReservation();
+//        }
     }
     @FXML public void affChambreReservation() throws ClassNotFoundException, SQLException{
         ObservableList <String> listChambre = FXCollections.observableArrayList();
@@ -488,8 +695,23 @@ public class ControlerReservations implements Initializable {
         
     }
     @FXML
-    private void activeEnrReservation(){
-        
+    private void activeEnrReservation() throws SQLException, ClassNotFoundException{
+        ArrayList<Reserver> rese = daoreserver.findAll();
+        this.lbNumReservation.setText(String.valueOf(rese.get(rese.size()-1).getNumReservation()+1));
+        this.txtDateDebutReservation.setValue(LocalDate.now());
+        this.txtDateFinReservation.setValue(null);
+        this.txtNbJourReservation.setText("");
+        this.txtNumClientReservation.setText("");
+        this.txtNomClientReservation.setText("");
+        this.txtReglementReservation.setText("");
+        this.txtChambreReservation.getItems().get(0);
+        this.listChambreReservations.getItems().clear();
+        this.lbResponsableReservation.setText(stockNumResponsable.getText());
+
+        this.btnValider1.setId("btnEnr11");
+        this.btnValider1.setVisible(true);
+        this.btnAnnuler1.setVisible(true);
+        System.out.println("actionReservation");
     }
     @FXML
     private void activeModReservation(){
@@ -519,6 +741,12 @@ public class ControlerReservations implements Initializable {
         }
     }
     @FXML
+    private void onChangeDtFinDisponible(){
+        if(DAYS.between(txtDateDebutDisponible.getValue(),txtDateFinDisponible.getValue())>0){
+            txtDateDebutDisponible.setValue(txtDateDebutDisponible.getValue().plusDays(1));
+        }
+    }
+    @FXML
     private void onMouseClickBtnFacture() throws IOException, ClassNotFoundException, SQLException{     
         Stage stage = new Stage();
         stage.setResizable(false);
@@ -533,14 +761,107 @@ public class ControlerReservations implements Initializable {
         stage.show();
     }
     
+    
+    @FXML
+    private void verification(ActionEvent e) throws SQLException, ClassNotFoundException {
+      System.out.println(e.getTarget() == this.btnValider2);
+      if (e.getTarget() == this.btnValider1){
+        switch (this.btnValider1.getId()){
+        case "btnEnr11": 
+          System.out.println("arrive ici");
+          this.ajouterReservation();
+          break;
+        case "btnSup11": 
+          System.out.println("arrive ici");
+          suprimerReservation();
+          break;
+        case "btnMod11": 
+          modifierReservation();
+          break;
+        }
+      }
+      else if (e.getTarget() == this.btnValider2)
+      {
+        switch (this.btnValider2.getId())
+        {
+        case "btnEnr21": 
+          this.ajouterReglement();
+          break;
+        case "btnSup22": 
+          suprimerReglement();
+          break;
+        case "btnMod23": 
+          modifierReglement();
+
+          break;
+        }
+      }else{
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setHeaderText("REMARQUE");
+        alert.setContentText("action annuller");
+        alert.show();
+      }
+      this.btnValider1.setId("");
+      this.btnValider2.setId("");
+    }
+
+    @FXML
+    public void activeSupChambre()
+      throws SQLException, ClassNotFoundException
+    {
+      this.btnValider1.setId("btnSup11");
+      this.btnValider1.setVisible(true);
+      this.btnAnnuler1.setVisible(true);
+    }
+
+    @FXML
+    public void activeModChambre()
+      throws SQLException, ClassNotFoundException
+    {
+      this.btnValider1.setId("btnMod11");
+      this.btnValider1.setVisible(true);
+      this.btnAnnuler1.setVisible(true);
+    }
+
+    @FXML
+    public void activeEnrCategorie() throws SQLException, ClassNotFoundException {
+//      ArrayList<Categories> Cat = this.categories.findAll();
+//      this.txtNumCategorie1.setText(String.valueOf(((Categories)Cat.get(Cat.size() - 1)).getNumCategorie() + 1));
+//      this.txtDescriptionCategorie.setText("");
+
+      this.btnValider2.setId("btnEnr21");
+      this.btnValider2.setVisible(true);
+      this.btnAnnuler2.setVisible(true);
+    }
+
+    @FXML
+    public void activeSupCategorie()
+      throws SQLException, ClassNotFoundException
+    {
+      this.btnValider2.setId("btnSup22");
+      this.btnValider2.setVisible(true);
+      this.btnAnnuler2.setVisible(true);
+    }
+
+    @FXML
+    public void activeModCategorie()
+      throws SQLException, ClassNotFoundException
+    {
+      this.btnValider2.setId("btnMod23");
+      this.btnValider2.setVisible(true);
+      this.btnAnnuler2.setVisible(true);
+    }
+    
+    
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
             this.OnScrolleReglement();
             this.afficheReglements();
             this.OnScrolleReservation();
-//            btnValider.setDisable(false);
-//            btnAnnuler.setDisable(false);
+            this.btnValider1.setVisible(false);
+            this.btnAnnuler1.setVisible(false);
             txtDateDebutDisponible.setValue(LocalDate.now());
             
             DaoCategories daoCategories = new DaoCategories();
@@ -568,6 +889,22 @@ public class ControlerReservations implements Initializable {
             Logger.getLogger(ControlerReservations.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+    }
+
+    private void suprimerReservation() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void modifierReservation() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void suprimerReglement() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void modifierReglement() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

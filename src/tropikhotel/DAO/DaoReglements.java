@@ -15,9 +15,7 @@ public class DaoReglements
   Con con = new Con();
   String sql = "";
   
-  public void add()
-    throws SQLException, ClassNotFoundException
-  {
+  public void add() throws SQLException, ClassNotFoundException {
     Reglements regl = new Reglements();
     
     Connection connection = this.con.conn();
@@ -27,18 +25,14 @@ public class DaoReglements
     statement.execute(this.sql);
   }
   
-  public void remove(int id)
-    throws SQLException, ClassNotFoundException
-  {
+  public void remove(int id) throws SQLException, ClassNotFoundException {
     Connection connection = this.con.conn();
     this.sql = ("delete from REGLEMENTS where NumReglement =" + id);
     Statement statement = connection.createStatement();
     statement.execute(this.sql);
   }
   
-  public void mod(int i, String EtatReglement, int MontantReglement, String AnneReglement)
-    throws SQLException, ClassNotFoundException
-  {
+  public void mod(int i, String EtatReglement, int MontantReglement, String AnneReglement) throws SQLException, ClassNotFoundException {
     Reglements regl = find(i);
     regl.setEtatReglement(EtatReglement);
     regl.setMontantReglement(MontantReglement);
@@ -46,6 +40,16 @@ public class DaoReglements
     Connection connection = this.con.conn();
     Statement statement = connection.createStatement();
     this.sql = ("update REGLEMENTS set EtatReglement='" + regl.getEtatReglement() + "', MontantReglement=" + regl.getMontantReglement() + ", AnneeReglement='" + regl.getAnneReglement() + "' where NumReglement =" + i);
+    System.out.println(this.sql);
+    statement.execute(this.sql);
+  }
+  
+  public void modEtats(int i, String EtatReglement) throws SQLException, ClassNotFoundException {
+    Reglements regl = find(i);
+    regl.setEtatReglement(EtatReglement);
+    Connection connection = this.con.conn();
+    Statement statement = connection.createStatement();
+    this.sql = ("update REGLEMENTS set EtatReglement='" + regl.getEtatReglement() + "' where NumReglement =" + i);
     System.out.println(this.sql);
     statement.execute(this.sql);
   }

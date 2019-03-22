@@ -6,8 +6,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import tropikhotel.Con;
 import tropikhotel.GetSet.Clients;
+import tropikhotel.GetSet.ClientsT;
 
 public class DaoClients
 {
@@ -86,9 +89,7 @@ public class DaoClients
     return cli;
   }
   
-  public ArrayList findAll()
-    throws SQLException, ClassNotFoundException
-  {
+  public ArrayList findAll() throws SQLException, ClassNotFoundException {
     ArrayList<Clients> cli = new ArrayList();
     Connection connection = this.con.conn();
     this.sql = "select * from CLIENTS";
@@ -118,4 +119,16 @@ public class DaoClients
     }
     return cli;
   }
+    public ObservableList<ClientsT> searchAllT(String id) throws SQLException, ClassNotFoundException {
+        ObservableList<ClientsT> cli = FXCollections.observableArrayList();
+        Connection connection = this.con.conn();
+        this.sql = ("select * from CLIENTS where NumClient LIKE  '%" + id + "%' || NomClient LIKE '%" + id + "%' || AddressClient LIKE '%" + id + "%' || CpClient LIKE '%" + id + "%' || PaysClient LIKE '%" + id + "%' || TelClient LIKE '%" + id + "%' || EmailClient LIKE '%" + id + "%'");
+        System.out.println(this.sql);
+        Statement statement = connection.createStatement();
+        ResultSet resultset = statement.executeQuery(this.sql);
+        while (resultset.next()) {
+          cli.add(new ClientsT(String.valueOf(resultset.getInt("NumClient")), resultset.getString("NomClient"), resultset.getString("TelClient")));
+        }
+        return cli;
+    }
 }

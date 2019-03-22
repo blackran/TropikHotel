@@ -10,8 +10,7 @@ public class Chambres
   private int NumCategorie;
   private int NumType;
   
-  public Chambres(String NomChambre, String TelChambre, String EtageChambre, String ChauffeauChambre, int PrixChambre, int NumCategorie, int NumType)
-  {
+  public Chambres(String NomChambre, String TelChambre, String EtageChambre, String ChauffeauChambre, int PrixChambre, int NumCategorie, int NumType){
     this.NomChambre = NomChambre;
     this.TelChambre = TelChambre;
     this.EtageChambre = EtageChambre;
@@ -23,8 +22,7 @@ public class Chambres
   
   public Chambres() {}
   
-  public String getNomChambre()
-  {
+  public String getNomChambre(){
     return this.NomChambre;
   }
   

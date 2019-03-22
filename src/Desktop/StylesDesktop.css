@@ -11,7 +11,6 @@
     -fx-effect: dropshadow(gaussian, #202020 , 10, 0, 0, 0);
     -fx-border-width: 0 0 2 0;
     -fx-border-color: #041105;
-
 }
 #aNotif{
     -fx-background-color:  #202020;

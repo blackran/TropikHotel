@@ -16,9 +16,7 @@ public class DaoReserver
   Con con = new Con();
   String sql = "";
   
-  public void add(String DateDebutReservation, String DateFinReservation, int NbJourReservation, String EtatReservation, int NumClient, int NumResponsable, int NumReglement)
-    throws SQLException, ClassNotFoundException
-  {
+  public void add(String DateDebutReservation, String DateFinReservation, int NbJourReservation, String EtatReservation, int NumClient, int NumResponsable, int NumReglement) throws SQLException, ClassNotFoundException {
     Reserver rese = new Reserver();
     
     rese.setDateDebutReservation(DateDebutReservation);
@@ -74,9 +72,17 @@ public class DaoReserver
     statement.execute(this.sql);
   }
   
-  public Reserver find(int i)
-    throws ClassNotFoundException, SQLException
-  {
+  public void modEtat(int i,String EtatReservation) throws SQLException, ClassNotFoundException {
+    Reserver rese = find(i);
+    rese.setEtatReservation(EtatReservation);
+    Connection connection = this.con.conn();
+    this.sql = ("UPDATE RESERVER SET EtatReservation='" + rese.getEtatReservation() + "' where NumReservation=" + rese.getNumReservation());
+    System.out.println(this.sql);
+    Statement statement = connection.createStatement();
+    statement.execute(this.sql);
+  }
+  
+  public Reserver find(int i) throws ClassNotFoundException, SQLException {
     Connection connection = this.con.conn();
     Reserver rese = null;
     this.sql = ("select * from RESERVER where NumReservation =" + i);
@@ -89,9 +95,7 @@ public class DaoReserver
     return rese;
   }
   
-  public ArrayList findReglement(int i)
-    throws SQLException, ClassNotFoundException
-  {
+  public ArrayList findReglement(int i) throws SQLException, ClassNotFoundException {
     ArrayList<Reserver> rese = new ArrayList();
     Connection connection = this.con.conn();
     this.sql = ("select * from RESERVER where NumReglement =" + i);

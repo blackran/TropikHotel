@@ -21,6 +21,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.cell.PropertyValueFactory;
 import tropikhotel.Con;
@@ -69,178 +70,181 @@ public class ControlerClients
   private TableColumn<ClientsT, String> CNomClient;
   @FXML
   private TableColumn<ClientsT, String> CTelClient;
+  
+  @FXML
+  private TextField search;
+  
   DaoClients clients = new DaoClients();
   
-  private ObservableList<ClientsT> getClients()
-    throws ClassNotFoundException, SQLException
-  {
-    Con c = new Con();
-    Connection cn = c.conn();
-    Statement st = cn.createStatement();
-    String sql = "select * from CLIENTS";
-    ResultSet rs = st.executeQuery(sql);
-    ObservableList<ClientsT> cli = FXCollections.observableArrayList();
-    while (rs.next()) {
-      cli.add(new ClientsT(String.valueOf(rs.getInt("NumClient")), rs.getString("NomClient"), rs.getString("TelClient")));
+    private ObservableList<ClientsT> getClients() throws ClassNotFoundException, SQLException {
+        Con c = new Con();
+        Connection cn = c.conn();
+        Statement st = cn.createStatement();
+        String sql = "select * from CLIENTS";
+        ResultSet rs = st.executeQuery(sql);
+        ObservableList<ClientsT> cli = FXCollections.observableArrayList();
+        while (rs.next()) {
+            cli.add(new ClientsT(String.valueOf(rs.getInt("NumClient")), rs.getString("NomClient"), rs.getString("TelClient")));
+        }
+        return cli;
     }
-    return cli;
-  }
-  
-  @FXML
-  private void suprimerClient()
-    throws SQLException, ClassNotFoundException
-  {
-    this.clients.remove(Integer.parseInt(this.stock.getText()));
-    affichage();
-  }
-  
-  public void affTextField(int i)
-    throws ClassNotFoundException, SQLException
-  {
-    Clients cli = this.clients.find(i);
-    this.txtNumClients.setText(String.valueOf(cli.getNumClient()));
-    this.txtNomClients.setText(cli.getNomClient());
-    this.txtAddressClients.setText(cli.getAddressClient());
-    this.txtCpClients.setText(cli.getCpClient());
-    this.txtPaysClients.setText(cli.getPaysClient());
-    this.txtTelClients.setText(cli.getTelClient());
-    this.txtEmailClients.setText(cli.getEmailClient());
-  }
-  
-  @FXML
-  public void onMouseClickedTableau()
-    throws ClassNotFoundException, SQLException
-  {
-    int nbRow = this.tableClients.getSelectionModel().getSelectedIndex();
-    this.stock.setText(((ClientsT)this.tableClients.getItems().get(nbRow)).getNumClient());
-    affTextField(Integer.parseInt(((ClientsT)this.tableClients.getItems().get(nbRow)).getNumClient()));
-  }
-  
-  @FXML
-  public void modifier()
-    throws SQLException, ClassNotFoundException
-  {
-    this.clients.mod(Integer.parseInt(this.txtNumClients.getText()), this.txtNomClients.getText(), this.txtAddressClients.getText(), this.txtCpClients.getText(), this.txtPaysClients.getText(), this.txtTelClients.getText(), this.txtEmailClients.getText(), this.clients.find(Integer.parseInt(this.txtNumClients.getText())).getAnneeCreClient());
-    affichage();
-    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-    alert.setHeaderText("REMARQUE");
-    alert.setContentText("action reusi");
-    alert.show();
-  }
-  
-  @FXML
-  public void affichage()
-  {
-    this.CNumClient.setCellValueFactory(new PropertyValueFactory("NumClient"));
-    this.CNomClient.setCellValueFactory(new PropertyValueFactory("NomClient"));
-    this.CTelClient.setCellValueFactory(new PropertyValueFactory("TelClient"));
-    try
-    {
-      this.tableClients.setItems(getClients());
+
+    @FXML
+    private void suprimerClient() throws SQLException, ClassNotFoundException{
+      this.clients.remove(Integer.parseInt(this.stock.getText()));
+      affichage();
     }
-    catch (ClassNotFoundException|SQLException ex)
-    {
-      Logger.getLogger(ControlerClients.class.getName()).log(Level.SEVERE, null, ex);
+
+    public void affTextField(int i) throws ClassNotFoundException, SQLException{
+        Clients cli = this.clients.find(i);
+        this.txtNumClients.setText(String.valueOf(cli.getNumClient()));
+        this.txtNomClients.setText(cli.getNomClient());
+        this.txtAddressClients.setText(cli.getAddressClient());
+        this.txtCpClients.setText(cli.getCpClient());
+        this.txtPaysClients.setText(cli.getPaysClient());
+        this.txtTelClients.setText(cli.getTelClient());
+        this.txtEmailClients.setText(cli.getEmailClient());
     }
-    this.btnValider1.setVisible(false);
-    this.btnAnnuler1.setVisible(false);
-  }
-  
-  @FXML
-  private void ajouterClient()
-    throws SQLException, ClassNotFoundException
-  {
-    this.clients.add(this.txtNomClients.getText(), this.txtAddressClients.getText(), this.txtCpClients.getText(), this.txtPaysClients.getText(), this.txtTelClients.getText(), this.txtEmailClients.getText(), String.valueOf(LocalDate.now().getYear()));
-    this.btnValider1.setVisible(false);
-    this.btnAnnuler1.setVisible(false);
-    affichage();
-    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-    alert.setHeaderText("REMARQUE");
-    alert.setContentText("action reusi");
-    alert.show();
-  }
-  
-  @FXML
-  private void verification(ActionEvent e)
-    throws SQLException, ClassNotFoundException
-  {
-    System.out.println("verification");
-    if (e.getTarget() == this.btnValider1)
+
+    @FXML
+    public void onMouseClickedTableau() throws ClassNotFoundException, SQLException {
+        int nbRow = this.tableClients.getSelectionModel().getSelectedIndex();
+        this.stock.setText(((ClientsT)this.tableClients.getItems().get(nbRow)).getNumClient());
+        this.affTextField(Integer.parseInt(this.stock.getText()));
+    }
+
+    @FXML
+    public void modifier() throws SQLException, ClassNotFoundException {
+        this.clients.mod(Integer.parseInt(this.txtNumClients.getText()), this.txtNomClients.getText(), this.txtAddressClients.getText(), this.txtCpClients.getText(), this.txtPaysClients.getText(), this.txtTelClients.getText(), this.txtEmailClients.getText(), this.clients.find(Integer.parseInt(this.txtNumClients.getText())).getAnneeCreClient());
+        affichage();
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setHeaderText("REMARQUE");
+        alert.setContentText("action reusi");
+        alert.show();
+    }
+
+    @FXML
+    public void affichage(){
+        this.CNumClient.setCellValueFactory(new PropertyValueFactory("NumClient"));
+        this.CNomClient.setCellValueFactory(new PropertyValueFactory("NomClient"));
+        this.CTelClient.setCellValueFactory(new PropertyValueFactory("TelClient"));
+        try
+        {
+          this.tableClients.setItems(getClients());
+        }
+        catch (ClassNotFoundException|SQLException ex)
+        {
+          Logger.getLogger(ControlerClients.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.btnValider1.setVisible(false);
+        this.btnAnnuler1.setVisible(false);
+    }
+    @FXML
+    public void affichageS(String id) throws SQLException, ClassNotFoundException{
+        this.CNumClient.setCellValueFactory(new PropertyValueFactory("NumClient"));
+        this.CNomClient.setCellValueFactory(new PropertyValueFactory("NomClient"));
+        this.CTelClient.setCellValueFactory(new PropertyValueFactory("TelClient"));
+        this.tableClients.setItems(clients.searchAllT(id));
+        this.btnValider1.setVisible(false);
+        this.btnAnnuler1.setVisible(false);
+    }
+
+    @FXML
+    private void ajouterClient() throws SQLException, ClassNotFoundException {
+        this.clients.add(this.txtNomClients.getText(), this.txtAddressClients.getText(), this.txtCpClients.getText(), this.txtPaysClients.getText(), this.txtTelClients.getText(), this.txtEmailClients.getText(), String.valueOf(LocalDate.now().getYear()));
+        this.btnValider1.setVisible(false);
+        this.btnAnnuler1.setVisible(false);
+        affichage();
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setHeaderText("REMARQUE");
+        alert.setContentText("action reusi");
+        alert.show();
+    }
+
+    @FXML
+    private void verification(ActionEvent e)
+      throws SQLException, ClassNotFoundException
     {
-      switch (this.btnValider1.getId())
+      System.out.println("verification");
+      if (e.getTarget() == this.btnValider1)
       {
-      case "btnEnr11": 
-        System.out.println("arrive ici");
-        ajouterClient();
-        break;
-      case "btnSup11": 
-        System.out.println("arrive ici");
-        suprimerClient();
-        break;
-      case "btnMod11": 
-        modifier();
-        break;
+        switch (this.btnValider1.getId()){
+        case "btnEnr11": 
+          System.out.println("arrive ici");
+          ajouterClient();
+          break;
+        case "btnSup11": 
+          System.out.println("arrive ici");
+          suprimerClient();
+          break;
+        case "btnMod11": 
+          modifier();
+          break;
+        }
       }
+      else
+      {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setHeaderText("REMARQUE");
+        alert.setContentText("action annuller");
+        alert.show();
+      }
+      this.btnValider1.setId("");
     }
-    else
+
+    @FXML
+    public void activeSupClient() throws SQLException, ClassNotFoundException{
+        this.btnValider1.setId("btnSup11");
+        this.btnValider1.setVisible(true);
+        this.btnAnnuler1.setVisible(true);
+    }
+
+    @FXML
+    public void activeAjouClient() throws SQLException, ClassNotFoundException {
+        this.txtNumClients.setText(String.valueOf(this.clients.find(this.clients.findAll().size()).getNumClient() + 1));
+        this.txtNomClients.setText("");
+        this.txtAddressClients.setText("");
+        this.txtCpClients.setText("");
+        this.txtPaysClients.setText("");
+        this.txtTelClients.setText("");
+        this.txtEmailClients.setText("");
+        this.btnValider1.setId("btnEnr11");
+        this.btnValider1.setVisible(true);
+        this.btnAnnuler1.setVisible(true);
+    }
+
+    @FXML
+    public void activeModClient()
+      throws SQLException, ClassNotFoundException
     {
-      Alert alert = new Alert(Alert.AlertType.ERROR);
-      alert.setHeaderText("REMARQUE");
-      alert.setContentText("action annuller");
-      alert.show();
+      this.btnValider1.setId("btnMod11");
+      this.btnValider1.setVisible(true);
+      this.btnAnnuler1.setVisible(true);
     }
-    this.btnValider1.setId("");
-  }
-  
-  @FXML
-  public void activeSupClient()
-    throws SQLException, ClassNotFoundException
-  {
-    this.btnValider1.setId("btnSup11");
-    this.btnValider1.setVisible(true);
-    this.btnAnnuler1.setVisible(true);
-  }
-  
-  @FXML
-  public void activeAjouClient()
-    throws SQLException, ClassNotFoundException
-  {
-    this.txtNumClients.setText(String.valueOf(this.clients.find(this.clients.findAll().size()).getNumClient() + 1));
-    this.txtNomClients.setText("");
-    this.txtAddressClients.setText("");
-    this.txtCpClients.setText("");
-    this.txtPaysClients.setText("");
-    this.txtTelClients.setText("");
-    this.txtEmailClients.setText("");
-    this.btnValider1.setId("btnEnr11");
-    this.btnValider1.setVisible(true);
-    this.btnAnnuler1.setVisible(true);
-  }
-  
-  @FXML
-  public void activeModClient()
-    throws SQLException, ClassNotFoundException
-  {
-    this.btnValider1.setId("btnMod11");
-    this.btnValider1.setVisible(true);
-    this.btnAnnuler1.setVisible(true);
-  }
-  
-  public void initialize(URL location, ResourceBundle resources)
-  {
-    affichage();
-    this.stock.setVisible(false);
-    try
-    {
-      ArrayList<Clients> cli = this.clients.findAll();
-      affTextField(((Clients)cli.get(0)).getNumClient());
-      this.btnValider1.setVisible(false);
-      this.btnAnnuler1.setVisible(false);
+    
+    public void search() throws SQLException, ClassNotFoundException{
+        if(!"".equals(search.getText())){
+            this.affichageS(search.getText());
+        }else{
+            this.affichage();
+        }
+        
     }
-    catch (ClassNotFoundException|SQLException ex)
-    {
-      Logger.getLogger(ControlerClients.class.getName()).log(Level.SEVERE, null, ex);
+    
+    public void initialize(URL location, ResourceBundle resources) {
+      affichage();
+      this.stock.setVisible(false);
+      try
+      {
+        ArrayList<Clients> cli = this.clients.findAll();
+        this.affTextField(((Clients)cli.get(0)).getNumClient());
+        this.btnValider1.setVisible(false);
+        this.btnAnnuler1.setVisible(false);
+      }
+      catch (ClassNotFoundException|SQLException ex)
+      {
+        Logger.getLogger(ControlerClients.class.getName()).log(Level.SEVERE, null, ex);
+      }
+      this.panesEdit.setCollapsible(false);
     }
-    this.panesEdit.setCollapsible(false);
-  }
 }

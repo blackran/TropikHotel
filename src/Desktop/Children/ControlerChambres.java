@@ -415,14 +415,10 @@ public class ControlerChambres
   }
   
   @FXML
-  private void verification(ActionEvent e)
-    throws SQLException, ClassNotFoundException
-  {
+  private void verification(ActionEvent e) throws SQLException, ClassNotFoundException {
     System.out.println(e.getTarget() == this.btnValider2);
-    if (e.getTarget() == this.btnValider1)
-    {
-      switch (this.btnValider1.getId())
-      {
+    if (e.getTarget() == this.btnValider1){
+      switch (this.btnValider1.getId()){
       case "btnEnr11": 
         System.out.println("arrive ici");
         ajouterChambre();

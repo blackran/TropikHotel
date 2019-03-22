@@ -3,9 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/blackran/NetBeansProjects/tropik/src/Desktop/Children/ControlerReservations.java</file>
-            <file>file:/home/blackran/NetBeansProjects/tropik/src/tropikhotel/DAO/DaoChambres.java</file>
-            <file>file:/home/blackran/NetBeansProjects/tropik/src/tropikhotel/DAO/DaoReserver.java</file>
+            <file>file:/home/blackran/NetBeansProjects/tropik/src/Desktop/Children/ControlerClients.java</file>
+            <file>file:/home/blackran/NetBeansProjects/tropik/src/tropikhotel/DAO/DaoClients.java</file>
+            <file>file:/home/blackran/NetBeansProjects/tropik/src/tropikhotel/GetSet/ClientsT.java</file>
         </group>
     </open-files>
 </project-private>

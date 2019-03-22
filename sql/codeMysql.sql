@@ -166,39 +166,64 @@ INSERT INTO TYPES (NomType)VALUES
 SELECT * FROM TYPES;
 
 INSERT INTO CHAMBRES (NomChambre, TelChambre, EtageChambre, ChauffeauChambre, PrixChambre, NumCategorie,NumType) VALUES
-("ROSE","0349354341","1","GAZ",20000,1,1),
-("1","0340022211","0","ELECTRIQUE",30000,1,1)
+("Coquelicot","0349354341","1","GAZ",20000,1,1),
+("Jonquille","0349354341","1","GAZ",20000,1,1),
+("Tulipe","0349354341","1","GAZ",20000,1,1),
+("Camélia","0349354341","1","GAZ",20000,1,1),
+
+("Jacinthe","0349354341","2","GAZ",20000,1,1),
+("Arum","0349354341","2","GAZ",20000,1,1),
+("Pic","0349354341","2","GAZ",20000,1,1),
+("Muguet","0349354341","2","GAZ",20000,1,1),
+("Pivoine","0349354341","2","GAZ",20000,1,1),
+("Fuschia","0349354341","2","GAZ",20000,1,1),
+
+("Pervenche","0340022211","1","ELECTRIQUE",30000,1,1),
+("Mimosa","0340022211","1","ELECTRIQUE",30000,1,1),
+("Capucine","0340022211","1","ELECTRIQUE",30000,1,1),
+("Lavande","0340022211","1","ELECTRIQUE",30000,1,1),
+("Tournesol","0340022211","1","ELECTRIQUE",30000,1,1),
+("Dalhia","0340022211","1","ELECTRIQUE",30000,1,1),
+("Iris","0340022211","1","ELECTRIQUE",30000,1,1),
+("Myosotis","0340022211","1","ELECTRIQUE",30000,1,1),
+("Azalée","0340022211","1","ELECTRIQUE",30000,1,1),
+
+("Rose","0340022211","2","ELECTRIQUE",30000,1,1),
+("Glaieul","0340022211","2","ELECTRIQUE",30000,1,1),
+("Hortensia","0340022211","2","ELECTRIQUE",30000,1,1),
+("Acacias","0340022211","2","ELECTRIQUE",30000,1,1),
+("Oeillet","0340022211","2","ELECTRIQUE",30000,1,1)
 ;
 
 SELECT * FROM CHAMBRES;
 
-insert into REGLEMENTS(EtatReglement, MontantReglement, AnneeReglement) values 
-('non regler', 22000, "2009"),
-('non regler', 10000, "2009"),
-('non regler', 34000, "2010"),
-('non regler', 0, "2010"),
-('non regler', 15000, "2011"),
-('non regler', 10000, "2011"),
-('non regler', 20000, "2012"),
-('non regler', 45000, "2012"),
-('non regler', 30000, "2013"),
-('non regler', 45000, "2013"),
-('non regler', 45000, "2014"),
-('non regler', 20000, "2014"),
-('non regler', 20000, "2015"),
-('non regler', 30000, "2015"),
-('non regler', 45000, "2016"),
-('non regler', 30000, "2016"),
-('non regler', 30000, "2017"),
-('non regler', 30000, "2017"),
-('non regler', 50000, "2018"),
-('non regler', 50000, "2018"),
-('non regler', 10000, "2019"),
-('non regler', 20000, "2019"),
-('non regler', 45000, "2019"),
-('non regler', 30000, "2019"),
-('non regler', 45000, "2019"),
-('non regler', 50000, "2019");
+insert into REGLEMENTS(EtatReglement, MontantReglement, AnneeReglement) values
+('', 22000, "2009"),
+('', 10000, "2009"),
+('payer', 34000, "2010"),
+('payer', 0, "2010"),
+('payer', 15000, "2011"),
+('', 10000, "2011"),
+('', 20000, "2012"),
+('', 45000, "2012"),
+('', 30000, "2013"),
+('', 45000, "2013"),
+('payer', 45000, "2014"),
+('', 20000, "2014"),
+('payer', 20000, "2015"),
+('payer', 30000, "2015"),
+('payer', 45000, "2016"),
+('payer', 30000, "2016"),
+('payer', 30000, "2017"),
+('payer', 30000, "2017"),
+('payer', 50000, "2018"),
+('payer', 50000, "2018"),
+('payer', 10000, "2019"),
+('payer', 20000, "2019"),
+('payer', 45000, "2019"),
+('payer', 30000, "2019"),
+('payer', 45000, "2019"),
+('payer', 50000, "2019");
 
 SELECT * FROM REGLEMENTS;
 
