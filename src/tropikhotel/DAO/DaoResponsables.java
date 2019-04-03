@@ -30,7 +30,6 @@ public class DaoResponsables
     
     Connection connection = this.con.conn();
     this.sql = ("insert into RESPONSABLES(NomResponsable, PseudoResponsable, PasswordResponsable, PrenomResponsable, AddressResponsable, TelResponsable, DroitResponsable, ImageUrlResponsable) values ('" + resp.getNomResponsable() + "','" + resp.getPseudoResponsable() + "','" + resp.getPasswordResponsable() + "','" + resp.getPrenomResponsable() + "','" + resp.getAddressResponsable() + "','" + resp.getTelResponsable() + "','" + resp.getDroitResponsable() + "','" + resp.getImageUrlResponsable() + "')");
-    System.out.println(this.sql);
     Statement statement = connection.createStatement();
     statement.execute(this.sql);
   }
@@ -41,7 +40,6 @@ public class DaoResponsables
     Connection connection = this.con.conn();
     this.sql = ("delete from RESPONSABLES where NumResponsable =" + id);
     Statement statement = connection.createStatement();
-    System.out.println(this.sql);
     statement.execute(this.sql);
   }
   
@@ -60,7 +58,6 @@ public class DaoResponsables
     resp.setImageUrlResponsable(ImageUrlResponsable);
     Connection connection = this.con.conn();
     this.sql = ("update RESPONSABLES set NomResponsable='" + resp.getNomResponsable() + "', PseudoResponsable='" + resp.getPseudoResponsable() + "', PasswordResponsable='" + resp.getPasswordResponsable() + "', PrenomResponsable='" + resp.getPrenomResponsable() + "', AddressResponsable='" + resp.getAddressResponsable() + "', TelResponsable='" + resp.getTelResponsable() + "', DroitResponsable='" + resp.getDroitResponsable() + "', ImageUrlResponsable='" + resp.getImageUrlResponsable() + "' where NumResponsable='" + resp.getNumResponsable() + "'");
-    System.out.println(this.sql);
     Statement statement = connection.createStatement();
     statement.execute(this.sql);
   }
@@ -73,7 +70,6 @@ public class DaoResponsables
     this.sql = ("select * from RESPONSABLES where NumResponsable =" + i);
     Statement statement = connection.createStatement();
     ResultSet resultset = statement.executeQuery(this.sql);
-    System.out.println(this.sql);
     while (resultset.next()) {
       resp = new Responsables(resultset.getInt("NumResponsable"), resultset.getString("NomResponsable"), resultset.getString("PseudoResponsable"), resultset.getString("PasswordResponsable"), resultset.getString("PrenomResponsable"), resultset.getString("AddressResponsable"), resultset.getString("TelResponsable"), resultset.getString("DroitResponsable"), resultset.getString("ImageUrlResponsable"));
     }
@@ -118,7 +114,6 @@ public class DaoResponsables
       other = id;
     }
     this.sql = ("select * from RESPONSABLES where NumResponsable= " + other + " || NomResponsable='" + id + "' || PseudoResponsable='" + id + "' || PasswordResponsable='" + id + "' || PrenomResponsable='" + id + "' || AddressResponsable='" + id + "' || TelResponsable='" + id + "' || DroitResponsable='" + id + "' || ImageUrlResponsable='" + id + "'");
-    System.out.println(this.sql);
     Statement statement = connection.createStatement();
     ResultSet resultset = statement.executeQuery(this.sql);
     while (resultset.next()) {

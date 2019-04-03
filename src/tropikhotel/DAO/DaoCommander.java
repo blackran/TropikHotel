@@ -6,8 +6,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import tropikhotel.Con;
 import tropikhotel.GetSet.Commander;
+import tropikhotel.GetSet.CommanderT;
 
 public class DaoCommander
 {
@@ -79,22 +82,33 @@ public class DaoCommander
     return Comm;
   }
   
-  public ArrayList searchAll(String id)
-    throws SQLException, ClassNotFoundException
-  {
-    ArrayList<Commander> Comm = new ArrayList();
-    Connection connection = this.con.conn();
-    String other = null;
-    if (id.matches("[0-9]*")) {
-      other = id;
+    public ArrayList searchAll(String id) throws SQLException, ClassNotFoundException {
+        ArrayList<Commander> Comm = new ArrayList();
+        Connection connection = this.con.conn();
+        String other = null;
+        if (id.matches("[0-9]*")) {
+          other = id;
+        }
+        this.sql = ("select * from Commander where NumCommander= " + other + " || TarifCommander=" + other + " || DateCommander='" + id + "' || NumClient=" + other + " || NumRepas=" + other + "");
+        System.out.println(this.sql);
+        Statement statement = connection.createStatement();
+        ResultSet resultset = statement.executeQuery(this.sql);
+        while (resultset.next()) {
+          Comm.add(new Commander(resultset.getInt("NumCommander"), resultset.getInt("TarifCommander"), resultset.getString("DateCommander"), resultset.getInt("NumClient"), resultset.getInt("NumRepas")));
+        }
+        return Comm;
     }
-    this.sql = ("select * from Commander where NumCommander= " + other + " || TarifCommander=" + other + " || DateCommander='" + id + "' || NumClient=" + other + " || NumRepas=" + other + "");
-    System.out.println(this.sql);
-    Statement statement = connection.createStatement();
-    ResultSet resultset = statement.executeQuery(this.sql);
-    while (resultset.next()) {
-      Comm.add(new Commander(resultset.getInt("NumCommander"), resultset.getInt("TarifCommander"), resultset.getString("DateCommander"), resultset.getInt("NumClient"), resultset.getInt("NumRepas")));
+    public ObservableList<CommanderT> searchOneT(String id) throws ClassNotFoundException, SQLException {
+        ObservableList<CommanderT> Comm = FXCollections.observableArrayList();
+        Connection connection = this.con.conn();
+        this.sql = ("select * from CATEGORIES where NumCategorie LIKE  '%" + id + "%' || DescriptionCategorie LIKE  '%" + id + "%' ");
+
+        System.out.println(this.sql);
+        Statement statement = connection.createStatement();
+        ResultSet resultset = statement.executeQuery(this.sql);
+        while (resultset.next()) {
+          Comm.add(new CommanderT(String.valueOf(resultset.getInt("NumCommander")), String.valueOf(resultset.getInt("TarifCommander")), String.valueOf(resultset.getInt("NumClient")), String.valueOf(resultset.getInt("NumRepas"))));
+        }
+        return Comm;
     }
-    return Comm;
-  }
 }

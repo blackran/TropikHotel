@@ -1,6 +1,5 @@
 package tropikhotel.DAO;
 
-import java.io.PrintStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,51 +22,40 @@ public class DaoConcerner
     
     Connection connection = this.con.conn();
     this.sql = ("insert into CONCERNER(NumReservation, NomChambre) values (" + Con.getNumReservation() + ",'" + Con.getNomChambre() + "')");
-    System.out.println(this.sql);
     Statement statement = connection.createStatement();
     statement.execute(this.sql);
   }
   
-  public void remove(int id, String nom)
-    throws SQLException, ClassNotFoundException
-  {
+  public void remove(int id, String nom) throws SQLException, ClassNotFoundException {
     Connection connection = this.con.conn();
     this.sql = ("delete from CONCERNER where NumReservation =" + id + " and NomChambre='" + nom + "'");
     Statement statement = connection.createStatement();
     statement.execute(this.sql);
   }
   
-  public void mod(int i, String j, int NumReservation, String NomChambre)
-    throws SQLException, ClassNotFoundException
-  {
+  public void mod(int i, String j, int NumReservation, String NomChambre) throws SQLException, ClassNotFoundException {
     Concerner Con = (Concerner)find(i, j).get(0);
     Con.setNumReservation(NumReservation);
     Con.setNomChambre(NomChambre);
   }
   
-  public ArrayList find(int i, String j)
-    throws ClassNotFoundException, SQLException
-  {
+  public ArrayList find(int i, String j) throws ClassNotFoundException, SQLException {
     Connection connection = this.con.conn();
     ArrayList<Concerner> Con = new ArrayList();
     this.sql = ("select * from CONCERNER where NumReservation =" + i + " && NomChambre='" + j + "'");
     Statement statement = connection.createStatement();
     ResultSet resultset = statement.executeQuery(this.sql);
-    System.out.println(this.sql);
     while (resultset.next()) {
       Con.add(new Concerner(resultset.getInt("NumReservation"), resultset.getString("NomChambre")));
     }
     return Con;
   }
-  public ArrayList find(int i)
-    throws ClassNotFoundException, SQLException
-  {
+  public ArrayList find(int i) throws ClassNotFoundException, SQLException {
     Connection connection = this.con.conn();
     ArrayList<Concerner> Con = new ArrayList();
     this.sql = ("select * from CONCERNER where NumReservation =" + i);
     Statement statement = connection.createStatement();
     ResultSet resultset = statement.executeQuery(this.sql);
-    System.out.println(this.sql);
     while (resultset.next()) {
       Con.add(new Concerner(resultset.getInt("NumReservation"), resultset.getString("NomChambre")));
     }
@@ -80,7 +68,6 @@ public class DaoConcerner
     this.sql = ("select * from CONCERNER where NumReservation =" + i);
     Statement statement = connection.createStatement();
     ResultSet resultset = statement.executeQuery(this.sql);
-    System.out.println(this.sql);
     while (resultset.next()) {
       Con.add(new Concerner(resultset.getInt("NumReservation"), resultset.getString("NomChambre")));
     }
@@ -107,7 +94,6 @@ public class DaoConcerner
       other = id;
     }
     this.sql = ("select * from Concerner where NumReservation= " + other + " || NomChambre='" + id + "'");
-    System.out.println(this.sql);
     Statement statement = connection.createStatement();
     ResultSet resultset = statement.executeQuery(this.sql);
     while (resultset.next()) {

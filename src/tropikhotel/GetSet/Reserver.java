@@ -6,17 +6,19 @@ public class Reserver
   private String DateDebutReservation;
   private String DateFinReservation;
   private int NbJourReservation;
+  private String ConditionReservation;
   private String EtatReservation;
   private int NumClient;
   private int NumResponsable;
   private int NumReglement;
   
-  public Reserver(int NumReservation, String DateDebutReservation, String DateFinReservation, int NbJourReservation, String EtatReservation, int NumClient, int NumResponsable, int NumReglement)
+  public Reserver(int NumReservation, String DateDebutReservation, String DateFinReservation, int NbJourReservation, String ConditionReservation, String EtatReservation, int NumClient, int NumResponsable, int NumReglement)
   {
     this.NumReservation = NumReservation;
     this.DateDebutReservation = DateDebutReservation;
     this.DateFinReservation = DateFinReservation;
     this.NbJourReservation = NbJourReservation;
+    this.ConditionReservation = ConditionReservation;
     this.EtatReservation = EtatReservation;
     this.NumClient = NumClient;
     this.NumResponsable = NumResponsable;
@@ -67,6 +69,14 @@ public class Reserver
   {
     this.NbJourReservation = NbJourReservation;
   }
+
+    public String getConditionReservation() {
+        return ConditionReservation;
+    }
+
+    public void setConditionReservation(String ConditionReservation) {
+        this.ConditionReservation = ConditionReservation;
+    }
   
   public String getEtatReservation()
   {

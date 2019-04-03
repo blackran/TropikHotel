@@ -12,6 +12,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.print.PageLayout;
@@ -65,7 +67,7 @@ public class FXMLFactureController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         LocalDate dt = LocalDate.now();
-        NumAndDate.setText(dt.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+        NumAndDate.setText(dt.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
     } 
     private double xOffset = 0.0D;
     private double yOffset = 0.0D;
@@ -87,7 +89,7 @@ public class FXMLFactureController implements Initializable {
       stage.close();
     }
 
-    void setT(String string) throws ClassNotFoundException, SQLException {
+    void setT(String string, int total, ObservableList ob) throws ClassNotFoundException, SQLException {
         ArrayList<Reserver> rese = daoreserver.searchOne(0, string, "NumReglement");
         System.out.println(daoclients.find(rese.get(0).getNumClient()).getNomClient());
         String nom = "";
@@ -104,6 +106,8 @@ public class FXMLFactureController implements Initializable {
             }
         } 
         
+        sommeFacture.setText(String.valueOf(total));
+        listResponsable.getItems().addAll(ob);
     }
     public void printBtn(Node node) throws NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
         Printer printer = Printer.getDefaultPrinter();

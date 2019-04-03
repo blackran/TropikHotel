@@ -24,7 +24,7 @@
    <children>
       <AnchorPane layoutX="280.0" layoutY="3.0" prefHeight="42.0" prefWidth="880.0" style="-fx-background-color: #aaaaaa;" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="10.0">
          <children>
-            <TextField layoutX="668.0" layoutY="8.0" promptText="Search" />
+            <TextField fx:id="search" layoutX="668.0" layoutY="8.0" onKeyReleased="#search" promptText="Search" />
             <ImageView fitHeight="23.0" fitWidth="23.0" layoutX="635.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/w-search.png" />
@@ -38,7 +38,7 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TitledPane animated="false" layoutX="16.0" layoutY="13.0" prefHeight="472.0" prefWidth="411.0" text="Details" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="10.0">
+                        <TitledPane animated="false" collapsible="false" layoutX="16.0" layoutY="13.0" prefHeight="472.0" prefWidth="411.0" text="Details" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="10.0">
                           <content>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
@@ -107,7 +107,7 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="866.0">
                      <children>
-                        <TitledPane animated="false" layoutX="28.0" layoutY="14.0" prefHeight="412.0" prefWidth="411.0" text="Details">
+                        <TitledPane animated="false" collapsible="false" layoutX="28.0" layoutY="14.0" prefHeight="412.0" prefWidth="411.0" text="Details">
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
@@ -177,7 +177,7 @@
                               <Insets left="5.0" />
                            </padding>
                         </AnchorPane>
-                        <TitledPane animated="false" layoutX="38.0" layoutY="11.0" prefHeight="456.0" prefWidth="411.0" text="Details">
+                        <TitledPane animated="false" collapsible="false" layoutX="38.0" layoutY="11.0" prefHeight="456.0" prefWidth="411.0" text="Details">
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>

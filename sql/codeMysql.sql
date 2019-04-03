@@ -8,8 +8,7 @@ CREATE TABLE if not exists CLIENTS (
   CpClient VARCHAR(10),
   PaysClient VARCHAR(20),
   TelClient VARCHAR(20),
-  EmailClient VARCHAR(50),
-  AnneeCreClient VARCHAR(20)
+  EmailClient VARCHAR(50)
 );
 
 DESC CLIENTS;
@@ -47,8 +46,7 @@ DESC CATEGORIES;
 
 CREATE TABLE if not exists TYPES (
   NumType INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-  NomType VARCHAR(20)  NOT NULL,
-  DescriptionType VARCHAR(100)
+  NomType VARCHAR(20)  NOT NULL
 );
 
 DESC TYPES;
@@ -57,6 +55,7 @@ CREATE TABLE if not exists CHAMBRES (
   NomChambre VARCHAR(50) NOT NULL PRIMARY KEY,
   TelChambre VARCHAR(20) NOT NULL,
   EtageChambre VARCHAR(10) NOT NULL,
+  OccupeChambre VARCHAR(20) NOT NULL,
   ChauffeauChambre VARCHAR(20) NOT NULL,
   PrixChambre INT,
   NumCategorie INT,
@@ -69,11 +68,25 @@ CREATE TABLE if not exists CHAMBRES (
 CREATE TABLE if not exists REGLEMENTS (
   NumReglement INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
   MontantReglement INT,
-  EtatReglement VARCHAR(20),
-  AnneeReglement VARCHAR(20)
+  EtatReglement VARCHAR(20)
 );
 
 DESC REGLEMENTS;
+
+
+DESC CHAMBRES;
+
+CREATE TABLE if not exists FACTURE (
+  NumFacture INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+  DateFacture DATE NOT NULL,
+  MontantFacture INT NOT NULL,
+  NumReglement INT,
+  NumClient INT,
+  constraint FkRegFct foreign key (NumReglement) references REGLEMENTS(NumReglement),
+  constraint FkCliFct foreign key (NumClient) references CLIENTS(NumClient)
+);
+
+DESC FACTURE;
 
 
 CREATE TABLE if not exists RESERVER (
@@ -115,38 +128,8 @@ CREATE TABLE if not exists COMMANDER (
 
 DESC COMMANDER;
 
-INSERT INTO CLIENTS (NomClient, AddressClient, CpClient, PaysClient, TelClient, EmailClient, AnneeCreClient) VALUES
-("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2000"),
-("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2000"),
-("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2001"),
-("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2002"),
-("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2002"),
-("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2002"),
-("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2003"),
-("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2004"),
-("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2005"),
-("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2005"),
-("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2005"),
-("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2006"),
-("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2007"),
-("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2008"),
-("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2009"),
-("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2010"),
-("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2011"),
-("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2012"),
-("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2013"),
-("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2014"),
-("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2015"),
-("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2016"),
-("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2017"),
-("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2018"),
-("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2019"),
-("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2019"),
-("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2019"),
-("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2019"),
-("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2019"),
-("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2019");
-SELECT * FROM CLIENTS;
+INSERT INTO CLIENTS (NomClient, AddressClient, CpClient, PaysClient, TelClient, EmailClient) VALUES
+("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com");
 
 INSERT INTO RESPONSABLES (NomResponsable, PrenomResponsable, PseudoResponsable, PasswordResponsable, AddressResponsable, TelResponsable,DroitResponsable,ImageUrlResponsable) VALUES ("RASOLONDRAIBE", "Andrianantenaina", "blackran", "iloveyou","ambohitrandriana ambalavao", "0343949863","SUPERS","/home/blackran/Desktop/Me.jpg"),
 ("RASOLONDRAIBE", "Feno Sitraka", "root", "password","ambohitrandriana ambalavao",NULL,"USERS","/home/blackran/Desktop/sitraka.jpg");
@@ -165,65 +148,14 @@ INSERT INTO TYPES (NomType)VALUES
 
 SELECT * FROM TYPES;
 
-INSERT INTO CHAMBRES (NomChambre, TelChambre, EtageChambre, ChauffeauChambre, PrixChambre, NumCategorie,NumType) VALUES
-("Coquelicot","0349354341","1","GAZ",20000,1,1),
-("Jonquille","0349354341","1","GAZ",20000,1,1),
-("Tulipe","0349354341","1","GAZ",20000,1,1),
-("Camélia","0349354341","1","GAZ",20000,1,1),
-
-("Jacinthe","0349354341","2","GAZ",20000,1,1),
-("Arum","0349354341","2","GAZ",20000,1,1),
-("Pic","0349354341","2","GAZ",20000,1,1),
-("Muguet","0349354341","2","GAZ",20000,1,1),
-("Pivoine","0349354341","2","GAZ",20000,1,1),
-("Fuschia","0349354341","2","GAZ",20000,1,1),
-
-("Pervenche","0340022211","1","ELECTRIQUE",30000,1,1),
-("Mimosa","0340022211","1","ELECTRIQUE",30000,1,1),
-("Capucine","0340022211","1","ELECTRIQUE",30000,1,1),
-("Lavande","0340022211","1","ELECTRIQUE",30000,1,1),
-("Tournesol","0340022211","1","ELECTRIQUE",30000,1,1),
-("Dalhia","0340022211","1","ELECTRIQUE",30000,1,1),
-("Iris","0340022211","1","ELECTRIQUE",30000,1,1),
-("Myosotis","0340022211","1","ELECTRIQUE",30000,1,1),
-("Azalée","0340022211","1","ELECTRIQUE",30000,1,1),
-
-("Rose","0340022211","2","ELECTRIQUE",30000,1,1),
-("Glaieul","0340022211","2","ELECTRIQUE",30000,1,1),
-("Hortensia","0340022211","2","ELECTRIQUE",30000,1,1),
-("Acacias","0340022211","2","ELECTRIQUE",30000,1,1),
-("Oeillet","0340022211","2","ELECTRIQUE",30000,1,1)
+INSERT INTO CHAMBRES (NomChambre, TelChambre, EtageChambre, OccupeChambre, ChauffeauChambre, PrixChambre, NumCategorie,NumType) VALUES
+("ROSE","0349354341","1","1","GAZ",20000,1,1),
+("1","0340022211","0","0","ELECTRIQUE",30000,1,1)
 ;
 
 SELECT * FROM CHAMBRES;
 
-insert into REGLEMENTS(EtatReglement, MontantReglement, AnneeReglement) values
-('', 22000, "2009"),
-('', 10000, "2009"),
-('payer', 34000, "2010"),
-('payer', 0, "2010"),
-('payer', 15000, "2011"),
-('', 10000, "2011"),
-('', 20000, "2012"),
-('', 45000, "2012"),
-('', 30000, "2013"),
-('', 45000, "2013"),
-('payer', 45000, "2014"),
-('', 20000, "2014"),
-('payer', 20000, "2015"),
-('payer', 30000, "2015"),
-('payer', 45000, "2016"),
-('payer', 30000, "2016"),
-('payer', 30000, "2017"),
-('payer', 30000, "2017"),
-('payer', 50000, "2018"),
-('payer', 50000, "2018"),
-('payer', 10000, "2019"),
-('payer', 20000, "2019"),
-('payer', 45000, "2019"),
-('payer', 30000, "2019"),
-('payer', 45000, "2019"),
-('payer', 50000, "2019");
+insert into REGLEMENTS(EtatReglement, MontantReglement) values ('non regler', 0);
 
 SELECT * FROM REGLEMENTS;
 

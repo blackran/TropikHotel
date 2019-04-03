@@ -23,6 +23,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import tropikhotel.Con;
 import tropikhotel.DAO.DaoCategories;
@@ -128,9 +129,12 @@ public class ControlerChambres
   private TableColumn<TypeT, String> CNumType1;
   @FXML
   private TableColumn<TypeT, String> CNomType;
-  DaoChambres chambres = new DaoChambres();
-  DaoCategories categories = new DaoCategories();
-  DaoTypes types = new DaoTypes();
+  @FXML
+  private TextField search;
+  
+  DaoChambres daochambres = new DaoChambres();
+  DaoCategories daocategories = new DaoCategories();
+  DaoTypes daotypes = new DaoTypes();
   
   private ObservableList<ChambresT> getChambres() throws ClassNotFoundException, SQLException {
     Con c = new Con();
@@ -179,7 +183,7 @@ public class ControlerChambres
   public void affTextFieldChambre(String i)
     throws ClassNotFoundException, SQLException
   {
-    Chambres cha = this.chambres.find(i);
+    Chambres cha = this.daochambres.find(i);
     this.txtNomChambre.setText(cha.getNomChambre());
     this.txtTelChambre.setText(cha.getTelChambre());
     this.txtEtageChambre.getSelectionModel().select(cha.getEtageChambre());
@@ -193,7 +197,7 @@ public class ControlerChambres
   public void affTextFieldCategorie(int i)
     throws ClassNotFoundException, SQLException
   {
-    Categories cat = this.categories.find(i);
+    Categories cat = this.daocategories.find(i);
     this.txtNumCategorie1.setText(String.valueOf(cat.getNumCategorie()));
     this.txtDescriptionCategorie.setText(cat.getDescriptionCategorie());
   }
@@ -202,7 +206,7 @@ public class ControlerChambres
   public void affTextFieldType(int i)
     throws ClassNotFoundException, SQLException
   {
-    Types typ = this.types.find(i);
+    Types typ = this.daotypes.find(i);
     this.lbNumType.setText(String.valueOf(typ.getNumType()));
     this.txtNomType.setText(typ.getNomType());
     this.txtDescriptionType.setText(typ.getDescriptionType());
@@ -235,55 +239,87 @@ public class ControlerChambres
     affTextFieldType(Integer.parseInt(((TypeT)this.tableType.getItems().get(nbRow)).getNumType()));
   }
   
-  @FXML public void affichageChambre() {
-    this.CNomChambre.setCellValueFactory(new PropertyValueFactory("NomChambre"));
-    this.CNumCategorie.setCellValueFactory(new PropertyValueFactory("NumCategorie"));
-    this.CNumType.setCellValueFactory(new PropertyValueFactory("NumType"));
-    try
-    {
-      this.tableChambres.setItems(getChambres());
+    @FXML public void affichageChambre() {
+        this.CNomChambre.setCellValueFactory(new PropertyValueFactory("NomChambre"));
+        this.CNumCategorie.setCellValueFactory(new PropertyValueFactory("NumCategorie"));
+        this.CNumType.setCellValueFactory(new PropertyValueFactory("NumType"));
+        try{
+          this.tableChambres.setItems(getChambres());
+        }
+        catch (ClassNotFoundException|SQLException ex){
+          Logger.getLogger(ControlerChambres.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
-    catch (ClassNotFoundException|SQLException ex)
-    {
-      Logger.getLogger(ControlerChambres.class.getName()).log(Level.SEVERE, null, ex);
+    @FXML public void affichageChambreS(String id) {
+        this.CNomChambre.setCellValueFactory(new PropertyValueFactory("NomChambre"));
+        this.CNumCategorie.setCellValueFactory(new PropertyValueFactory("NumCategorie"));
+        this.CNumType.setCellValueFactory(new PropertyValueFactory("NumType"));
+        try{
+            this.tableChambres.setItems(daochambres.searchOneT(id));
+        }
+        catch (ClassNotFoundException|SQLException ex){
+             Logger.getLogger(ControlerChambres.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
-  }
   
-  @FXML
-  public void affichageCategorie()
-  {
-    this.CNumCategorie1.setCellValueFactory(new PropertyValueFactory("NumCategorie"));
-    this.CDescriptionCategorie.setCellValueFactory(new PropertyValueFactory("DescriptionCategorie"));
-    try
-    {
-      this.tableCategorie.setItems(getCategories());
+    @FXML
+    public void affichageCategorie(){
+        this.CNumCategorie1.setCellValueFactory(new PropertyValueFactory("NumCategorie"));
+        this.CDescriptionCategorie.setCellValueFactory(new PropertyValueFactory("DescriptionCategorie"));
+        try
+        {
+          this.tableCategorie.setItems(getCategories());
+        }
+        catch (ClassNotFoundException|SQLException ex)
+        {
+          Logger.getLogger(ControlerChambres.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
-    catch (ClassNotFoundException|SQLException ex)
-    {
-      Logger.getLogger(ControlerChambres.class.getName()).log(Level.SEVERE, null, ex);
+    @FXML
+    public void affichageCategorieS(String id){
+        this.CNumCategorie1.setCellValueFactory(new PropertyValueFactory("NumCategorie"));
+        this.CDescriptionCategorie.setCellValueFactory(new PropertyValueFactory("DescriptionCategorie"));
+        try
+        {
+          this.tableCategorie.setItems(daocategories.searchOneT(id));
+        }
+        catch (ClassNotFoundException|SQLException ex)
+        {
+          Logger.getLogger(ControlerChambres.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
-  }
   
-  @FXML
-  public void affichageType()
-  {
-    this.CNumType1.setCellValueFactory(new PropertyValueFactory("NumType"));
-    this.CNomType.setCellValueFactory(new PropertyValueFactory("NomType"));
-    try
-    {
-      this.tableType.setItems(getTypes());
+    @FXML
+    public void affichageType(){
+        this.CNumType1.setCellValueFactory(new PropertyValueFactory("NumType"));
+        this.CNomType.setCellValueFactory(new PropertyValueFactory("NomType"));
+        try
+        {
+          this.tableType.setItems(getTypes());
+        }
+        catch (ClassNotFoundException|SQLException ex)
+        {
+          Logger.getLogger(ControlerChambres.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
-    catch (ClassNotFoundException|SQLException ex)
-    {
-      Logger.getLogger(ControlerChambres.class.getName()).log(Level.SEVERE, null, ex);
+  
+    @FXML
+    public void affichageTypeS(String id){
+        this.CNumType1.setCellValueFactory(new PropertyValueFactory("NumType"));
+        this.CNomType.setCellValueFactory(new PropertyValueFactory("NomType"));
+        try{
+            this.tableType.setItems(daotypes.searchOneT(id));
+        }
+        catch (ClassNotFoundException|SQLException ex){
+            Logger.getLogger(ControlerChambres.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
-  }
   
   @FXML
   public void modifierChambre()
     throws SQLException, ClassNotFoundException
   {
-    this.chambres.mod(this.txtNomChambre.getText(), this.txtTelChambre.getText(), this.txtEtageChambre.getValue().toString(), this.txtChauffeauChambre.getValue().toString(), Integer.parseInt(this.txtPrixChambre.getText()), Integer.parseInt(this.txtNumCategorie.getValue().toString()), Integer.parseInt(this.txtNumType.getValue().toString()));
+    this.daochambres.mod(this.txtNomChambre.getText(), this.txtTelChambre.getText(), this.txtEtageChambre.getValue().toString(), this.txtChauffeauChambre.getValue().toString(), Integer.parseInt(this.txtPrixChambre.getText()), Integer.parseInt(this.txtNumCategorie.getValue().toString()), Integer.parseInt(this.txtNumType.getValue().toString()));
     affichageChambre();
     this.btnValider1.setVisible(false);
     this.btnAnnuler1.setVisible(false);
@@ -297,7 +333,7 @@ public class ControlerChambres
   public void modifierCategorie()
     throws SQLException, ClassNotFoundException
   {
-    this.categories.mod(Integer.parseInt(this.txtNumCategorie.getValue().toString()), this.txtDescriptionCategorie.getText());
+    this.daocategories.mod(Integer.parseInt(this.txtNumCategorie.getValue().toString()), this.txtDescriptionCategorie.getText());
     affichageCategorie();
     this.btnValider2.setVisible(false);
     this.btnAnnuler2.setVisible(false);
@@ -311,9 +347,9 @@ public class ControlerChambres
   private void suprimerChambre()
     throws SQLException, ClassNotFoundException
   {
-    this.chambres.remove(this.stockChambre.getText());
+    this.daochambres.remove(this.stockChambre.getText());
     affichageChambre();
-    ArrayList<Chambres> cha = this.chambres.findAll();
+    ArrayList<Chambres> cha = this.daochambres.findAll();
     affTextFieldChambre(((Chambres)cha.get(0)).getNomChambre());
     Alert alert = new Alert(Alert.AlertType.INFORMATION);
     alert.setHeaderText("REMARQUE");
@@ -326,9 +362,9 @@ public class ControlerChambres
     throws SQLException, ClassNotFoundException
   {
     System.out.println("suprimer ici");
-    this.categories.remove(Integer.parseInt(this.stockCategorie.getText()));
+    this.daocategories.remove(Integer.parseInt(this.stockCategorie.getText()));
     affichageCategorie();
-    ArrayList<Categories> Cat = this.categories.findAll();
+    ArrayList<Categories> Cat = this.daocategories.findAll();
     this.txtNumCategorie1.setText(String.valueOf(((Categories)Cat.get(Cat.size() - 1)).getNumCategorie()));
     affTextFieldCategorie(((Categories)Cat.get(Cat.size() - 1)).getNumCategorie());
     this.btnValider2.setVisible(false);
@@ -344,7 +380,7 @@ public class ControlerChambres
     throws SQLException, ClassNotFoundException
   {
     System.out.println("ca fonctione");
-    this.chambres.add(this.txtNomChambre.getText(), this.txtTelChambre.getText(), this.txtEtageChambre.getValue().toString(), this.txtChauffeauChambre.getValue().toString(), Integer.parseInt(this.txtPrixChambre.getText()), Integer.parseInt(this.txtNumCategorie.getValue().toString()), Integer.parseInt(this.txtNumType.getValue().toString()));
+    this.daochambres.add(this.txtNomChambre.getText(), this.txtTelChambre.getText(), this.txtEtageChambre.getValue().toString(), this.txtChauffeauChambre.getValue().toString(), Integer.parseInt(this.txtPrixChambre.getText()), Integer.parseInt(this.txtNumCategorie.getValue().toString()), Integer.parseInt(this.txtNumType.getValue().toString()));
     affichageChambre();
     this.btnValider1.setVisible(false);
     this.btnAnnuler1.setVisible(false);
@@ -358,7 +394,7 @@ public class ControlerChambres
   private void ajouterCategorie()
     throws SQLException, ClassNotFoundException
   {
-    this.categories.add(Integer.parseInt(this.txtNumCategorie.getValue().toString()), this.txtDescriptionCategorie.getText());
+    this.daocategories.add(Integer.parseInt(this.txtNumCategorie.getValue().toString()), this.txtDescriptionCategorie.getText());
     affichageCategorie();
     this.btnValider2.setVisible(false);
     this.btnAnnuler2.setVisible(false);
@@ -372,7 +408,7 @@ public class ControlerChambres
   private void ajouterType()
     throws SQLException, ClassNotFoundException
   {
-    this.types.add(Integer.parseInt(this.lbNumType.getText()), this.txtNomType.getText(), this.txtDescriptionType.getText());
+    this.daotypes.add(Integer.parseInt(this.lbNumType.getText()), this.txtNomType.getText(), this.txtDescriptionType.getText());
     affichageType();
     this.btnValider3.setVisible(false);
     this.btnAnnuler3.setVisible(false);
@@ -387,11 +423,11 @@ public class ControlerChambres
     throws SQLException, ClassNotFoundException
   {
     System.out.println("suprimer ici");
-    this.types.remove(Integer.parseInt(this.lbNumType.getText()));
+    this.daotypes.remove(Integer.parseInt(this.lbNumType.getText()));
     affichageType();
     this.btnValider3.setVisible(false);
     this.btnAnnuler3.setVisible(false);
-    ArrayList<Types> type = this.types.findAll();
+    ArrayList<Types> type = this.daotypes.findAll();
     this.lbNumType.setText(String.valueOf(((Types)type.get(type.size() - 1)).getNumType()));
     affTextFieldType(((Types)type.get(type.size() - 1)).getNumType());
     Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -404,7 +440,7 @@ public class ControlerChambres
   public void modifierType()
     throws SQLException, ClassNotFoundException
   {
-    this.types.mod(Integer.parseInt(this.lbNumType.getText()), this.txtNomType.getText(), this.txtDescriptionType.getText());
+    this.daotypes.mod(Integer.parseInt(this.lbNumType.getText()), this.txtNomType.getText(), this.txtDescriptionType.getText());
     affichageType();
     this.btnValider3.setVisible(false);
     this.btnAnnuler3.setVisible(false);
@@ -515,7 +551,7 @@ public class ControlerChambres
   public void activeEnrCategorie()
     throws SQLException, ClassNotFoundException
   {
-    ArrayList<Categories> Cat = this.categories.findAll();
+    ArrayList<Categories> Cat = this.daocategories.findAll();
     this.txtNumCategorie1.setText(String.valueOf(((Categories)Cat.get(Cat.size() - 1)).getNumCategorie() + 1));
     this.txtDescriptionCategorie.setText("");
     
@@ -546,7 +582,7 @@ public class ControlerChambres
   public void activeEnrTypes()
     throws SQLException, ClassNotFoundException
   {
-    ArrayList<Types> type = this.types.findAll();
+    ArrayList<Types> type = this.daotypes.findAll();
     this.lbNumType.setText(String.valueOf(((Types)type.get(type.size() - 1)).getNumType() + 1));
     this.txtNomType.setText("");
     this.txtDescriptionType.setText("");
@@ -565,62 +601,81 @@ public class ControlerChambres
     this.btnAnnuler3.setVisible(true);
   }
   
-  @FXML
-  public void activeModTypes()
-    throws SQLException, ClassNotFoundException
-  {
-    this.btnValider3.setId("btnMod33");
-    this.btnValider3.setVisible(true);
-    this.btnAnnuler3.setVisible(true);
-  }
+    @FXML
+    public void activeModTypes()
+      throws SQLException, ClassNotFoundException
+    {
+      this.btnValider3.setId("btnMod33");
+      this.btnValider3.setVisible(true);
+      this.btnAnnuler3.setVisible(true);
+    }
+
+    public void search() throws SQLException, ClassNotFoundException{
+        if(!"".equals(search.getText())){
+            this.affichageChambreS(search.getText());
+            this.affichageTypeS(search.getText());
+            this.affichageCategorieS(search.getText());
+        }else{
+            this.affichageChambre();
+            this.affichageType();
+            this.affichageCategorie();
+        }
+        
+    }
   
-  public void initialize(URL location, ResourceBundle resources)
-  {
-    try
-    {
-      this.stockChambre.setVisible(false);
-      affichageChambre();
-      affichageCategorie();
-      affichageType();
-      ObservableList<String> listEtage = FXCollections.observableArrayList();
-      listEtage.addAll(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9" });
-      ObservableList<String> listCategorie = FXCollections.observableArrayList();
-      DaoCategories daoCategories = new DaoCategories();
-      ArrayList<Categories> categorieChambre = daoCategories.findAll();
-      for (int i = 0; i < categorieChambre.size(); i++) {
-        listCategorie.add(String.valueOf(((Categories)categorieChambre.get(i)).getNumCategorie()));
-      }
-      ObservableList<String> listType = FXCollections.observableArrayList();
-      DaoTypes daoTypes = new DaoTypes();
-      ArrayList<Types> type = daoTypes.findAll();
-      for (int i = 0; i < type.size(); i++) {
-        listType.add(String.valueOf(((Types)type.get(i)).getNumType()));
-      }
-      ObservableList<String> chauffeau = FXCollections.observableArrayList();
-      chauffeau.addAll(new String[] { "GAZ", "ELECTRIQUE" });
-      this.txtChauffeauChambre.setItems(chauffeau);
-      this.txtEtageChambre.setItems(listEtage);
-      this.txtNumCategorie.setItems(listCategorie);
-      this.txtNumType.setItems(listType);
-      
-      ArrayList<Chambres> cha = this.chambres.findAll();
-      affTextFieldChambre(((Chambres)cha.get(0)).getNomChambre());
-      
-      ArrayList<Categories> cat = this.categories.findAll();
-      affTextFieldCategorie(((Categories)cat.get(0)).getNumCategorie());
-      
-      affTextFieldType(((Types)type.get(0)).getNumType());
-      
-      this.btnValider1.setVisible(false);
-      this.btnAnnuler1.setVisible(false);
-      this.btnValider2.setVisible(false);
-      this.btnAnnuler2.setVisible(false);
-      this.btnValider3.setVisible(false);
-      this.btnAnnuler3.setVisible(false);
+    @Override
+    public void initialize(URL location, ResourceBundle resources){
+        search.focusedProperty().addListener((obs, oldVal, newVal) ->{
+            if(!newVal){
+                search.setText("");
+                this.affichageChambre();
+                this.affichageType();
+                this.affichageCategorie();
+            }
+        });
+        try{
+            this.stockChambre.setVisible(false);
+            affichageChambre();
+            affichageCategorie();
+            affichageType();
+            ObservableList<String> listEtage = FXCollections.observableArrayList();
+            listEtage.addAll(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9" });
+            ObservableList<String> listCategorie = FXCollections.observableArrayList();
+            DaoCategories daoCategories = new DaoCategories();
+            ArrayList<Categories> categorieChambre = daoCategories.findAll();
+            for (int i = 0; i < categorieChambre.size(); i++) {
+              listCategorie.add(String.valueOf(((Categories)categorieChambre.get(i)).getNumCategorie()));
+            }
+            ObservableList<String> listType = FXCollections.observableArrayList();
+            DaoTypes daoTypes = new DaoTypes();
+            ArrayList<Types> type = daoTypes.findAll();
+            for (int i = 0; i < type.size(); i++) {
+              listType.add(String.valueOf(((Types)type.get(i)).getNumType()));
+            }
+            ObservableList<String> chauffeau = FXCollections.observableArrayList();
+            chauffeau.addAll(new String[] { "GAZ", "ELECTRIQUE" });
+            this.txtChauffeauChambre.setItems(chauffeau);
+            this.txtEtageChambre.setItems(listEtage);
+            this.txtNumCategorie.setItems(listCategorie);
+            this.txtNumType.setItems(listType);
+
+            ArrayList<Chambres> cha = this.daochambres.findAll();
+            affTextFieldChambre(((Chambres)cha.get(0)).getNomChambre());
+
+            ArrayList<Categories> cat = this.daocategories.findAll();
+            affTextFieldCategorie(((Categories)cat.get(0)).getNumCategorie());
+
+            affTextFieldType(((Types)type.get(0)).getNumType());
+
+            this.btnValider1.setVisible(false);
+            this.btnAnnuler1.setVisible(false);
+            this.btnValider2.setVisible(false);
+            this.btnAnnuler2.setVisible(false);
+            this.btnValider3.setVisible(false);
+            this.btnAnnuler3.setVisible(false);
+        }
+        catch (SQLException|ClassNotFoundException ex){
+            Logger.getLogger(ControlerChambres.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
-    catch (SQLException|ClassNotFoundException ex)
-    {
-      Logger.getLogger(ControlerChambres.class.getName()).log(Level.SEVERE, null, ex);
-    }
-  }
 }

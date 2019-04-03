@@ -80,7 +80,7 @@ public class ControlerClients
         Con c = new Con();
         Connection cn = c.conn();
         Statement st = cn.createStatement();
-        String sql = "select * from CLIENTS";
+        String sql = "select * from CLIENTS order by NumClient DESC";
         ResultSet rs = st.executeQuery(sql);
         ObservableList<ClientsT> cli = FXCollections.observableArrayList();
         while (rs.next()) {
@@ -231,20 +231,28 @@ public class ControlerClients
         
     }
     
-    public void initialize(URL location, ResourceBundle resources) {
-      affichage();
-      this.stock.setVisible(false);
-      try
-      {
-        ArrayList<Clients> cli = this.clients.findAll();
-        this.affTextField(((Clients)cli.get(0)).getNumClient());
-        this.btnValider1.setVisible(false);
-        this.btnAnnuler1.setVisible(false);
-      }
-      catch (ClassNotFoundException|SQLException ex)
-      {
-        Logger.getLogger(ControlerClients.class.getName()).log(Level.SEVERE, null, ex);
-      }
-      this.panesEdit.setCollapsible(false);
+    @Override
+    public void initialize(URL location, ResourceBundle resources){
+        search.focusedProperty().addListener((obs, oldVal, newVal) ->{
+            if(!newVal){
+                search.setText("");
+                this.affichage();
+            }
+        });
+        
+        affichage();
+        this.stock.setVisible(false);
+        try
+        {
+          ArrayList<Clients> cli = this.clients.findAll();
+          this.affTextField(((Clients)cli.get(0)).getNumClient());
+          this.btnValider1.setVisible(false);
+          this.btnAnnuler1.setVisible(false);
+        }
+        catch (ClassNotFoundException|SQLException ex)
+        {
+          Logger.getLogger(ControlerClients.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.panesEdit.setCollapsible(false);
     }
 }

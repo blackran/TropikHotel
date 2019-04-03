@@ -6,7 +6,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import tropikhotel.Con;
+import tropikhotel.GetSet.ChambresT;
+import tropikhotel.GetSet.TypeT;
 import tropikhotel.GetSet.Types;
 
 public class DaoTypes
@@ -82,22 +86,34 @@ public class DaoTypes
     return typ;
   }
   
-  public ArrayList searchAll(String id)
-    throws SQLException, ClassNotFoundException
-  {
-    ArrayList<Types> typ = new ArrayList();
-    Connection connection = this.con.conn();
-    String other = null;
-    if (id.matches("[0-9]*")) {
-      other = id;
+    public ArrayList searchAll(String id) throws SQLException, ClassNotFoundException {
+        ArrayList<Types> typ = new ArrayList();
+        Connection connection = this.con.conn();
+        String other = null;
+        if (id.matches("[0-9]*")) {
+          other = id;
+        }
+        this.sql = ("select * from TYPES where NumType= " + other + " || NomType='" + id + "' || DescriptionType='" + id + "'");
+        System.out.println(this.sql);
+        Statement statement = connection.createStatement();
+        ResultSet resultset = statement.executeQuery(this.sql);
+        while (resultset.next()) {
+          typ.add(new Types(resultset.getInt("NumType"), resultset.getString("NomType"), resultset.getString("DescriptionType")));
+        }
+        return typ;
     }
-    this.sql = ("select * from TYPES where NumType= " + other + " || NomType='" + id + "' || DescriptionType='" + id + "'");
-    System.out.println(this.sql);
-    Statement statement = connection.createStatement();
-    ResultSet resultset = statement.executeQuery(this.sql);
-    while (resultset.next()) {
-      typ.add(new Types(resultset.getInt("NumType"), resultset.getString("NomType"), resultset.getString("DescriptionType")));
+    
+    public ObservableList<TypeT> searchOneT(String id) throws ClassNotFoundException, SQLException {
+        ObservableList<TypeT> typ = FXCollections.observableArrayList();
+        Connection connection = this.con.conn();
+        this.sql = ("select * from TYPES where NumType LIKE  '%" + id + "%' || NomType LIKE  '%" + id + "%' || DescriptionType LIKE  '%" + id + "%' ");
+
+        System.out.println(this.sql);
+        Statement statement = connection.createStatement();
+        ResultSet resultset = statement.executeQuery(this.sql);
+        while (resultset.next()) {
+          typ.add(new TypeT(String.valueOf(resultset.getInt("NumType")), resultset.getString("NomType")));
+        }
+        return typ;
     }
-    return typ;
-  }
 }

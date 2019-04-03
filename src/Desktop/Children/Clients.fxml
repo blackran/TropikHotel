@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXTabPane?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -16,33 +18,6 @@
 
 <AnchorPane id="AnchorPane" fx:id="CPaysClient" prefHeight="600.0" prefWidth="954.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Desktop.Children.ControlerClients">
    <children>
-      <TableView fx:id="tableClients" layoutX="440.0" layoutY="59.0" onMouseClicked="#onMouseClickedTableau" prefHeight="340.0" prefWidth="450.0" style="-fx-border-radius: 50px;" AnchorPane.bottomAnchor="200.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="60.0">
-        <columns>
-          <TableColumn fx:id="CNumClient" prefWidth="56.0" text="N°" />
-            <TableColumn fx:id="CNomClient" prefWidth="205.0" text="Nom" />
-            <TableColumn fx:id="CTelClient" prefWidth="188.0" text="Telephone" />
-        </columns>
-      </TableView>
-      <TitledPane fx:id="panesEdit" animated="false" collapsible="false" layoutX="6.0" layoutY="60.0" prefHeight="417.0" prefWidth="400.0" text="Detail" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="60.0">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="361.0" prefWidth="443.0">
-               <padding>
-                  <Insets left="5.0" />
-               </padding>
-               <children>
-                  <Label layoutX="31.0" layoutY="23.0" text="N°" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="10.0" />
-                  <Label fx:id="txtNumClients" layoutX="81.0" layoutY="24.0" text="1" AnchorPane.topAnchor="10.0" />
-                  <JFXTextField fx:id="txtNomClients" labelFloat="true" layoutX="31.0" layoutY="58.0" prefHeight="26.0" prefWidth="277.0" promptText="Nom" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="50.0" />
-                  <JFXTextField fx:id="txtAddressClients" labelFloat="true" layoutX="29.0" layoutY="126.0" prefHeight="26.0" prefWidth="277.0" promptText="Address" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="100.0" />
-                  <JFXTextField fx:id="txtCpClients" labelFloat="true" layoutX="30.0" layoutY="293.0" prefHeight="26.0" prefWidth="277.0" promptText="Code Postal" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="150.0" />
-                  <JFXTextField fx:id="txtPaysClients" labelFloat="true" layoutX="30.0" layoutY="341.0" prefHeight="26.0" prefWidth="277.0" promptText="Pays" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="200.0" />
-                  <JFXTextField fx:id="txtTelClients" labelFloat="true" layoutX="30.0" layoutY="390.0" prefHeight="26.0" prefWidth="277.0" promptText="Telephone" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="250.0" />
-                  <JFXTextField fx:id="txtEmailClients" labelFloat="true" layoutX="40.0" layoutY="400.0" prefHeight="26.0" prefWidth="277.0" promptText="E-mail" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="300.0" />
-                  <Label fx:id="stock" layoutX="71.0" layoutY="382.0" text="Label" />
-               </children>
-            </AnchorPane>
-        </content>
-      </TitledPane>
       <AnchorPane layoutX="280.0" layoutY="3.0" prefHeight="42.0" prefWidth="880.0" style="-fx-background-color: #aaaaaa;" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="10.0">
          <children>
             <TextField fx:id="search" layoutX="668.0" layoutY="8.0" onKeyReleased="#search" promptText="Search" />
@@ -53,31 +28,70 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <Pane fx:id="paneEdit1" layoutX="550.0" layoutY="435.0" prefHeight="115.0" prefWidth="300.0">
-         <children>
-            <Button fx:id="btnSup1" layoutX="90.0" layoutY="90.0" mnemonicParsing="false" onAction="#activeSupClient" prefHeight="50.0" prefWidth="50.0">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Button>
-            <Button fx:id="btnEnr1" layoutX="20.0" layoutY="90.0" mnemonicParsing="false" onAction="#activeAjouClient" prefHeight="50.0" prefWidth="50.0">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Button>
-            <Button fx:id="btnRes1" layoutX="230.0" layoutY="90.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Button>
-            <Button fx:id="btnMod1" layoutX="160.0" layoutY="90.0" mnemonicParsing="false" onAction="#activeModClient" prefHeight="50.0" prefWidth="50.0">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Button>
-            <Button fx:id="btnValider1" layoutX="20.0" layoutY="30.0" mnemonicParsing="false" onAction="#verification" prefHeight="40.0" prefWidth="120.0" text="valider" />
-            <Button fx:id="btnAnnuler1" layoutX="160.0" layoutY="30.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="annuler" />
-         </children>
-      </Pane>
+      <JFXTabPane prefHeight="541.0" prefWidth="940.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <tabs>
+            <Tab text="Clients">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="tableClients" layoutY="31.0" onMouseClicked="#onMouseClickedTableau" prefHeight="306.0" prefWidth="455.0" style="-fx-border-radius: 50px;" AnchorPane.rightAnchor="35.0">
+                          <columns>
+                            <TableColumn fx:id="CNumClient" prefWidth="56.0" text="N°" />
+                              <TableColumn fx:id="CNomClient" prefWidth="205.0" text="Nom" />
+                              <TableColumn fx:id="CTelClient" prefWidth="188.0" text="Telephone" />
+                          </columns>
+                        </TableView>
+                        <TitledPane fx:id="panesEdit" animated="false" collapsible="false" layoutX="35.0" layoutY="31.0" prefHeight="417.0" prefWidth="400.0" text="Detail">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="361.0" prefWidth="443.0">
+                                 <padding>
+                                    <Insets left="5.0" />
+                                 </padding>
+                                 <children>
+                                    <Label layoutX="31.0" layoutY="23.0" text="N°" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="10.0" />
+                                    <Label fx:id="txtNumClients" layoutX="81.0" layoutY="24.0" text="1" AnchorPane.topAnchor="10.0" />
+                                    <JFXTextField fx:id="txtNomClients" labelFloat="true" layoutX="31.0" layoutY="58.0" prefHeight="26.0" prefWidth="277.0" promptText="Nom" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="50.0" />
+                                    <JFXTextField fx:id="txtAddressClients" labelFloat="true" layoutX="29.0" layoutY="126.0" prefHeight="26.0" prefWidth="277.0" promptText="Address" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="100.0" />
+                                    <JFXTextField fx:id="txtCpClients" labelFloat="true" layoutX="30.0" layoutY="293.0" prefHeight="26.0" prefWidth="277.0" promptText="Code Postal" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="150.0" />
+                                    <JFXTextField fx:id="txtPaysClients" labelFloat="true" layoutX="30.0" layoutY="341.0" prefHeight="26.0" prefWidth="277.0" promptText="Pays" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="200.0" />
+                                    <JFXTextField fx:id="txtTelClients" labelFloat="true" layoutX="30.0" layoutY="390.0" prefHeight="26.0" prefWidth="277.0" promptText="Telephone" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="250.0" />
+                                    <JFXTextField fx:id="txtEmailClients" labelFloat="true" layoutX="40.0" layoutY="400.0" prefHeight="26.0" prefWidth="277.0" promptText="E-mail" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="300.0" />
+                                    <Label fx:id="stock" layoutX="71.0" layoutY="382.0" text="Label" />
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                        </TitledPane>
+                        <Pane fx:id="paneEdit1" layoutX="550.0" layoutY="355.0" prefHeight="115.0" prefWidth="300.0">
+                           <children>
+                              <Button fx:id="btnSup1" layoutX="90.0" layoutY="90.0" mnemonicParsing="false" onAction="#activeSupClient" prefHeight="50.0" prefWidth="50.0">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="btnEnr1" layoutX="20.0" layoutY="90.0" mnemonicParsing="false" onAction="#activeAjouClient" prefHeight="50.0" prefWidth="50.0">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="btnRes1" layoutX="230.0" layoutY="90.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="btnMod1" layoutX="160.0" layoutY="90.0" mnemonicParsing="false" onAction="#activeModClient" prefHeight="50.0" prefWidth="50.0">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="btnValider1" layoutX="20.0" layoutY="30.0" mnemonicParsing="false" onAction="#verification" prefHeight="40.0" prefWidth="120.0" text="valider" />
+                              <Button fx:id="btnAnnuler1" layoutX="160.0" layoutY="30.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="annuler" />
+                           </children>
+                        </Pane>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+         </tabs>
+      </JFXTabPane>
    </children>
 </AnchorPane>

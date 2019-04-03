@@ -5,8 +5,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import tropikhotel.Con;
 import tropikhotel.GetSet.Chambres;
+import tropikhotel.GetSet.ChambresT;
 
 public class DaoChambres
 {
@@ -25,7 +28,6 @@ public class DaoChambres
     
     Connection connection = this.con.conn();
     this.sql = ("insert into CHAMBRES(NomChambre,  TelChambre,  EtageChambre, ChauffeauChambre, PrixChambre, NumCategorie, NumType) values ('" + Cha.getNomChambre() + "','" + Cha.getTelChambre() + "','" + Cha.getEtageChambre() + "','" + Cha.getChauffeauChambre() + "'," + Cha.getPrixChambre() + "," + Cha.getNumCategorie() + "," + Cha.getNumType() + ")");
-    System.out.println(this.sql);
     Statement statement = connection.createStatement();
     statement.execute(this.sql);
   }
@@ -51,7 +53,6 @@ public class DaoChambres
     Connection connection = this.con.conn();
     Statement statement = connection.createStatement();
     this.sql = ("update CHAMBRES set TelChambre='" + Cha.getTelChambre() + "',EtageChambre='" + Cha.getEtageChambre() + "',ChauffeauChambre='" + Cha.getChauffeauChambre() + "',PrixChambre=" + Cha.getPrixChambre() + ",NumCategorie=" + Cha.getNumCategorie() + ",NumType= " + Cha.getNumType() + " where NomChambre='" + Cha.getNomChambre() + "'");
-    System.out.println(this.sql);
     statement.execute(this.sql);
   }
   
@@ -63,7 +64,6 @@ public class DaoChambres
     this.sql = ("select * from CHAMBRES where NomChambre ='" + i + "'");
     Statement statement = connection.createStatement();
     ResultSet resultset = statement.executeQuery(this.sql);
-    System.out.println(this.sql);
     while (resultset.next()) {
       Cha = new Chambres(resultset.getString("NomChambre"), resultset.getString("TelChambre"), resultset.getString("EtageChambre"), resultset.getString("ChauffeauChambre"), resultset.getInt("PrixChambre"), resultset.getInt("NumCategorie"), resultset.getInt("NumType"));
     }
@@ -84,22 +84,30 @@ public class DaoChambres
     return Cha;
   }
   
-  public ArrayList searchAll(String id)
-    throws SQLException, ClassNotFoundException
-  {
-    ArrayList<Chambres> Cha = new ArrayList();
-    Connection connection = this.con.conn();
-    String other = null;
-    if (id.matches("[0-9]*")) {
-      other = id;
+    public ArrayList searchAll(String id) throws SQLException, ClassNotFoundException{
+        ArrayList<Chambres> Cha = new ArrayList();
+        Connection connection = this.con.conn();
+        String other = null;
+        if (id.matches("[0-9]*")) {
+          other = id;
+        }
+        this.sql = ("select * from CHAMBRES where NomChambre= '" + id + "' || TelChambre='" + id + "' || EtageChambre='" + id + "' || ChauffeauChambre='" + id + "|| PrixChambre=" + other + "' || NumCategorie=" + other + " || NumType=" + other + "");
+        Statement statement = connection.createStatement();
+        ResultSet resultset = statement.executeQuery(this.sql);
+        while (resultset.next()) {
+          Cha.add(new Chambres(resultset.getString("NomChambre"), resultset.getString("TelChambre"), resultset.getString("EtageChambre"), resultset.getString("ChauffeauChambre"), resultset.getInt("PrixChambre"), resultset.getInt("NumCategorie"), resultset.getInt("NumType")));
+        }
+        return Cha;
     }
-    this.sql = ("select * from CHAMBRES where NomChambre= '" + id + "' || TelChambre='" + id + "' || EtageChambre='" + id + "' || ChauffeauChambre='" + id + "' || OccupeChambre='" + id + "|| PrixChambre=" + other + "' || NumCategorie=" + other + " || NumType=" + other + "");
-    System.out.println(this.sql);
-    Statement statement = connection.createStatement();
-    ResultSet resultset = statement.executeQuery(this.sql);
-    while (resultset.next()) {
-      Cha.add(new Chambres(resultset.getString("NomChambre"), resultset.getString("TelChambre"), resultset.getString("EtageChambre"), resultset.getString("ChauffeauChambre"), resultset.getInt("PrixChambre"), resultset.getInt("NumCategorie"), resultset.getInt("NumType")));
+    public ObservableList<ChambresT> searchOneT(String id) throws ClassNotFoundException, SQLException {
+        ObservableList<ChambresT> Cha = FXCollections.observableArrayList();
+        Connection connection = this.con.conn();
+        this.sql = ("select * from CHAMBRES where NomChambre LIKE  '%" + id + "%' || TelChambre LIKE  '%" + id + "%' || EtageChambre LIKE  '%" + id + "%' || ChauffeauChambre LIKE  '%" + id + "%' || PrixChambre LIKE  '%" + id + "%' || NumCategorie LIKE  '%" + id + "%' || NumType LIKE  '%" + id + "%' ");
+        Statement statement = connection.createStatement();
+        ResultSet resultset = statement.executeQuery(this.sql);
+        while (resultset.next()) {
+          Cha.add(new ChambresT(resultset.getString("NomChambre"), resultset.getString("TelChambre"), resultset.getString("EtageChambre"), resultset.getString("ChauffeauChambre"), String.valueOf(resultset.getInt("PrixChambre")), String.valueOf(resultset.getInt("NumCategorie")), String.valueOf(resultset.getInt("NumType"))));
+        }
+        return Cha;
     }
-    return Cha;
-  }
 }

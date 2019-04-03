@@ -7,8 +7,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import tropikhotel.Con;
 import tropikhotel.GetSet.Reglements;
+import tropikhotel.GetSet.ReglementsT;
+import tropikhotel.GetSet.ReservationsT;
 
 public class DaoReglements
 {
@@ -20,7 +24,6 @@ public class DaoReglements
     
     Connection connection = this.con.conn();
     this.sql = ("insert into REGLEMENTS(EtatReglement, MontantReglement, AnneeReglement) values ('non regler', 0,'" + LocalDate.now().getYear() + "')");
-    System.out.println(this.sql);
     Statement statement = connection.createStatement();
     statement.execute(this.sql);
   }
@@ -40,7 +43,6 @@ public class DaoReglements
     Connection connection = this.con.conn();
     Statement statement = connection.createStatement();
     this.sql = ("update REGLEMENTS set EtatReglement='" + regl.getEtatReglement() + "', MontantReglement=" + regl.getMontantReglement() + ", AnneeReglement='" + regl.getAnneReglement() + "' where NumReglement =" + i);
-    System.out.println(this.sql);
     statement.execute(this.sql);
   }
   
@@ -50,7 +52,6 @@ public class DaoReglements
     Connection connection = this.con.conn();
     Statement statement = connection.createStatement();
     this.sql = ("update REGLEMENTS set EtatReglement='" + regl.getEtatReglement() + "' where NumReglement =" + i);
-    System.out.println(this.sql);
     statement.execute(this.sql);
   }
   
@@ -62,7 +63,6 @@ public class DaoReglements
     this.sql = ("select * from REGLEMENTS where NumReglement =" + i);
     Statement statement = connection.createStatement();
     ResultSet resultset = statement.executeQuery(this.sql);
-    System.out.println(this.sql);
     while (resultset.next()) {
       regl = new Reglements(resultset.getInt("NumReglement"), resultset.getString("EtatReglement"), resultset.getInt("MontantReglement"), resultset.getString("AnneeReglement"));
     }
@@ -77,7 +77,6 @@ public class DaoReglements
     this.sql = ("select * from REGLEMENTS where AnneeReglement ='" + annee + "'");
     Statement statement = connection.createStatement();
     ResultSet resultset = statement.executeQuery(this.sql);
-    System.out.println(this.sql);
     while (resultset.next()) {
       regl += resultset.getInt("MontantReglement");
     }
@@ -108,7 +107,6 @@ public class DaoReglements
       other = id;
     }
     this.sql = ("select * from REGLEMENTS where NumReglement= " + other + " || EtatReglement='" + id + "' || MontantReglement=" + other + "");
-    System.out.println(this.sql);
     Statement statement = connection.createStatement();
     ResultSet resultset = statement.executeQuery(this.sql);
     while (resultset.next()) {
@@ -116,4 +114,16 @@ public class DaoReglements
     }
     return regl;
   }
+
+    public ObservableList<ReglementsT> searchOneT(String id) throws ClassNotFoundException, SQLException {
+        ObservableList<ReglementsT> regl = FXCollections.observableArrayList();
+        Connection connection = this.con.conn();
+        this.sql = ("select * from REGLEMENTS where NumReglement LIKE  '%" + id + "%' || EtatReglement LIKE  '%" + id + "%' || MontantReglement LIKE  '%" + id + "%'");
+        Statement statement = connection.createStatement();
+        ResultSet resultset = statement.executeQuery(this.sql);
+        while (resultset.next()) {
+          regl.add(new ReglementsT(String.valueOf(resultset.getInt("NumReglement")), resultset.getString("EtatReglement"), String.valueOf(resultset.getInt("MontantReglement"))));
+        }
+        return regl;
+    }
 }

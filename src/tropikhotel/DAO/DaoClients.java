@@ -1,6 +1,5 @@
 package tropikhotel.DAO;
 
-import java.io.PrintStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;

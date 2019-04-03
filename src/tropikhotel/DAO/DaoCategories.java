@@ -6,8 +6,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import tropikhotel.Con;
+import tropikhotel.GetSet.CategorieT;
 import tropikhotel.GetSet.Categories;
+import tropikhotel.GetSet.ChambresT;
 
 public class DaoCategories
 {
@@ -88,13 +92,26 @@ public class DaoCategories
     if (id.matches("[0-9]*")) {
       other = id;
     }
-    this.sql = ("select * from Categories where NumCategorie= " + other + " || DescriptionCategorie='" + id + "'");
+    this.sql = ("select * from CATEGORIES where NumCategorie= " + other + " || DescriptionCategorie='" + id + "'");
     System.out.println(this.sql);
     Statement statement = connection.createStatement();
     ResultSet resultset = statement.executeQuery(this.sql);
     while (resultset.next()) {
-      Cat.add(new Categories(resultset.getInt("NumCatent"), resultset.getString("DescriptionCategorie")));
+      Cat.add(new Categories(resultset.getInt("NumCategorie"), resultset.getString("DescriptionCategorie")));
     }
     return Cat;
   }
+    public ObservableList<CategorieT> searchOneT(String id) throws ClassNotFoundException, SQLException {
+        ObservableList<CategorieT> Cat = FXCollections.observableArrayList();
+        Connection connection = this.con.conn();
+        this.sql = ("select * from CATEGORIES where NumCategorie LIKE  '%" + id + "%' || DescriptionCategorie LIKE  '%" + id + "%' ");
+
+        System.out.println(this.sql);
+        Statement statement = connection.createStatement();
+        ResultSet resultset = statement.executeQuery(this.sql);
+        while (resultset.next()) {
+            Cat.add(new CategorieT(String.valueOf(resultset.getInt("NumCategorie")), resultset.getString("DescriptionCategorie")));
+        }
+        return Cat;
+    }
 }

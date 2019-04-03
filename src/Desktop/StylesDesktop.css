@@ -144,7 +144,7 @@
 .tab-selected-line {
     -fx-background-color: green;
 }
-#btnAjouClient,#btnAjouChambre,#btnDelChambre,#btnAjouReglement,#btnAjouMontantReglement,#btnEnleveMontantReglement{
+#btnAjouClient,#btnAjouChambre,#btnDelChambre,#btnAjouReglement,#btnAjouMontantReglement,#btnEnleveMontantReglement,#btnLienReglement{
     -fx-background-color: #f4f4f4;
     -fx-border-width: 2;
     -fx-border-color: #202020;
@@ -156,7 +156,7 @@
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
 }
-#btnAjouChambre:hover, #btnDelChambre:hover, #btnAjouClient:hover, #btnAjouReglement:hover,#btnAjouMontantReglement:hover,#btnEnleveMontantReglement:hover{
+#btnAjouChambre:hover, #btnDelChambre:hover, #btnAjouClient:hover, #btnAjouReglement:hover,#btnAjouMontantReglement:hover,#btnEnleveMontantReglement:hover,#btnLienReglement:hover{
     -fx-border-width: 2.3;
     -fx-border-color: #101010;
 }
@@ -165,6 +165,9 @@
 }
 #btnAjouReglement{
     -fx-background-image: url("images/addReglements.png");
+}
+#btnLienReglement{
+    -fx-background-image: url("images/204-link.png");
 }
 #btnAjouChambre{
     -fx-background-image: url("images/addChambre.png");
