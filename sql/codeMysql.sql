@@ -8,7 +8,8 @@ CREATE TABLE if not exists CLIENTS (
   CpClient VARCHAR(10),
   PaysClient VARCHAR(20),
   TelClient VARCHAR(20),
-  EmailClient VARCHAR(50)
+  EmailClient VARCHAR(50),
+  AnneeCreClient VARCHAR(20)
 );
 
 DESC CLIENTS;
@@ -31,7 +32,7 @@ DESC RESPONSABLES;
 CREATE TABLE if not exists REPAS (
   NumRepas INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
   NomRepas VARCHAR(50),
-  Heure TIME,
+  CategorieRepas VARCHAR(50),
   PrixRepas INT
 );
 
@@ -46,7 +47,8 @@ DESC CATEGORIES;
 
 CREATE TABLE if not exists TYPES (
   NumType INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-  NomType VARCHAR(20)  NOT NULL
+  NomType VARCHAR(20)  NOT NULL,
+  DescriptionType VARCHAR(100)
 );
 
 DESC TYPES;
@@ -55,38 +57,23 @@ CREATE TABLE if not exists CHAMBRES (
   NomChambre VARCHAR(50) NOT NULL PRIMARY KEY,
   TelChambre VARCHAR(20) NOT NULL,
   EtageChambre VARCHAR(10) NOT NULL,
-  OccupeChambre VARCHAR(20) NOT NULL,
   ChauffeauChambre VARCHAR(20) NOT NULL,
   PrixChambre INT,
   NumCategorie INT,
   NumType INT,
-  constraint FkCatCha foreign key (NumCategorie) references CATEGORIES(NumCategorie),
-  constraint FkTypCha foreign key (NumType) references TYPES(NumType)
+  constraint FkCatCha foreign key (NumCategorie) references CATEGORIES(NumCategorie) ON DELETE SET NULL ON UPDATE CASCADE,
+  constraint FkTypCha foreign key (NumType) references TYPES(NumType) ON DELETE SET NULL ON UPDATE CASCADE
 );
 
 
 CREATE TABLE if not exists REGLEMENTS (
   NumReglement INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
   MontantReglement INT,
-  EtatReglement VARCHAR(20)
+  EtatReglement VARCHAR(20),
+  AnneeReglement VARCHAR(20)
 );
 
 DESC REGLEMENTS;
-
-
-DESC CHAMBRES;
-
-CREATE TABLE if not exists FACTURE (
-  NumFacture INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-  DateFacture DATE NOT NULL,
-  MontantFacture INT NOT NULL,
-  NumReglement INT,
-  NumClient INT,
-  constraint FkRegFct foreign key (NumReglement) references REGLEMENTS(NumReglement),
-  constraint FkCliFct foreign key (NumClient) references CLIENTS(NumClient)
-);
-
-DESC FACTURE;
 
 
 CREATE TABLE if not exists RESERVER (
@@ -95,12 +82,13 @@ CREATE TABLE if not exists RESERVER (
   DateFinReservation DATE,
   NbJourReservation INT,
   EtatReservation VARCHAR(20),
+  ConditionReservation VARCHAR(100),
   NumClient INT,
   NumResponsable INT,
   NumReglement INT,
-  constraint FkRegRes foreign key (NumReglement) references REGLEMENTS(NumReglement),
-  constraint FkCliRes foreign key (NumClient) references CLIENTS(NumClient),
-  constraint FkRspRes foreign key (NumResponsable) references RESPONSABLES(NumResponsable)
+  constraint FkRegRes foreign key (NumReglement) references REGLEMENTS(NumReglement) ON DELETE SET NULL ON UPDATE CASCADE,
+  constraint FkCliRes foreign key (NumClient) references CLIENTS(NumClient) ON DELETE SET NULL ON UPDATE CASCADE,
+  constraint FkRspRes foreign key (NumResponsable) references RESPONSABLES(NumResponsable) ON DELETE SET NULL ON UPDATE CASCADE
 );
 
 DESC RESERVER;
@@ -108,8 +96,8 @@ DESC RESERVER;
 CREATE TABLE if not exists CONCERNER (
   NumReservation INT,
   NomChambre VARCHAR(50),
-  constraint FkResCon foreign key (NumReservation) references RESERVER(NumReservation),
-  constraint FkChaCon foreign key (NomChambre) references CHAMBRES(NomChambre)
+  constraint FkResCon foreign key (NumReservation) references RESERVER(NumReservation) ON DELETE CASCADE ON UPDATE CASCADE,
+  constraint FkChaCon foreign key (NomChambre) references CHAMBRES(NomChambre) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 DESC CONCERNER;
@@ -122,14 +110,45 @@ CREATE TABLE if not exists COMMANDER (
   DateCommander VARCHAR(20),
   NumClient INT,
   NumRepas INT,
-  constraint FkCliCom foreign key (NumClient) references CLIENTS(NumClient),
-  constraint FkRepCom foreign key (NumRepas) references REPAS(NumRepas)
+  constraint FkCliCom foreign key (NumClient) references CLIENTS(NumClient)  ON DELETE SET NULL ON UPDATE CASCADE,
+  constraint FkRepCom foreign key (NumRepas) references REPAS(NumRepas)  ON DELETE SET NULL ON UPDATE CASCADE
 );
 
 DESC COMMANDER;
 
-INSERT INTO CLIENTS (NomClient, AddressClient, CpClient, PaysClient, TelClient, EmailClient) VALUES
-("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com");
+INSERT INTO CLIENTS (NomClient, AddressClient, CpClient, PaysClient, TelClient, EmailClient, AnneeCreClient) VALUES
+-- ("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2000"),
+-- ("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2000"),
+-- ("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2001"),
+-- ("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2002"),
+-- ("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2002"),
+-- ("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2002"),
+-- ("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2003"),
+-- ("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2004"),
+-- ("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2005"),
+-- ("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2005"),
+-- ("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2005"),
+-- ("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2006"),
+-- ("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2007"),
+-- ("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2008"),
+-- ("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2009"),
+-- ("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2010"),
+-- ("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2011"),
+-- ("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2012"),
+-- ("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2013"),
+-- ("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2014"),
+-- ("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2015"),
+-- ("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2016"),
+-- ("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2017"),
+-- ("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2018"),
+-- ("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2019"),
+-- ("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2019"),
+-- ("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2019"),
+-- ("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2019"),
+-- ("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2019"),
+("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2019")
+;
+SELECT * FROM CLIENTS;
 
 INSERT INTO RESPONSABLES (NomResponsable, PrenomResponsable, PseudoResponsable, PasswordResponsable, AddressResponsable, TelResponsable,DroitResponsable,ImageUrlResponsable) VALUES ("RASOLONDRAIBE", "Andrianantenaina", "blackran", "iloveyou","ambohitrandriana ambalavao", "0343949863","SUPERS","/home/blackran/Desktop/Me.jpg"),
 ("RASOLONDRAIBE", "Feno Sitraka", "root", "password","ambohitrandriana ambalavao",NULL,"USERS","/home/blackran/Desktop/sitraka.jpg");
@@ -143,23 +162,77 @@ INSERT INTO CATEGORIES (DescriptionCategorie) VALUES
 SELECT * FROM CATEGORIES;
 
 INSERT INTO TYPES (NomType)VALUES
-("simple"),
-("double");
+("Simple"),
+("Double"),
+("Double single"),
+("Triple"),
+("Familiale");
 
 SELECT * FROM TYPES;
 
-INSERT INTO CHAMBRES (NomChambre, TelChambre, EtageChambre, OccupeChambre, ChauffeauChambre, PrixChambre, NumCategorie,NumType) VALUES
-("ROSE","0349354341","1","1","GAZ",20000,1,1),
-("1","0340022211","0","0","ELECTRIQUE",30000,1,1)
+INSERT INTO CHAMBRES (NomChambre, TelChambre, EtageChambre, ChauffeauChambre, PrixChambre, NumCategorie,NumType) VALUES
+("Coquelicot","0349354341","1","GAZ",20000,1,1),
+("Jonquille","0349354341","1","GAZ",20000,1,1),
+("Tulipe","0349354341","1","GAZ",20000,1,1),
+("Camélia","0349354341","1","GAZ",20000,1,1),
+
+("Jacinthe","0349354341","2","GAZ",20000,1,1),
+("Arum","0349354341","2","GAZ",20000,1,1),
+("Pic","0349354341","2","GAZ",20000,1,1),
+("Muguet","0349354341","2","GAZ",20000,1,1),
+("Pivoine","0349354341","2","GAZ",20000,1,1),
+("Fuschia","0349354341","2","GAZ",20000,1,1),
+
+("Pervenche","0340022211","1","ELECTRIQUE",30000,1,1),
+("Mimosa","0340022211","1","ELECTRIQUE",30000,1,1),
+("Capucine","0340022211","1","ELECTRIQUE",30000,1,1),
+("Lavande","0340022211","1","ELECTRIQUE",30000,1,1),
+("Tournesol","0340022211","1","ELECTRIQUE",30000,1,1),
+("Dalhia","0340022211","1","ELECTRIQUE",30000,1,1),
+("Iris","0340022211","1","ELECTRIQUE",30000,1,1),
+("Myosotis","0340022211","1","ELECTRIQUE",30000,1,1),
+("Azalée","0340022211","1","ELECTRIQUE",30000,1,1),
+
+("Rose","0340022211","2","ELECTRIQUE",30000,1,1),
+("Glaieul","0340022211","2","ELECTRIQUE",30000,1,1),
+("Hortensia","0340022211","2","ELECTRIQUE",30000,1,1),
+("Acacias","0340022211","2","ELECTRIQUE",30000,1,1),
+("Oeillet","0340022211","2","ELECTRIQUE",30000,1,1)
 ;
 
 SELECT * FROM CHAMBRES;
 
-insert into REGLEMENTS(EtatReglement, MontantReglement) values ('non regler', 0);
+insert into REGLEMENTS(EtatReglement, MontantReglement, AnneeReglement) values
+-- ('', 22000, "2009"),
+-- ('', 10000, "2009"),
+-- ('payer', 34000, "2010"),
+-- ('payer', 0, "2010"),
+-- ('payer', 15000, "2011"),
+-- ('', 10000, "2011"),
+-- ('', 20000, "2012"),
+-- ('', 45000, "2012"),
+-- ('', 30000, "2013"),
+-- ('', 45000, "2013"),
+-- ('payer', 45000, "2014"),
+-- ('', 20000, "2014"),
+-- ('payer', 20000, "2015"),
+-- ('payer', 30000, "2015"),
+-- ('payer', 45000, "2016"),
+-- ('payer', 30000, "2016"),
+-- ('payer', 30000, "2017"),
+-- ('payer', 30000, "2017"),
+-- ('payer', 50000, "2018"),
+-- ('payer', 50000, "2018"),
+-- ('payer', 10000, "2019"),
+-- ('payer', 20000, "2019"),
+-- ('payer', 45000, "2019"),
+-- ('payer', 30000, "2019"),
+-- ('payer', 45000, "2019"),
+('payer', 50000, "2019");
 
 SELECT * FROM REGLEMENTS;
 
-INSERT INTO RESERVER (DateDebutReservation,DateFinReservation,NbJourReservation,EtatReservation,NumClient,NumResponsable, NumReglement)
-VALUES("2019-01-02","2019-01-03",1,"0",1,1,1);
+INSERT INTO RESERVER (DateDebutReservation, DateFinReservation, NbJourReservation, ConditionReservation, EtatReservation,NumClient,NumResponsable, NumReglement)
+VALUES("2019-01-02","2019-01-03",1,"Diner et dejener","0",1,1,1);
 
 SELECT * FROM RESERVER;
