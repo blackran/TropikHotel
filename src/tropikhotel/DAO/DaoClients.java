@@ -44,37 +44,34 @@ public class DaoClients
     statement.execute(this.sql);
   }
   
-  public void mod(int i, String NomClient, String AddressClient, String CpClient, String PaysClient, String TelClient, String EmailClient, String AnneeCreClient)
-    throws SQLException, ClassNotFoundException
-  {
-    Clients cli = find(i);
-    cli.setNomClient(NomClient);
-    cli.setAddressClient(AddressClient);
-    cli.setCpClient(CpClient);
-    cli.setPaysClient(PaysClient);
-    cli.setTelClient(TelClient);
-    cli.setEmailClient(EmailClient);
-    cli.setAnneeCreClient(AnneeCreClient);
-    Connection connection = this.con.conn();
-    Statement statement = connection.createStatement();
-    this.sql = ("update CLIENTS set NomClient='" + cli.getNomClient() + "', AddressClient='" + cli.getAddressClient() + "',CpClient='" + cli.getCpClient() + "',PaysClient='" + cli.getPaysClient() + "',TelClient='" + cli.getTelClient() + "',EmailClient='" + cli.getEmailClient() + "', AnneeCreClient='" + cli.getAnneeCreClient() + "' where NumClient =" + i);
-    System.out.println(this.sql);
-    statement.execute(this.sql);
-  }
+	public void mod(int i, String NomClient, String AddressClient, String CpClient, String PaysClient, String TelClient, String EmailClient, String AnneeCreClient) throws SQLException, ClassNotFoundException {
+		Clients cli = find(i).get(0);
+		cli.setNomClient(NomClient);
+		cli.setAddressClient(AddressClient);
+		cli.setCpClient(CpClient);
+		cli.setPaysClient(PaysClient);
+		cli.setTelClient(TelClient);
+		cli.setEmailClient(EmailClient);
+		cli.setAnneeCreClient(AnneeCreClient);
+		Connection connection = this.con.conn();
+		Statement statement = connection.createStatement();
+		this.sql = ("update CLIENTS set NomClient='" + cli.getNomClient() + "', AddressClient='" + cli.getAddressClient() + "',CpClient='" + cli.getCpClient() + "',PaysClient='" + cli.getPaysClient() + "',TelClient='" + cli.getTelClient() + "',EmailClient='" + cli.getEmailClient() + "', AnneeCreClient='" + cli.getAnneeCreClient() + "' where NumClient =" + i);
+		System.out.println(this.sql);
+		statement.execute(this.sql);
+	}
   
-  public Clients find(int i)
-    throws ClassNotFoundException, SQLException
-  {
-    Connection connection = this.con.conn();
-    Clients cli = null;
-    this.sql = ("select * from CLIENTS where NumClient =" + i);
-    Statement statement = connection.createStatement();
-    ResultSet resultset = statement.executeQuery(this.sql);
-    while (resultset.next()) {
-      cli = new Clients(resultset.getInt("NumClient"), resultset.getString("NomClient"), resultset.getString("AddressClient"), resultset.getString("CpClient"), resultset.getString("PaysClient"), resultset.getString("TelClient"), resultset.getString("EmailClient"), resultset.getString("AnneeCreClient"));
-    }
-    return cli;
-  }
+	public ArrayList<Clients> find(int i) throws ClassNotFoundException, SQLException {
+		Connection connection = this.con.conn();
+//		Clients cli = null;
+		ArrayList<Clients> cli = new ArrayList();
+		this.sql = ("select * from CLIENTS where NumClient =" + i);
+		Statement statement = connection.createStatement();
+		ResultSet resultset = statement.executeQuery(this.sql);
+		while (resultset.next()) {
+			cli.add(new Clients(resultset.getInt("NumClient"), resultset.getString("NomClient"), resultset.getString("AddressClient"), resultset.getString("CpClient"), resultset.getString("PaysClient"), resultset.getString("TelClient"), resultset.getString("EmailClient"), resultset.getString("AnneeCreClient")));
+		}
+		return cli;
+	}
   
   public int findAnnee(String annee) throws ClassNotFoundException, SQLException {
     int cli = 0;

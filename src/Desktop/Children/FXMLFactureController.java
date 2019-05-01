@@ -12,8 +12,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.print.PageLayout;
@@ -23,7 +21,6 @@ import javafx.print.Printer;
 import javafx.print.PrinterJob;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -31,6 +28,7 @@ import javafx.stage.Stage;
 import tropikhotel.DAO.DaoClients;
 import tropikhotel.DAO.DaoConcerner;
 import tropikhotel.DAO.DaoReserver;
+import tropikhotel.DAO.DaoResponsables;
 import tropikhotel.GetSet.Concerner;
 import tropikhotel.GetSet.Reserver;
 
@@ -48,7 +46,7 @@ public class FXMLFactureController implements Initializable {
     @FXML
     private Label NomClientFacture;
     @FXML
-    private ListView<?> listResponsable;
+    private Label listResponsable;
     
     @FXML
     private Pane principaleFact;
@@ -58,6 +56,7 @@ public class FXMLFactureController implements Initializable {
     
     DaoClients daoclients = new DaoClients();
     DaoReserver daoreserver = new DaoReserver();
+    DaoResponsables daoresponsables = new DaoResponsables();
 
     /**
      * Initializes the controller class.
@@ -89,13 +88,11 @@ public class FXMLFactureController implements Initializable {
       stage.close();
     }
 
-    void setT(String string, int total, ObservableList ob) throws ClassNotFoundException, SQLException {
+    void setT(String string, int total, String ob) throws ClassNotFoundException, SQLException {
         ArrayList<Reserver> rese = daoreserver.searchOne(0, string, "NumReglement");
-        System.out.println(daoclients.find(rese.get(0).getNumClient()).getNomClient());
         String nom = "";
         for(int i=0;i<rese.size();i++){
-            System.out.println(i+"  "+daoclients.find(rese.get(i).getNumClient()).getNomClient());
-            nom += daoclients.find(rese.get(i).getNumClient()).getNomClient()+ ", ";  
+            nom += daoclients.find(rese.get(i).getNumClient()).get(0).getNomClient()+ ", ";  
         }      
         NomClientFacture.setText(nom);
         DaoConcerner daoconcerner = new DaoConcerner();
@@ -107,7 +104,8 @@ public class FXMLFactureController implements Initializable {
         } 
         
         sommeFacture.setText(String.valueOf(total));
-        listResponsable.getItems().addAll(ob);
+        
+        listResponsable.setText(daoresponsables.find(Integer.parseInt(ob)).getNomResponsable()+" "+daoresponsables.find(Integer.parseInt(ob)).getPrenomResponsable());
     }
     public void printBtn(Node node) throws NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
         Printer printer = Printer.getDefaultPrinter();

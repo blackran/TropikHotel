@@ -7,14 +7,14 @@ public class CommanderT
   private SimpleStringProperty NumCommander;
   private SimpleStringProperty TarifCommander;
   private SimpleStringProperty NumClient;
-  private SimpleStringProperty NumRepas;
+  private SimpleStringProperty NumReglement;
   
-  public CommanderT(String NumCommander, String TarifCommander, String NumClient, String NumRepas)
+  public CommanderT(String NumCommander, String TarifCommander, String NumClient, String NumReglement)
   {
     this.NumCommander = new SimpleStringProperty(NumCommander);
     this.TarifCommander = new SimpleStringProperty(TarifCommander);
     this.NumClient = new SimpleStringProperty(NumClient);
-    this.NumRepas = new SimpleStringProperty(NumRepas);
+    this.NumReglement = new SimpleStringProperty(NumReglement);
   }
   
   public String getNumCommander()
@@ -47,13 +47,13 @@ public class CommanderT
     this.NumClient = new SimpleStringProperty(NumClient);
   }
   
-  public String getNumRepas()
+  public String getNumReglement()
   {
-    return this.NumRepas.get();
+    return this.NumReglement.get();
   }
   
-  public void setNumRepas(String NumRepas)
+  public void setNumReglement(String NumReglement)
   {
-    this.NumRepas = new SimpleStringProperty(NumRepas);
+    this.NumReglement = new SimpleStringProperty(NumReglement);
   }
 }

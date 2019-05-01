@@ -9,8 +9,8 @@
 
 <AnchorPane id="AnchorPane" fx:id="principale" prefHeight="598.0" prefWidth="870.0" style="-fx-background-color: e9e9e9;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Desktop.FXMLLoadingController">
    <children>
-      <ProgressBar fx:id="progressbar" cache="true" layoutX="285.0" layoutY="501.0" opacity="0.8" prefHeight="40.0" prefWidth="300.0" progress="0.0" />
-      <Label fx:id="loading" layoutX="386.0" layoutY="514.0" text="Loading..." textFill="#777777" AnchorPane.leftAnchor="386.0" AnchorPane.topAnchor="508.0">
+      <ProgressBar fx:id="progressbar" cache="true" layoutX="285.0" layoutY="501.0" opacity="0.8" prefHeight="40.0" prefWidth="300.0" progress="0.0" style="-fx-accent: #2e8b57;" />
+      <Label fx:id="loading" layoutX="386.0" layoutY="514.0" text="Loading..." textFill="#cccccc" AnchorPane.leftAnchor="386.0" AnchorPane.topAnchor="508.0">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>

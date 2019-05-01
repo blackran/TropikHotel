@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXDatePicker?>
 <?import com.jfoenix.controls.JFXTabPane?>
 <?import com.jfoenix.controls.JFXTextField?>
-<?import com.jfoenix.controls.JFXTimePicker?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
@@ -36,36 +36,62 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TitledPane animated="false" collapsible="false" layoutX="35.0" layoutY="31.0" prefHeight="365.0" prefWidth="392.0" text="Details">
+                        <TitledPane animated="false" collapsible="false" layoutX="35.0" layoutY="31.0" prefHeight="440.0" prefWidth="392.0" text="Details">
                           <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="346.0" prefWidth="390.0">
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="378.0" prefWidth="390.0">
                                  <children>
-                                    <Label layoutX="25.0" layoutY="9.0" text="N°" AnchorPane.topAnchor="10.0" />
-                                    <Label fx:id="NumCommande" layoutX="57.0" layoutY="9.0" text="1" AnchorPane.topAnchor="10.0" />
-                                    <JFXTextField fx:id="tarifCommande" labelFloat="true" layoutX="22.0" layoutY="28.0" prefHeight="26.0" prefWidth="277.0" promptText="Tarif" AnchorPane.topAnchor="50.0" />
-                                    <JFXDatePicker fx:id="dateCommande" layoutX="22.0" layoutY="122.0" prefHeight="26.0" prefWidth="284.0" promptText="Date" AnchorPane.topAnchor="100.0" />
-                                    <JFXComboBox fx:id="clientsCommande" layoutX="22.0" layoutY="177.0" prefHeight="26.0" prefWidth="275.0" promptText="Clients" AnchorPane.topAnchor="150.0" />
-                                    <JFXComboBox fx:id="repasCommande" layoutX="22.0" layoutY="248.0" prefHeight="26.0" prefWidth="275.0" promptText="Repas" AnchorPane.topAnchor="200.0" />
+                                    <TableView fx:id="tableview" layoutX="30.0" layoutY="235.0" onMouseClicked="#onClickMouseTableview" prefHeight="165.0" prefWidth="283.0" style="-fx-border-width: 0;" stylesheets="@../styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="68.0" AnchorPane.topAnchor="245.0">
+                                      <columns>
+                                        <TableColumn fx:id="CNumRepasCom" editable="false" prefWidth="67.00002896785736" sortType="DESCENDING" sortable="false" />
+                                        <TableColumn fx:id="CNomRepasCom" editable="false" prefWidth="149.99994659423828" sortable="false" />
+                                          <TableColumn fx:id="CQtRepasCom" editable="false" prefWidth="61.00006103515625" sortable="false" />
+                                      </columns>
+                                    </TableView>
+                                    <Label layoutX="25.0" layoutY="9.0" text="N°" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="0.0" />
+                                    <Label fx:id="NumCommande" layoutX="57.0" layoutY="9.0" text="1" AnchorPane.topAnchor="0.0" />
+                                    <JFXTextField fx:id="tarifCommande" labelFloat="true" layoutX="22.0" layoutY="28.0" onKeyReleased="#controleChampsTarif" prefHeight="26.0" prefWidth="277.0" promptText="Tarif" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="80.0" />
+                                    <JFXDatePicker fx:id="dateCommande" layoutX="22.0" layoutY="122.0" prefHeight="26.0" prefWidth="284.0" promptText="Date" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="40.0" />
+                                    <JFXComboBox fx:id="repasCommande" labelFloat="true" layoutX="22.0" layoutY="235.4" onAction="#changeNumRepas" prefHeight="26.0" prefWidth="130.0" promptText="Repas" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="135.0" AnchorPane.topAnchor="215.0" />
+                                    <JFXButton fx:id="plusCommander" layoutX="260.0" layoutY="210.0" onAction="#addRepasCommander" prefHeight="40.0" prefWidth="40.0" text="+" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="250.0">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font></JFXButton>
+                                    <JFXButton fx:id="moinsCommander" layoutX="270.0" layoutY="257.0" onAction="#rmRepasCommander" prefHeight="40.0" prefWidth="40.0" text="-" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="300.0">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font></JFXButton>
+                                    <JFXTextField fx:id="clientsCommande" labelFloat="true" layoutX="41.0" layoutY="169.0" onKeyReleased="#autoCompletionReservationClient" promptText="N*" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="280.0" AnchorPane.topAnchor="125.0" />
+                                    <JFXTextField fx:id="reglementCommande" labelFloat="true" layoutX="41.0" layoutY="181.0" onKeyReleased="#aideReglement" promptText="reglement" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="170.0" />
+                                    <JFXTextField fx:id="QtrepasCommande" labelFloat="true" layoutX="178.0" layoutY="211.0" onKeyReleased="#controleChampsQtRepas" prefHeight="26.0" prefWidth="54.0" promptText="Quatite" AnchorPane.leftAnchor="240.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="215.0" />
+                                    <Button fx:id="btnAjouReglement" layoutX="201.0" layoutY="170.0" mnemonicParsing="false" onAction="#ajouterReglement" prefHeight="40.0" prefWidth="40.0" AnchorPane.rightAnchor="140.0" AnchorPane.topAnchor="160.0" />
+                                    <JFXTextField fx:id="txtNomClientCommande" labelFloat="true" layoutX="112.0" layoutY="130.0" promptText="Nom Client" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="125.0" />
+                                    <Button fx:id="btnAjouClient" layoutX="270.0" layoutY="123.0" mnemonicParsing="false" onAction="#ajouterClient" prefHeight="40.0" prefWidth="40.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="115.0" />
+                                    <JFXTextField fx:id="lBrepasCommande" labelFloat="true" layoutX="-20.0" layoutY="225.0" onKeyReleased="#controleChampsNumRep" promptText="N*" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="285.0" AnchorPane.topAnchor="215.0" />
+                                    <JFXButton fx:id="modCommander" layoutX="280.0" layoutY="267.0" onAction="#modRepasCommander" prefHeight="40.0" prefWidth="40.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="350.0">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </JFXButton>
                                  </children>
                               </AnchorPane>
                           </content>
                         </TitledPane>
-                        <TableView fx:id="tableCommande" layoutX="461.0" layoutY="30.0" onMouseClicked="#onMouseClickedTableauCommande" prefHeight="306.0" prefWidth="455.0" style="-fx-border-radius: 50px;">
+                        <TableView fx:id="tableCommander" layoutX="461.0" layoutY="30.0" onMouseClicked="#onMouseClickedTableauCommande" prefHeight="306.0" prefWidth="455.0" style="-fx-border-radius: 50px;">
                            <columns>
-                              <TableColumn fx:id="CNumCommander" prefWidth="42.0" text="N°" />
-                              <TableColumn fx:id="CTarifCommander" prefWidth="182.0" text="Tarif" />
-                              <TableColumn fx:id="CNumClient" prefWidth="128.0" text="Clients" />
-                              <TableColumn fx:id="CNumRepas" prefWidth="101.0" text="Repas" />
+                              <TableColumn fx:id="CNumCommander" maxWidth="42.0" prefWidth="42.0" text="N°" />
+                              <TableColumn fx:id="CTarifCommander" maxWidth="182.0" prefWidth="182.0" text="Tarif" />
+                              <TableColumn fx:id="CNumClient" maxWidth="128.0" prefWidth="128.0" text="Clients" />
+                              <TableColumn fx:id="CNumReglement" maxWidth="101.0" prefWidth="101.0" text="Reglement" />
                            </columns>
                         </TableView>
                         <Pane fx:id="paneEdit1" layoutX="550.0" layoutY="355.0" prefHeight="115.0" prefWidth="300.0">
                            <children>
-                              <Button fx:id="btnSup1" layoutX="90.0" layoutY="90.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0">
+                              <Button fx:id="btnSup1" layoutX="90.0" layoutY="90.0" mnemonicParsing="false" onAction="#activeSupCommander" prefHeight="50.0" prefWidth="50.0">
                                  <font>
                                     <Font size="20.0" />
                                  </font>
                               </Button>
-                              <Button fx:id="btnEnr1" layoutX="20.0" layoutY="90.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0">
+                              <Button fx:id="btnEnr1" layoutX="20.0" layoutY="90.0" mnemonicParsing="false" onAction="#activeAddCommander" prefHeight="50.0" prefWidth="50.0">
                                  <font>
                                     <Font size="20.0" />
                                  </font>
@@ -75,12 +101,12 @@
                                     <Font size="20.0" />
                                  </font>
                               </Button>
-                              <Button fx:id="btnMod1" layoutX="160.0" layoutY="90.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0">
+                              <Button fx:id="btnMod1" layoutX="160.0" layoutY="90.0" mnemonicParsing="false" onAction="#activeModCommander" prefHeight="50.0" prefWidth="50.0">
                                  <font>
                                     <Font size="20.0" />
                                  </font>
                               </Button>
-                              <Button fx:id="btnValider1" layoutX="20.0" layoutY="30.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="valider" />
+                              <Button fx:id="btnValider1" layoutX="20.0" layoutY="30.0" mnemonicParsing="false" onAction="#verification" prefHeight="40.0" prefWidth="120.0" text="valider" />
                               <Button fx:id="btnAnnuler1" layoutX="160.0" layoutY="30.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="annuler" />
                            </children>
                         </Pane>
@@ -94,34 +120,33 @@
                      <children>
                         <TableView fx:id="tableRepas" layoutX="473.0" layoutY="9.0" onMouseClicked="#onMouseClickedTableauRepas" prefHeight="417.0" prefWidth="455.0" style="-fx-border-radius: 50px;" AnchorPane.bottomAnchor="174.0" AnchorPane.leftAnchor="473.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="9.0">
                           <columns>
-                            <TableColumn fx:id="CNumRepas1" prefWidth="58.0" text="N°" />
+                            <TableColumn fx:id="CNumRepas" prefWidth="58.0" text="N°" />
                               <TableColumn fx:id="CNomRepas" prefWidth="128.0" text="Nom" />
                               <TableColumn fx:id="CPrixRepas" prefWidth="161.0" text="Prix" />
                               <TableColumn fx:id="CHeure" prefWidth="119.0" text="Heure" />
                           </columns>
                         </TableView>
-                        <TitledPane animated="false" collapsible="false" layoutX="24.0" layoutY="8.0" prefHeight="326.0" prefWidth="400.0" text="untitled">
+                        <TitledPane animated="false" collapsible="false" layoutX="24.0" layoutY="8.0" prefHeight="326.0" prefWidth="400.0" text="Details">
                           <content>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
                                     <Label layoutX="37.0" layoutY="45.0" text="N°" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="30.0" />
                                     <Label fx:id="NumRepas" layoutX="84.0" layoutY="57.0" text="1" AnchorPane.topAnchor="30.0" />
-                                    <JFXTextField fx:id="NomRepas" labelFloat="true" layoutX="24.0" layoutY="90.0" prefHeight="26.0" prefWidth="277.0" promptText="Nom" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="80.0" />
-                                    <JFXTextField fx:id="PrixRepas" labelFloat="true" layoutX="30.0" layoutY="163.0" prefHeight="26.0" prefWidth="277.0" promptText="Prix" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="150.0" />
-                                    <JFXTimePicker fx:id="heureRepas" layoutX="31.0" layoutY="205.0" prefHeight="26.0" prefWidth="276.0" promptText="Heure de repas" AnchorPane.leftAnchor="31.0" AnchorPane.topAnchor="205.0" />
-                                    <JFXComboBox layoutX="39.0" layoutY="252.0" prefHeight="26.0" prefWidth="254.0" promptText="petit dejener, dejener,diner" />
+                                    <JFXTextField fx:id="NomRepas" labelFloat="true" layoutX="24.0" layoutY="90.0" onKeyReleased="#upperCaseNomRepas" prefHeight="26.0" prefWidth="277.0" promptText="Nom" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="80.0" />
+                                    <JFXTextField fx:id="PrixRepas" labelFloat="true" layoutX="30.0" layoutY="163.0" onKeyReleased="#controleChampsPrixRepas" prefHeight="26.0" prefWidth="277.0" promptText="Prix" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="150.0" />
+                                    <JFXComboBox fx:id="heureRepas" layoutX="39.0" layoutY="252.0" prefHeight="26.0" prefWidth="254.0" promptText="petit dejener, dejener,diner" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="220.0" />
                                  </children>
                               </AnchorPane>
                           </content>
                         </TitledPane>
                         <Pane fx:id="paneEdit1" layoutX="550.0" layoutY="355.0" prefHeight="115.0" prefWidth="300.0">
                            <children>
-                              <Button fx:id="btnSup2" layoutX="90.0" layoutY="90.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0">
+                              <Button fx:id="btnSup2" layoutX="90.0" layoutY="90.0" mnemonicParsing="false" onAction="#activeSupRepas" prefHeight="50.0" prefWidth="50.0">
                                  <font>
                                     <Font size="20.0" />
                                  </font>
                               </Button>
-                              <Button fx:id="btnEnr2" layoutX="20.0" layoutY="90.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0">
+                              <Button fx:id="btnEnr2" layoutX="20.0" layoutY="90.0" mnemonicParsing="false" onAction="#activeAddRepas" prefHeight="50.0" prefWidth="50.0">
                                  <font>
                                     <Font size="20.0" />
                                  </font>
@@ -131,12 +156,12 @@
                                     <Font size="20.0" />
                                  </font>
                               </Button>
-                              <Button fx:id="btnMod2" layoutX="160.0" layoutY="90.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0">
+                              <Button fx:id="btnMod2" layoutX="160.0" layoutY="90.0" mnemonicParsing="false" onAction="#activeModRepas" prefHeight="50.0" prefWidth="50.0">
                                  <font>
                                     <Font size="20.0" />
                                  </font>
                               </Button>
-                              <Button fx:id="btnValider2" layoutX="20.0" layoutY="30.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="valider" />
+                              <Button fx:id="btnValider2" layoutX="20.0" layoutY="30.0" mnemonicParsing="false" onAction="#verification" prefHeight="40.0" prefWidth="120.0" text="valider" />
                               <Button fx:id="btnAnnuler2" layoutX="160.0" layoutY="30.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="annuler" />
                            </children>
                         </Pane>

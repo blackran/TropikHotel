@@ -1,6 +1,5 @@
 package tropikhotel.DAO;
 
-import java.io.PrintStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,7 +11,6 @@ import javafx.collections.ObservableList;
 import tropikhotel.Con;
 import tropikhotel.GetSet.Reglements;
 import tropikhotel.GetSet.ReglementsT;
-import tropikhotel.GetSet.ReservationsT;
 
 public class DaoReglements
 {
@@ -36,7 +34,7 @@ public class DaoReglements
   }
   
   public void mod(int i, String EtatReglement, int MontantReglement, String AnneReglement) throws SQLException, ClassNotFoundException {
-    Reglements regl = find(i);
+    Reglements regl = find(i).get(0);
     regl.setEtatReglement(EtatReglement);
     regl.setMontantReglement(MontantReglement);
     regl.setAnneReglement(AnneReglement);
@@ -46,28 +44,26 @@ public class DaoReglements
     statement.execute(this.sql);
   }
   
-  public void modEtats(int i, String EtatReglement) throws SQLException, ClassNotFoundException {
-    Reglements regl = find(i);
+public void modEtats(int i, String EtatReglement) throws SQLException, ClassNotFoundException {
+    Reglements regl = find(i).get(0);
     regl.setEtatReglement(EtatReglement);
     Connection connection = this.con.conn();
     Statement statement = connection.createStatement();
     this.sql = ("update REGLEMENTS set EtatReglement='" + regl.getEtatReglement() + "' where NumReglement =" + i);
     statement.execute(this.sql);
-  }
+}
   
-  public Reglements find(int i)
-    throws ClassNotFoundException, SQLException
-  {
+public ArrayList<Reglements> find(int i) throws ClassNotFoundException, SQLException {
     Connection connection = this.con.conn();
-    Reglements regl = null;
+    ArrayList<Reglements> regl = new ArrayList();
     this.sql = ("select * from REGLEMENTS where NumReglement =" + i);
     Statement statement = connection.createStatement();
     ResultSet resultset = statement.executeQuery(this.sql);
     while (resultset.next()) {
-      regl = new Reglements(resultset.getInt("NumReglement"), resultset.getString("EtatReglement"), resultset.getInt("MontantReglement"), resultset.getString("AnneeReglement"));
+      regl.add(new Reglements(resultset.getInt("NumReglement"), resultset.getString("EtatReglement"), resultset.getInt("MontantReglement"), resultset.getString("AnneeReglement")));
     }
     return regl;
-  }
+}
   
   public int findSomme(String annee)
     throws ClassNotFoundException, SQLException
@@ -83,19 +79,17 @@ public class DaoReglements
     return regl;
   }
   
-  public ArrayList findAll()
-    throws SQLException, ClassNotFoundException
-  {
-    ArrayList<Reglements> regl = new ArrayList();
-    Connection connection = this.con.conn();
-    this.sql = "select * from REGLEMENTS";
-    Statement statement = connection.createStatement();
-    ResultSet resultset = statement.executeQuery(this.sql);
-    while (resultset.next()) {
-      regl.add(new Reglements(resultset.getInt("NumReglement"), resultset.getString("EtatReglement"), resultset.getInt("MontantReglement"), resultset.getString("AnneeReglement")));
-    }
-    return regl;
-  }
+	public ArrayList findAll() throws SQLException, ClassNotFoundException {
+		ArrayList<Reglements> regl = new ArrayList();
+		Connection connection = this.con.conn();
+		this.sql = "select * from REGLEMENTS";
+		Statement statement = connection.createStatement();
+		ResultSet resultset = statement.executeQuery(this.sql);
+		while (resultset.next()) {
+			regl.add(new Reglements(resultset.getInt("NumReglement"), resultset.getString("EtatReglement"), resultset.getInt("MontantReglement"), resultset.getString("AnneeReglement")));
+		}
+		return regl;
+	}
   
   public ArrayList searchAll(String id)
     throws SQLException, ClassNotFoundException

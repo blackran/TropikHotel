@@ -201,7 +201,7 @@
          <children>
             <ComboBox fx:id="cbLoginConfig" layoutX="23.0" layoutY="18.0" prefHeight="30.0" prefWidth="150.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="110.0" />
             <PasswordField fx:id="txtLoginConfig" layoutY="57.0" onKeyReleased="#onKeyEnter" prefHeight="30.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="150.0" />
-            <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="95.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="40.0">
+            <ImageView fitHeight="70.0" fitWidth="70.0" layoutX="95.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="30.0">
                <image>
                   <Image url="@images/superUser.png" />
                </image>

@@ -1,6 +1,5 @@
 package tropikhotel.DAO;
 
-import java.io.PrintStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,7 +10,6 @@ import javafx.collections.ObservableList;
 import tropikhotel.Con;
 import tropikhotel.GetSet.CategorieT;
 import tropikhotel.GetSet.Categories;
-import tropikhotel.GetSet.ChambresT;
 
 public class DaoCategories
 {
@@ -54,34 +52,43 @@ public class DaoCategories
     statement.execute(this.sql);
   }
   
-  public Categories find(int i)
-    throws ClassNotFoundException, SQLException
-  {
-    Connection connection = this.con.conn();
-    Categories Cat = null;
-    this.sql = ("select * from CATEGORIES where NumCategorie =" + i);
-    Statement statement = connection.createStatement();
-    ResultSet resultset = statement.executeQuery(this.sql);
-    System.out.println(this.sql);
-    while (resultset.next()) {
-      Cat = new Categories(resultset.getInt("NumCategorie"), resultset.getString("DescriptionCategorie"));
-    }
-    return Cat;
-  }
-  
-  public ArrayList findAll()
-    throws SQLException, ClassNotFoundException
-  {
-    ArrayList<Categories> Cat = new ArrayList();
-    Connection connection = this.con.conn();
-    this.sql = "select * from CATEGORIES";
-    Statement statement = connection.createStatement();
-    ResultSet resultset = statement.executeQuery(this.sql);
-    while (resultset.next()) {
-      Cat.add(new Categories(resultset.getInt("NumCategorie"), resultset.getString("DescriptionCategorie")));
-    }
-    return Cat;
-  }
+	public Categories find(int i) throws ClassNotFoundException, SQLException {
+		Connection connection = this.con.conn();
+		Categories Cat = null;
+		this.sql = ("select * from CATEGORIES where NumCategorie =" + i);
+		Statement statement = connection.createStatement();
+		ResultSet resultset = statement.executeQuery(this.sql);
+		System.out.println(this.sql);
+		while (resultset.next()) {
+		  Cat = new Categories(resultset.getInt("NumCategorie"), resultset.getString("DescriptionCategorie"));
+		}
+		return Cat;
+	}
+	
+	public Categories findName(String i) throws ClassNotFoundException, SQLException {
+		Connection connection = this.con.conn();
+		Categories Cat = null;
+		this.sql = ("select * from CATEGORIES where DescriptionCategorie ='" + i +"'");
+		Statement statement = connection.createStatement();
+		ResultSet resultset = statement.executeQuery(this.sql);
+		System.out.println(this.sql);
+		while (resultset.next()) {
+		  Cat = new Categories(resultset.getInt("NumCategorie"), resultset.getString("DescriptionCategorie"));
+		}
+		return Cat;
+	}
+
+	public ArrayList findAll() throws SQLException, ClassNotFoundException {
+		ArrayList<Categories> Cat = new ArrayList();
+		Connection connection = this.con.conn();
+		this.sql = "select * from CATEGORIES";
+		Statement statement = connection.createStatement();
+		ResultSet resultset = statement.executeQuery(this.sql);
+		while (resultset.next()) {
+		  Cat.add(new Categories(resultset.getInt("NumCategorie"), resultset.getString("DescriptionCategorie")));
+		}
+		return Cat;
+	}
   
   public ArrayList searchAll(String id)
     throws SQLException, ClassNotFoundException

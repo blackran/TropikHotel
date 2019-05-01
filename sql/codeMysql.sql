@@ -32,7 +32,7 @@ DESC RESPONSABLES;
 CREATE TABLE if not exists REPAS (
   NumRepas INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
   NomRepas VARCHAR(50),
-  CategorieRepas VARCHAR(50),
+  Heure VARCHAR(50),
   PrixRepas INT
 );
 
@@ -96,6 +96,7 @@ DESC RESERVER;
 CREATE TABLE if not exists CONCERNER (
   NumReservation INT,
   NomChambre VARCHAR(50),
+  ReductionConcerner INT,
   constraint FkResCon foreign key (NumReservation) references RESERVER(NumReservation) ON DELETE CASCADE ON UPDATE CASCADE,
   constraint FkChaCon foreign key (NomChambre) references CHAMBRES(NomChambre) ON DELETE CASCADE ON UPDATE CASCADE
 );
@@ -109,49 +110,39 @@ CREATE TABLE if not exists COMMANDER (
   TarifCommander INT,
   DateCommander VARCHAR(20),
   NumClient INT,
-  NumRepas INT,
+  NumReglement INT,
   constraint FkCliCom foreign key (NumClient) references CLIENTS(NumClient)  ON DELETE SET NULL ON UPDATE CASCADE,
-  constraint FkRepCom foreign key (NumRepas) references REPAS(NumRepas)  ON DELETE SET NULL ON UPDATE CASCADE
+  constraint FkRegCom foreign key (NumReglement) references REGLEMENTS(NumReglement)  ON DELETE SET NULL ON UPDATE CASCADE
 );
 
 DESC COMMANDER;
 
+CREATE TABLE if not exists AJOUTER (
+   NumRepas INT,
+   NumCommander INT,
+   QtAjouter INT,
+   constraint FkComAjo foreign key (NumCommander) references COMMANDER(NumCommander)  ON DELETE CASCADE ON UPDATE CASCADE,
+   constraint FkRepAjo foreign key (NumRepas) references REPAS(NumRepas)  ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+DESC AJOUTER;
+
+
+CREATE TABLE if not exists AFAIRE (
+ NumAfaire INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+ DescriptionAfaire VARCHAR(20),
+ EtatAfaire VARCHAR(10)
+);
+
 INSERT INTO CLIENTS (NomClient, AddressClient, CpClient, PaysClient, TelClient, EmailClient, AnneeCreClient) VALUES
--- ("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2000"),
--- ("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2000"),
--- ("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2001"),
--- ("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2002"),
--- ("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2002"),
--- ("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2002"),
--- ("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2003"),
--- ("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2004"),
--- ("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2005"),
--- ("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2005"),
--- ("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2005"),
--- ("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2006"),
--- ("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2007"),
--- ("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2008"),
--- ("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2009"),
--- ("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2010"),
--- ("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2011"),
--- ("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2012"),
--- ("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2013"),
--- ("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2014"),
--- ("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2015"),
--- ("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2016"),
--- ("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2017"),
--- ("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2018"),
--- ("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2019"),
--- ("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2019"),
--- ("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2019"),
--- ("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2019"),
--- ("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2019"),
 ("Nantenaina","ambalavao","303","Madagascar","0343949863","rasolondraibeandrianantenaina@gmail.com","2019")
 ;
 SELECT * FROM CLIENTS;
 
-INSERT INTO RESPONSABLES (NomResponsable, PrenomResponsable, PseudoResponsable, PasswordResponsable, AddressResponsable, TelResponsable,DroitResponsable,ImageUrlResponsable) VALUES ("RASOLONDRAIBE", "Andrianantenaina", "blackran", "iloveyou","ambohitrandriana ambalavao", "0343949863","SUPERS","/home/blackran/Desktop/Me.jpg"),
-("RASOLONDRAIBE", "Feno Sitraka", "root", "password","ambohitrandriana ambalavao",NULL,"USERS","/home/blackran/Desktop/sitraka.jpg");
+INSERT INTO RESPONSABLES (NomResponsable, PrenomResponsable, PseudoResponsable, PasswordResponsable, AddressResponsable, TelResponsable,DroitResponsable,ImageUrlResponsable) 
+VALUES 
+("RASOLONDRAIBE", "Andrianantenaina", "root", "password","ambohitrandriana ambalavao", "0343949863","SUPERS","/home/blackran/Desktop/Me.jpg"),
+("TROPIK", "Hotel", "tropik", "tropik","ambalavao", "","USER","/home/tropik/other/tropik.jpg");
 
 SELECT * FROM RESPONSABLES;
 
@@ -203,36 +194,49 @@ INSERT INTO CHAMBRES (NomChambre, TelChambre, EtageChambre, ChauffeauChambre, Pr
 SELECT * FROM CHAMBRES;
 
 insert into REGLEMENTS(EtatReglement, MontantReglement, AnneeReglement) values
--- ('', 22000, "2009"),
--- ('', 10000, "2009"),
--- ('payer', 34000, "2010"),
--- ('payer', 0, "2010"),
--- ('payer', 15000, "2011"),
--- ('', 10000, "2011"),
--- ('', 20000, "2012"),
--- ('', 45000, "2012"),
--- ('', 30000, "2013"),
--- ('', 45000, "2013"),
--- ('payer', 45000, "2014"),
--- ('', 20000, "2014"),
--- ('payer', 20000, "2015"),
--- ('payer', 30000, "2015"),
--- ('payer', 45000, "2016"),
--- ('payer', 30000, "2016"),
--- ('payer', 30000, "2017"),
--- ('payer', 30000, "2017"),
--- ('payer', 50000, "2018"),
--- ('payer', 50000, "2018"),
--- ('payer', 10000, "2019"),
--- ('payer', 20000, "2019"),
--- ('payer', 45000, "2019"),
--- ('payer', 30000, "2019"),
--- ('payer', 45000, "2019"),
 ('payer', 50000, "2019");
 
 SELECT * FROM REGLEMENTS;
 
 INSERT INTO RESERVER (DateDebutReservation, DateFinReservation, NbJourReservation, ConditionReservation, EtatReservation,NumClient,NumResponsable, NumReglement)
-VALUES("2019-01-02","2019-01-03",1,"Diner et dejener","0",1,1,1);
+VALUES
+("2019-04-24","2019-04-30",1,"petite dejener","0",1,1,1);
 
 SELECT * FROM RESERVER;
+
+
+INSERT INTO AFAIRE ( DescriptionAfaire, EtatAfaire) 
+VALUES ("matory","1"),
+("repas a 2h","0");
+
+SELECT * FROM AFAIRE;
+
+INSERT INTO REPAS (NomRepas, Heure, PrixRepas )
+VALUES ("THE","PETIT DEJEUNER",500),
+("COCA COLA","DEJEUNER",3000),
+("RIZ","DEJEUNER",4000),
+("POULER","DEUJENER",6000),
+("COFEE","PETIT DEJEUNER",500),
+("PAIN","DINER",1000),
+("PORC","DUJENER",5000);
+
+SELECT * FROM REPAS;
+
+INSERT INTO COMMANDER (TarifCommander, DateCommander, NumClient, NumReglement)
+VALUES (10000, "2019-01-03", 1,1);
+
+SELECT * FROM COMMANDER;
+
+INSERT INTO AJOUTER (NumRepas, NumCommander, QtAjouter)
+VALUES 
+(1,1,1);
+
+SELECT * FROM AJOUTER;
+
+
+INSERT INTO CONCERNER ( NumReservation, NomChambre, ReductionConcerner)
+VALUES 
+(1, "Arum", 5000)
+;
+
+SELECT * FROM CONCERNER;

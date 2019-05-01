@@ -15,7 +15,7 @@ public class DaoChambres
 {
   Con con = new Con();
   String sql = "";
-  
+
   public void add(String NomChambre, String TelChambre, String EtageChambre, String ChauffeauChambre, int PrixChambre, int NumCategorie, int NumType) throws SQLException, ClassNotFoundException {
     Chambres Cha = new Chambres();
     Cha.setNomChambre(NomChambre);
@@ -25,20 +25,20 @@ public class DaoChambres
     Cha.setPrixChambre(PrixChambre);
     Cha.setNumCategorie(NumCategorie);
     Cha.setNumType(NumType);
-    
+
     Connection connection = this.con.conn();
     this.sql = ("insert into CHAMBRES(NomChambre,  TelChambre,  EtageChambre, ChauffeauChambre, PrixChambre, NumCategorie, NumType) values ('" + Cha.getNomChambre() + "','" + Cha.getTelChambre() + "','" + Cha.getEtageChambre() + "','" + Cha.getChauffeauChambre() + "'," + Cha.getPrixChambre() + "," + Cha.getNumCategorie() + "," + Cha.getNumType() + ")");
     Statement statement = connection.createStatement();
     statement.execute(this.sql);
   }
-  
+
   public void remove(String id) throws SQLException, ClassNotFoundException {
     Connection connection = this.con.conn();
     this.sql = ("delete from CHAMBRES where NomChambre ='" + id + "'");
     Statement statement = connection.createStatement();
     statement.execute(this.sql);
   }
-  
+
   public void mod(String NomChambre, String TelChambre, String EtageChambre, String ChauffeauChambre, int PrixChambre, int NumCategorie, int NumType)
     throws SQLException, ClassNotFoundException
   {
@@ -55,7 +55,7 @@ public class DaoChambres
     this.sql = ("update CHAMBRES set TelChambre='" + Cha.getTelChambre() + "',EtageChambre='" + Cha.getEtageChambre() + "',ChauffeauChambre='" + Cha.getChauffeauChambre() + "',PrixChambre=" + Cha.getPrixChambre() + ",NumCategorie=" + Cha.getNumCategorie() + ",NumType= " + Cha.getNumType() + " where NomChambre='" + Cha.getNomChambre() + "'");
     statement.execute(this.sql);
   }
-  
+
   public Chambres find(String i)
     throws ClassNotFoundException, SQLException
   {
@@ -69,7 +69,7 @@ public class DaoChambres
     }
     return Cha;
   }
-  
+
   public ArrayList findAll()
     throws SQLException, ClassNotFoundException
   {
@@ -83,7 +83,7 @@ public class DaoChambres
     }
     return Cha;
   }
-  
+
     public ArrayList searchAll(String id) throws SQLException, ClassNotFoundException{
         ArrayList<Chambres> Cha = new ArrayList();
         Connection connection = this.con.conn();
@@ -91,6 +91,7 @@ public class DaoChambres
         if (id.matches("[0-9]*")) {
           other = id;
         }
+        int i=1;
         this.sql = ("select * from CHAMBRES where NomChambre= '" + id + "' || TelChambre='" + id + "' || EtageChambre='" + id + "' || ChauffeauChambre='" + id + "|| PrixChambre=" + other + "' || NumCategorie=" + other + " || NumType=" + other + "");
         Statement statement = connection.createStatement();
         ResultSet resultset = statement.executeQuery(this.sql);

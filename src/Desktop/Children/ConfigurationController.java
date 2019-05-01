@@ -5,7 +5,6 @@
  */
 package Desktop.Children;
 
-import Desktop.ClassRunLaterDesktop;
 import com.jfoenix.controls.JFXMasonryPane;
 import java.io.File;
 import java.io.IOException;
@@ -62,7 +61,7 @@ public class ConfigurationController {
 
     @FXML
     private AnchorPane CPaysClient;
-    
+
     @FXML private Label lbNumResponsable, statusPie, statusLine;
 
     @FXML
@@ -76,24 +75,24 @@ public class ConfigurationController {
 
     @FXML
     private VBox vboxConfig;
-    
+
     @FXML
     private ImageView imageText;
 
     @FXML private JFXMasonryPane jfxmasonrypane;
-    
+
     @FXML private Parent edit;
-    
+
     @FXML private PieChart piechart;
-    
+
     @FXML private LineChart<String, Number> lineChart;
-    
+
     @FXML private StackedBarChart<String, Number> stackedBarChart;
-     
+
 
     DaoClients daoclients = new DaoClients();
     DaoReglements daoreglements = new DaoReglements();
-    
+
     /**
      *
      */
@@ -109,11 +108,11 @@ public class ConfigurationController {
         }
     }
 
-    
+
     @FXML public void affImageAll(){
         vboxConfig.setId("");
     }
-    
+
     public void affichageAllResponsable() throws SQLException, ClassNotFoundException{
         jfxmasonrypane.getChildren().clear();
         DaoResponsables daoresponsables = new DaoResponsables();
@@ -125,7 +124,7 @@ public class ConfigurationController {
             imageview1.setImage(image1);
             imageview1.setFitWidth(60);
             imageview1.setFitHeight(60);
-            
+
             ImageView imageSuprimer = new ImageView();
             Image image3 = new Image("/Desktop/images/delete1.png");
             imageSuprimer.setImage(image3);
@@ -133,6 +132,7 @@ public class ConfigurationController {
             imageSuprimer.setFitHeight(16);
             imageSuprimer.setLayoutX(120);
             imageSuprimer.setLayoutY(177);
+            imageSuprimer.setId("'"+res.getNumResponsable()+"'");
             imageSuprimer.setOnMouseClicked(e->{
                 try {
                     this.onClickSuprimer(e);
@@ -140,7 +140,7 @@ public class ConfigurationController {
                     Logger.getLogger(ConfigurationController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             });
-            
+
             ImageView imageModifier = new ImageView();
             Image image4 = new Image("/Desktop/images/006-pencil.png");
             imageModifier.setImage(image4);
@@ -188,7 +188,7 @@ public class ConfigurationController {
         });
         jfxmasonrypane.getChildren().add(pane);
     }
-    
+
     //statistic d'argent en %
     @FXML private void affichePieChart() throws ClassNotFoundException, SQLException{
         piechart.getData().clear();
@@ -212,7 +212,7 @@ public class ConfigurationController {
         }
         stackedBarChart.getData().addAll(series);
     }
-    
+
     //statistique des clients
     @FXML private void affichelineChart() throws ClassNotFoundException, SQLException{
         LocalDate dt = LocalDate.now();
@@ -224,9 +224,9 @@ public class ConfigurationController {
         }
         lineChart.getData().addAll(series);
     }
-    
-    
-    
+
+
+
     /**
      * Initializes the controller class.
      * @param url
@@ -234,14 +234,14 @@ public class ConfigurationController {
      * @throws java.sql.SQLException
      * @throws java.lang.ClassNotFoundException
      */
-    
+
     public void initialize(URL url, ResourceBundle rb) throws SQLException, ClassNotFoundException {
     }
-    
+
     @FXML private void clickTabUtilateur() throws SQLException, ClassNotFoundException{
         this.affichageAllResponsable();
     }
-    
+
     public FXMLLoader loadFxml() throws IOException{
         Stage primaryStage = new Stage();
         FXMLLoader Loader  = new FXMLLoader();
@@ -260,38 +260,48 @@ public class ConfigurationController {
             }
         });
         primaryStage.show();
-        
+
         return Loader;
     }
     @FXML public void onClickEdit(MouseEvent e) throws IOException, ClassNotFoundException, SQLException{
         FXMLLoader Loader = this.loadFxml();
         FXMLeditResponsableController disp = Loader.getController();
-        String Stock = ""; 
-        for(int i=0; i < (int)(e.getSource().toString().length());i++){
-            String oa = String.valueOf( e.getSource().toString().charAt(i) );
+        String Stock = "";
+        String nouv = e.getSource().toString().substring(14);
+        boolean first = true;
+        int i = 0;
+        while(first){
+            String oa = String.valueOf( nouv.charAt(i) );
             if(oa.matches("[0-9]*")){
                 Stock = Stock + oa;
-                break;
+            }else{
+                first=false;
             }
-        }  
+            i++;
+        }
         disp.setT(Stock);
     }
-    
+
     @FXML public void onClickSuprimer(MouseEvent e) throws SQLException, ClassNotFoundException{
         DaoResponsables res = new DaoResponsables();
-        String Stock = ""; 
-        for(int i=0; i < (int)(e.getSource().toString().length());i++){
-            String oa = String.valueOf( e.getSource().toString().charAt(i) );
+        String Stock = "";
+        String nouv = e.getSource().toString().substring(14);
+        boolean first = true;
+        int i = 0;
+        while(first){
+            String oa = String.valueOf( nouv.charAt(i) );
             if(oa.matches("[0-9]*")){
                 Stock = Stock + oa;
-                break;
+            }else{
+                first=false;
             }
-        } 
+            i++;
+        }
+        System.out.println(Stock);
         res.remove(Integer.parseInt(Stock));
         this.affichageAllResponsable();
-        
     }
-    
+
     @FXML
     private void onClickBtnGenerale() throws InterruptedException, ClassNotFoundException, SQLException{
         this.affichestackedBarChart();
@@ -308,12 +318,12 @@ public class ConfigurationController {
             } catch (ClassNotFoundException | SQLException ex) {
                 Logger.getLogger(ConfigurationController.class.getName()).log(Level.SEVERE, null, ex);
             }
-            }, new KeyValue(seconds, 0.4))   
+            }, new KeyValue(seconds, 0.4))
         );
         timeline.setCycleCount(1);
         timeline.play();
     }
-    
+
     @FXML public void addResponsable() throws IOException, SQLException, ClassNotFoundException{
         DaoResponsables daoresponsables = new DaoResponsables();
         FXMLLoader Loader = this.loadFxml();

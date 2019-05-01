@@ -4,13 +4,13 @@ public class Afaire
 {
   private int NumAfaire;
   private String DescriptionAfaire;
-  private String HeureAfaire;
+  private String EtatAfaire;
   
-  public Afaire(int NumAfaire, String DescriptionAfaire, String HeureAfaire)
+  public Afaire(int NumAfaire, String DescriptionAfaire, String EtatAfaire)
   {
     this.NumAfaire = NumAfaire;
     this.DescriptionAfaire = DescriptionAfaire;
-    this.HeureAfaire = HeureAfaire;
+    this.EtatAfaire = EtatAfaire;
   }
   
   public Afaire() {}
@@ -35,13 +35,13 @@ public class Afaire
     this.DescriptionAfaire = DescriptionAfaire;
   }
   
-  public String getHeureAfaire()
+  public String getEtatAfaire()
   {
-    return this.HeureAfaire;
+    return this.EtatAfaire;
   }
   
-  public void setHeureAfaire(String HeureAfaire)
+  public void setEtatAfaire(String EtatAfaire)
   {
-    this.HeureAfaire = HeureAfaire;
+    this.EtatAfaire = EtatAfaire;
   }
 }

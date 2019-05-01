@@ -28,7 +28,8 @@
                   <TableColumn prefWidth="176.0" text="PRIX" />
                </columns>
             </TableView>
-            <Label layoutX="191.0" layoutY="433.0" style="-fx-font-size: 10px;" text="Facturer par:" />
+            <Label fx:id="listResponsable" layoutX="190.0" layoutY="480.0" style="-fx-font-size: 10px;" text="" />
+            <Label layoutX="190.0" layoutY="460.0" style="-fx-font-size: 10px;" text="Facturer par:" />
             <Label layoutX="197.0" layoutY="400.0" style="-fx-font-family: FreeSans; -fx-font-weight: bold;" text="TOTAL" />
             <Label fx:id="sommeFacture" layoutX="277.0" layoutY="400.0" text="10000" />
             <Label layoutX="10.0" layoutY="42.0" style="-fx-font-size: 10px;" text="Le Tropik Hôtel" />
@@ -40,7 +41,6 @@
             <Label fx:id="NumAndDate" layoutX="150.0" layoutY="125.0" style="-fx-font-size: 12px;" text="22/02/2019" />
             <Label layoutX="108.0" layoutY="147.0" style="-fx-font-weight: bold;" text="Pour: " />
             <Label fx:id="NomClientFacture" layoutX="155.0" layoutY="147.0" text="sitraka" />
-            <ListView fx:id="listResponsable" layoutX="190.0" layoutY="450.0" prefHeight="53.0" prefWidth="200.0" style="-fx-font: 10px Lato;" />
          </children>
       </Pane>
       <Button layoutX="205.0" layoutY="540.0" mnemonicParsing="false" onAction="#onClickQuit" prefHeight="35.0" text="ANNULER" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="100.0" />

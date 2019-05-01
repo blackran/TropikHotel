@@ -44,42 +44,40 @@ public class ControlerTropikhotel
   public void log()
     throws IOException
   {
-    try
-    {
-      DaoResponsables resp = new DaoResponsables();
-      ArrayList<Responsables> respArr = resp.searchAll(this.PseudoLogin.getText());
-      if (!respArr.isEmpty())
-      {
-        this.PasswordLogin.setStyle("");
-        for (int i = 0; i < respArr.size(); i++) {
-          if ((((Responsables)respArr.get(i)).getPseudoResponsable().equals(this.PseudoLogin.getText())) && (((Responsables)respArr.get(i)).getPasswordResponsable().equals(this.PasswordLogin.getText())))
-          {
-            this.PasswordLogin.setStyle("");
-            this.principal.getChildren().clear();
-            Stage stage = (Stage)this.principal.getScene().getWindow();
-            stage.setResizable(false);
-            Scene scene = this.principal.getScene();
-            scene.getStylesheets().clear();
-            scene.setFill(Color.TRANSPARENT);
-            FXMLLoader Loader = new FXMLLoader();
-            Loader.setLocation(getClass().getResource("/Desktop/FXMLLoading.fxml"));
-            Parent root = (Parent)Loader.load();
-            this.principal.getChildren().add(root);
-            FXMLLoadingController disp = (FXMLLoadingController)Loader.getController();
-            disp.setT(String.valueOf(((Responsables)respArr.get(i)).getNumResponsable()));
-          }
-          else
-          {
-            this.PasswordLogin.setStyle("-jfx-focus-color:red;-jfx-unfocus-color:red");
-            this.PseudoLogin.setStyle("-jfx-focus-color:red;-jfx-unfocus-color:red");
-          }
-        }
-      }
-      else
-      {
-        this.PseudoLogin.setStyle("-jfx-focus-color:red;-jfx-unfocus-color:red");
-        this.PasswordLogin.setStyle("-jfx-focus-color:red;-jfx-unfocus-color:red");
-      }
+    try{
+		DaoResponsables resp = new DaoResponsables();
+		ArrayList<Responsables> respArr = resp.searchAll(this.PseudoLogin.getText());
+		if (!respArr.isEmpty()){
+		  this.PasswordLogin.setStyle("");
+		  for (int i = 0; i < respArr.size(); i++) {
+			if ((((Responsables)respArr.get(i)).getPseudoResponsable().equals(this.PseudoLogin.getText())) && (((Responsables)respArr.get(i)).getPasswordResponsable().equals(this.PasswordLogin.getText())))
+			{
+			  this.PasswordLogin.setStyle("");
+			  this.principal.getChildren().clear();
+			  Stage stage = (Stage)this.principal.getScene().getWindow();
+			  stage.setResizable(false);
+			  Scene scene = this.principal.getScene();
+			  scene.getStylesheets().clear();
+			  scene.setFill(Color.TRANSPARENT);
+			  FXMLLoader Loader = new FXMLLoader();
+			  Loader.setLocation(getClass().getResource("/Desktop/FXMLLoading.fxml"));
+			  Parent root = (Parent)Loader.load();
+			  this.principal.getChildren().add(root);
+			  FXMLLoadingController disp = (FXMLLoadingController)Loader.getController();
+			  disp.setT(String.valueOf(((Responsables)respArr.get(i)).getNumResponsable()));
+			}
+			else
+			{
+			  this.PasswordLogin.setStyle("-jfx-focus-color:red;-jfx-unfocus-color:red");
+			  this.PseudoLogin.setStyle("-jfx-focus-color:red;-jfx-unfocus-color:red");
+			}
+		  }
+		}
+		else
+		{
+		  this.PseudoLogin.setStyle("-jfx-focus-color:red;-jfx-unfocus-color:red");
+		  this.PasswordLogin.setStyle("-jfx-focus-color:red;-jfx-unfocus-color:red");
+		}
     }
     catch (ClassNotFoundException|SQLException ex)
     {

@@ -11,6 +11,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import tropikhotel.Con;
+import tropikhotel.GetSet.Commander;
 import tropikhotel.GetSet.ReservationsT;
 import tropikhotel.GetSet.Reserver;
 
@@ -92,29 +93,39 @@ public class DaoReserver{
     }
 
     public ArrayList findReglement(int i) throws SQLException, ClassNotFoundException {
-      ArrayList<Reserver> rese = new ArrayList();
-      Connection connection = this.con.conn();
-      this.sql = ("select * from RESERVER where NumReglement =" + i);
-      Statement statement = connection.createStatement();
-      ResultSet resultset = statement.executeQuery(this.sql);
-      while (resultset.next()) {
-        rese.add(new Reserver(resultset.getInt("NumReservation"), resultset.getString("DateDebutReservation"), resultset.getString("DateFinReservation"), resultset.getInt("NbJourReservation"), resultset.getString("ConditionReservation"), resultset.getString("EtatReservation"), resultset.getInt("NumClient"), resultset.getInt("NumResponsable"), resultset.getInt("NumReglement")));
-      }
-      return rese;
+        ArrayList<Reserver> rese = new ArrayList();
+        Connection connection = this.con.conn();
+        this.sql = ("select * from RESERVER where NumReglement =" + i);
+        Statement statement = connection.createStatement();
+        ResultSet resultset = statement.executeQuery(this.sql);
+        while (resultset.next()) {
+          rese.add(new Reserver(resultset.getInt("NumReservation"), resultset.getString("DateDebutReservation"), resultset.getString("DateFinReservation"), resultset.getInt("NbJourReservation"), resultset.getString("ConditionReservation"), resultset.getString("EtatReservation"), resultset.getInt("NumClient"), resultset.getInt("NumResponsable"), resultset.getInt("NumReglement")));
+        }
+        return rese;
+    }
+    
+    public ArrayList findCommander(int i) throws SQLException, ClassNotFoundException {
+        ArrayList<Commander> comm = new ArrayList();
+        Connection connection = this.con.conn();
+        this.sql = ("select * from COMMANDER where NumReglement =" + i);
+        Statement statement = connection.createStatement();
+        ResultSet resultset = statement.executeQuery(this.sql);
+        while (resultset.next()) {
+          comm.add(new Commander(resultset.getInt("NumCommander"), resultset.getInt("TarifCommander"), resultset.getString("DateCommander"), resultset.getInt("NumClient"), resultset.getInt("NumReglement")));
+        }
+        return comm;
     }
 
-    public ArrayList findAll()
-      throws SQLException, ClassNotFoundException
-    {
-      ArrayList<Reserver> rese = new ArrayList();
-      Connection connection = this.con.conn();
-      this.sql = "select * from RESERVER";
-      Statement statement = connection.createStatement();
-      ResultSet resultset = statement.executeQuery(this.sql);
-      while (resultset.next()) {
-        rese.add(new Reserver(resultset.getInt("NumReservation"), resultset.getString("DateDebutReservation"), resultset.getString("DateFinReservation"), resultset.getInt("NbJourReservation"), resultset.getString("ConditionReservation"), resultset.getString("EtatReservation"), resultset.getInt("NumClient"), resultset.getInt("NumResponsable"), resultset.getInt("NumReglement")));
-      }
-      return rese;
+    public ArrayList findAll() throws SQLException, ClassNotFoundException {
+        ArrayList<Reserver> rese = new ArrayList();
+        Connection connection = this.con.conn();
+        this.sql = "select * from RESERVER";
+        Statement statement = connection.createStatement();
+        ResultSet resultset = statement.executeQuery(this.sql);
+        while (resultset.next()) {
+          rese.add(new Reserver(resultset.getInt("NumReservation"), resultset.getString("DateDebutReservation"), resultset.getString("DateFinReservation"), resultset.getInt("NbJourReservation"), resultset.getString("ConditionReservation"), resultset.getString("EtatReservation"), resultset.getInt("NumClient"), resultset.getInt("NumResponsable"), resultset.getInt("NumReglement")));
+        }
+        return rese;
     }
 
     public ArrayList searchAll(String id)

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXComboBox?>
-<?import com.jfoenix.controls.JFXRadioButton?>
 <?import com.jfoenix.controls.JFXTabPane?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
@@ -13,7 +12,6 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
-<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -48,19 +46,13 @@
                                        </padding>
                                        <children>
                                           <JFXTextField fx:id="txtNomChambre" labelFloat="true" layoutX="31.0" layoutY="58.0" prefHeight="26.0" prefWidth="277.0" promptText="Nom" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="50.0" />
-                                          <JFXTextField fx:id="txtTelChambre" labelFloat="true" layoutX="29.0" layoutY="126.0" prefHeight="26.0" prefWidth="277.0" promptText="Telephone" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="100.0" />
+                                          <JFXTextField fx:id="txtTelChambre" labelFloat="true" layoutX="29.0" layoutY="126.0" onKeyReleased="#controleChampsTelephone" prefHeight="26.0" prefWidth="277.0" promptText="Telephone" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="100.0" />
                                           <JFXComboBox fx:id="txtEtageChambre" labelFloat="true" layoutX="35.0" layoutY="168.0" prefHeight="26.0" prefWidth="276.0" promptText="Etages" AnchorPane.topAnchor="150.0" />
-                                          <JFXRadioButton fx:id="rbOui" layoutX="102.0" layoutY="212.0" text="Oui" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="215.0">
-                                             <toggleGroup>
-                                                <ToggleGroup fx:id="occuper" />
-                                             </toggleGroup></JFXRadioButton>
-                                          <JFXRadioButton fx:id="rbNon" layoutX="182.0" layoutY="209.0" text="Non" toggleGroup="$occuper" AnchorPane.topAnchor="215.0" />
-                                          <Label layoutX="34.0" layoutY="210.0" style="-fx-font-size: 11;" text="Ocuper:" textFill="#4d4d4d" AnchorPane.topAnchor="194.0" />
-                                          <JFXComboBox fx:id="txtNumType" labelFloat="true" layoutX="32.0" layoutY="309.0" prefHeight="26.0" prefWidth="276.0" promptText="Types" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="400.0" />
-                                          <JFXComboBox fx:id="txtNumCategorie" labelFloat="true" layoutX="34.0" layoutY="260.0" prefHeight="26.0" prefWidth="276.0" promptText="Categorie" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="350.0" />
+                                          <JFXComboBox fx:id="txtNumType" labelFloat="true" layoutX="32.0" layoutY="309.0" prefHeight="26.0" prefWidth="276.0" promptText="Types" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="350.0" />
+                                          <JFXComboBox fx:id="txtNumCategorie" labelFloat="true" layoutX="34.0" layoutY="260.0" prefHeight="26.0" prefWidth="276.0" promptText="Categorie" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="300.0" />
                                           <Label fx:id="stockChambre" layoutX="31.0" layoutY="427.0" text="Label" />
-                                          <JFXTextField fx:id="txtPrixChambre" labelFloat="true" layoutX="39.0" layoutY="136.0" prefHeight="26.0" prefWidth="277.0" promptText="Prix Chambre" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="250.0" />
-                                          <JFXComboBox fx:id="txtChauffeauChambre" labelFloat="true" layoutX="32.0" layoutY="303.0" prefHeight="26.0" prefWidth="275.0" promptText="Chauffeau" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="300.0" />
+                                          <JFXTextField fx:id="txtPrixChambre" labelFloat="true" layoutX="39.0" layoutY="136.0" onKeyReleased="#controleChampsPrix" prefHeight="26.0" prefWidth="277.0" promptText="Prix Chambre" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="200.0" />
+                                          <JFXComboBox fx:id="txtChauffeauChambre" labelFloat="true" layoutX="32.0" layoutY="303.0" prefHeight="26.0" prefWidth="275.0" promptText="Chauffeau" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="250.0" />
                                        </children>
                                     </AnchorPane>
                                  </children>

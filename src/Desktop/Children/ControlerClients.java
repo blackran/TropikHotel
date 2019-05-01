@@ -1,5 +1,6 @@
 package Desktop.Children;
 
+import Desktop.ControleChamp;
 import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
 import java.sql.Connection;
@@ -75,6 +76,7 @@ public class ControlerClients
   private TextField search;
   
   DaoClients clients = new DaoClients();
+  ControleChamp controlechamp = new ControleChamp();
   
     private ObservableList<ClientsT> getClients() throws ClassNotFoundException, SQLException {
         Con c = new Con();
@@ -96,7 +98,7 @@ public class ControlerClients
     }
 
     public void affTextField(int i) throws ClassNotFoundException, SQLException{
-        Clients cli = this.clients.find(i);
+        Clients cli = this.clients.find(i).get(0);
         this.txtNumClients.setText(String.valueOf(cli.getNumClient()));
         this.txtNomClients.setText(cli.getNomClient());
         this.txtAddressClients.setText(cli.getAddressClient());
@@ -115,7 +117,7 @@ public class ControlerClients
 
     @FXML
     public void modifier() throws SQLException, ClassNotFoundException {
-        this.clients.mod(Integer.parseInt(this.txtNumClients.getText()), this.txtNomClients.getText(), this.txtAddressClients.getText(), this.txtCpClients.getText(), this.txtPaysClients.getText(), this.txtTelClients.getText(), this.txtEmailClients.getText(), this.clients.find(Integer.parseInt(this.txtNumClients.getText())).getAnneeCreClient());
+        this.clients.mod(Integer.parseInt(this.txtNumClients.getText()), this.txtNomClients.getText(), this.txtAddressClients.getText(), this.txtCpClients.getText(), this.txtPaysClients.getText(), this.txtTelClients.getText(), this.txtEmailClients.getText(), this.clients.find(Integer.parseInt(this.txtNumClients.getText())).get(0).getAnneeCreClient());
         affichage();
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setHeaderText("REMARQUE");
@@ -201,7 +203,7 @@ public class ControlerClients
 
     @FXML
     public void activeAjouClient() throws SQLException, ClassNotFoundException {
-        this.txtNumClients.setText(String.valueOf(this.clients.find(this.clients.findAll().size()).getNumClient() + 1));
+        this.txtNumClients.setText(String.valueOf(this.clients.find(this.clients.findAll().size()).get(0).getNumClient() + 1));
         this.txtNomClients.setText("");
         this.txtAddressClients.setText("");
         this.txtCpClients.setText("");
@@ -230,6 +232,24 @@ public class ControlerClients
         }
         
     }
+	
+	@FXML private void controleChampsCode() throws InterruptedException{
+		txtCpClients.setText(controlechamp.numberOnly(txtCpClients.getText()));
+		txtCpClients.setText(controlechamp.lengthOnly(txtCpClients.getText(),3));
+		int positionFin = txtCpClients.getText().length();
+        if ( txtCpClients.getCaretPosition() != positionFin ) {
+            txtCpClients.positionCaret(positionFin);
+        }
+    }
+	
+	@FXML private void controleChampsTel() throws InterruptedException{
+		txtTelClients.setText(controlechamp.numberOnly(txtTelClients.getText()));
+		txtTelClients.setText(controlechamp.lengthOnly(txtTelClients.getText(),3));
+		int positionFin = txtTelClients.getText().length();
+        if ( txtTelClients.getCaretPosition() != positionFin ) {
+            txtTelClients.positionCaret(positionFin);
+        }
+    }
     
     @Override
     public void initialize(URL location, ResourceBundle resources){
@@ -240,7 +260,7 @@ public class ControlerClients
             }
         });
         
-        affichage();
+        this.affichage();
         this.stock.setVisible(false);
         try
         {

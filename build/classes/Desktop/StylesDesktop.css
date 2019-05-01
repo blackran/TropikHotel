@@ -1,6 +1,12 @@
+*:focused{
+    -fx-focus-color: transparent;
+    -fx-background-insets: -1.4, 0, 1, 2;
+}
+
 #aTop{
     -fx-background-color:  #4b4943;
 }
+
 #aTop, .root{
     -fx-border-radius: 5 5 0 0;
     -fx-background-radius: 5 5 0 0;
@@ -12,14 +18,17 @@
     -fx-border-width: 0 0 2 0;
     -fx-border-color: #041105;
 }
+
 #aNotif{
     -fx-background-color:  #202020;
 }
+
 #pNotif{
     -fx-background-image: url("images/082-bell.png");
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
 }
+
 #lbNumNotif{
     -fx-background-color: red;
     -fx-border-radius: 15 15 15 15;
@@ -144,7 +153,7 @@
 .tab-selected-line {
     -fx-background-color: green;
 }
-#btnAjouClient,#btnAjouChambre,#btnDelChambre,#btnAjouReglement,#btnAjouMontantReglement,#btnEnleveMontantReglement,#btnLienReglement{
+#btnAjouClient,#btnAjouChambre,#btnDelChambre,#btnAjouReglement,#btnAjouMontantReglement,#btnEnleveMontantReglement,#btnLienReglement,#plusCommander,#moinsCommander,#modCommander,#btnModChambre{
     -fx-background-color: #f4f4f4;
     -fx-border-width: 2;
     -fx-border-color: #202020;
@@ -156,7 +165,13 @@
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
 }
-#btnAjouChambre:hover, #btnDelChambre:hover, #btnAjouClient:hover, #btnAjouReglement:hover,#btnAjouMontantReglement:hover,#btnEnleveMontantReglement:hover,#btnLienReglement:hover{
+#modCommander,#btnModChambre{
+	-fx-background-image: url("images/006-pencil_2.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
+#btnAjouChambre:hover, #btnDelChambre:hover, #btnAjouClient:hover, #btnAjouReglement:hover,#btnAjouMontantReglement:hover,#btnEnleveMontantReglement:hover,#btnLienReglement:hover,#plusCommander:hover,#moinsCommander:hover,#modCommander:hover,#btnModChambre:hover{
     -fx-border-width: 2.3;
     -fx-border-color: #101010;
 }
@@ -270,4 +285,87 @@
     -fx-background-image:  url("images/print.png");
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
+}
+
+#inputTodo{
+    -fx-prompt-text-fill: #fefefe;
+    -fx-text-fill: #fefefe;
+}
+#btnSupAfaire{
+    -fx-background-color: #202020;
+    -fx-border-color: #cdcdcd;
+    -fx-background-radius: 50;
+    -fx-border-radius: 50;
+    -fx-text-fill: #cdcdcd;
+}
+#btnSupAfaire:hover{
+    -fx-effect: dropshadow(gaussian, white , 10, 0, 0, 0);
+}
+
+/*scroole*/
+
+.scroll-pane {
+    -fx-background-insets: inherit;
+    -fx-background-color: none;
+    -fx-padding: 0;
+}
+
+.scroll-pane:focused {
+    -fx-background-insets: inherit;
+}
+
+.scroll-pane > *.content {
+    -fx-background-color: none;
+    -fx-border-width: 0;
+    -fx-border-color: none;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: none;
+    -fx-border-width: 0;
+}
+
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+.scroll-bar:horizontal{
+    -fx-background-insets: inherit;
+    -fx-background-color: none;
+    -fx-padding: 0;
+}
+
+.scroll-bar:vertical {
+    -fx-pref-width: 10;
+    -fx-padding: 0 1px 0 0;
+}
+.scroll-bar:horizontal {
+    -fx-pref-height: 0;
+}
+
+.scroll-bar:horizontal .track, .scroll-bar:horizontal .track {
+    -fx-pref-height: 0;
+}
+
+.scroll-bar:vertical .thumb, .scroll-bar:vertical .thumb {
+    -fx-background-color: #0b6623;
+    -fx-opacity: 0.5;
+    -fx-background-radius: 5em;
+}
+.scroll-bar:vertical:hover .thumb, .scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #0b6623;
+    -fx-opacity: 0.7;
+    -fx-background-radius: 5em;
+}
+
+.scroll-bar:horizontal  > .increment-button > .increment-arrow, .scroll-bar:horizontal  > .decrement-button > .decrement-arrow{
+    -fx-background-color: transparent;
+}
+
+
+.scroll-pane > .corner {
+    -fx-background-color: transparent;
+}
+
+.tableview .table-view .column-header {
+    -fx-background-color: white;
 }

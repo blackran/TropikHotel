@@ -21,9 +21,9 @@
             </Pane>
             <Pane fx:id="body" prefHeight="346.0" prefWidth="352.0">
                <children>
-                  <JFXTextField fx:id="PseudoLogin" focusColor="#0b6623" labelFloat="true" layoutX="63.0" layoutY="59.0" onKeyReleased="#onClicBas" prefHeight="26.0" prefWidth="258.0" promptText="Pseudo" text="blackran" unFocusColor="SEAGREEN" />
+                  <JFXTextField fx:id="PseudoLogin" focusColor="#0b6623" labelFloat="true" layoutX="63.0" layoutY="59.0" onKeyReleased="#onClicBas" prefHeight="26.0" prefWidth="258.0" promptText="Pseudo" unFocusColor="SEAGREEN" />
                   <Button fx:id="BtnLogin" layoutX="184.0" layoutY="212.0" mnemonicParsing="false" onAction="#onClickLogin" onKeyPressed="#onClickEnter" prefHeight="50.0" prefWidth="135.0" text="Login" />
-                  <JFXPasswordField fx:id="PasswordLogin" focusColor="#0b6623" labelFloat="true" layoutX="63.0" layoutY="136.0" onKeyReleased="#onClickEnter" prefHeight="26.0" prefWidth="258.0" promptText="Password" text="iloveyou" unFocusColor="SEAGREEN" />
+                  <JFXPasswordField fx:id="PasswordLogin" focusColor="#0b6623" labelFloat="true" layoutX="63.0" layoutY="136.0" onKeyReleased="#onClickEnter" prefHeight="26.0" prefWidth="258.0" promptText="Password" unFocusColor="SEAGREEN" />
                   <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="20.0" layoutY="56.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@images/user.png" />

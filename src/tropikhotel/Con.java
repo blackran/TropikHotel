@@ -18,7 +18,7 @@ public class Con {
         Class.forName("com.mysql.jdbc.Driver");
         String url = "jdbc:mysql://localhost:3306/TropikHotel";
         String user = "root";
-        String password = "iloveyou";
+        String password = "";
         Connection conn = DriverManager.getConnection(url, user, password);
         return conn;
     }
